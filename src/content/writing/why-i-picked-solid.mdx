@@ -1,0 +1,54 @@
+---
+title: Why I Picked Solid for This Site
+description: A short note on Islands mode and signals.
+date: 2026-04-22
+tag: notes
+---
+
+I rebuilt my site this spring on **SolidStart in Islands mode**, and the
+choice has held up nicely so far. Two things sold me.
+
+## Static by default
+
+Most pages here are essentially HTML documents. There is no reason to ship a
+client router, a hydration runtime for the entire tree, or a virtual DOM just
+to render a list of links. With Islands mode, the framework opts _out_ of
+hydration by default and only sends JavaScript for the components I explicitly
+mark as islands.
+
+The result: the home page above is a few KB of HTML. The only JS that ships
+is what powers the theme toggle, the cursor‑following label on the projects
+list, and the magnetic links in the intro paragraph. Everything else is real,
+final HTML, served from the edge.
+
+## Signals are honest
+
+What I like most about Solid is that the reactive primitive _is_ the model.
+A signal is a getter and a setter. A memo is a derived value. Components
+run **once**. Once you absorb that, the framework basically gets out of your
+way.
+
+Below is a small island living inside this MDX file. The buttons mutate a
+single signal; two memos derive new values from it. Notice that nothing
+else on this page rerenders — the surrounding paragraphs, the section header,
+even the labels inside the box itself were created exactly once.
+
+<SignalDemo />
+
+That is roughly the entire mental model. Most of my interactive bits on this
+site are about that long: a couple of signals, a memo or two, an effect at
+the edge.
+
+## What I gave up
+
+Two real tradeoffs:
+
+- **No SPA navigation.** Page changes are full document loads. I lean into
+  this with the [CSS View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API),
+  so the swap still feels soft. Try clicking back and forth between this
+  post and the writing index — the title animates across.
+- **A young ecosystem.** The MDX integration needed a tiny bit of
+  configuration. Worth it for me; might not be worth it for everyone.
+
+If any of this resonates, the source is on
+[GitHub](https://github.com/filipiversen/filipiversen).

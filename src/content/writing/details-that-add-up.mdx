@@ -1,0 +1,44 @@
+---
+title: Details That Add Up
+description: A running list of small choices that make a UI feel sturdier.
+date: 2026-03-15
+tag: craft
+---
+
+I keep a running file of these. None of them are clever individually; the
+point is that they compound.
+
+## Tabular numerals for anything counting
+
+The default proportional digits in most fonts wobble when a number changes
+in place — a counter, a price, a date. Set `font-variant-numeric: tabular-nums`
+(or use the Tailwind `tabular-nums` utility) on anything that updates and the
+shimmy disappears.
+
+## A border with a slight inset
+
+Cards and list rows look much sharper with a hairline border that lives
+_just_ inside the radius — `1px solid color-mix(in oklch, currentColor 12%, transparent)`
+is a good starting point. It keeps the edge crisp on dark mode without
+shouting.
+
+## Optical alignment of icons
+
+Round icons sit visually higher than square ones at the same height. A
+`-translate-y-px` on a circular icon next to a square one will make them feel
+aligned even though the bounding boxes are not.
+
+## Easing curves that aren\u2019t `ease-in-out`
+
+`cubic-bezier(0.22, 1, 0.36, 1)` (a soft‑out curve) feels more like a UI
+acknowledging an action and less like a Powerpoint transition. I reach for
+it for almost any 200–400ms hover or appear.
+
+## Hairlines that respect dark mode
+
+A flat `#eee` border looks great on a white page and pitch‑dark on a black
+one. Defining lines in `oklch` against a token (`var(--color-line)`) and
+swapping the token by theme means borders stay legible without becoming
+loud.
+
+That\u2019s enough for one post. More to come.
