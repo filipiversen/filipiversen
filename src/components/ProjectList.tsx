@@ -37,15 +37,15 @@ export default function ProjectList(props: Props) {
                   "active:scale-[0.995]",
                 ].join(" ")}
               >
-                <span class="flex min-w-0 items-baseline gap-3">
+                <span class="flex min-w-0 flex-1 flex-col items-baseline gap-y-0.5 md:flex-row md:gap-x-3">
                   <span
                     data-row-title
-                    class="font-medium"
+                    class="font-medium md:shrink-0 md:whitespace-nowrap"
                     style={`view-transition-name: project-title-${project.slug}`}
                   >
                     {project.title}
                   </span>
-                  <span class="truncate text-sm text-fg-muted text-pretty">
+                  <span class="text-sm text-fg-muted md:min-w-0 md:truncate">
                     {project.description}
                   </span>
                 </span>

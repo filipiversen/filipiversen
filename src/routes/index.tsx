@@ -26,7 +26,7 @@ export default function Home() {
       <section class="mb-16 md:mb-20">
         <h1 class="mb-3 text-2xl font-semibold tracking-tight text-balance md:text-[1.75rem]">
           <span data-hero-step="1" class="block">{profile.name}</span>
-          <span data-hero-step="2" class="block text-fg-muted">
+          <span data-hero-step="2" class="mt-2 block text-lg text-fg-muted md:text-xl">
             {profile.role}
           </span>
         </h1>
