@@ -1,0 +1,89 @@
+---
+title: Build Table Components Like Lego
+description: What Survey Loop's table component teaches about composing data UI from small pieces instead of one giant grid abstraction.
+date: 2026-03-15
+tag: Design System
+---
+
+Every SaaS product eventually builds a table component. Then it keeps adding features until the table becomes a product inside the product.
+
+Sorting. Filtering. Sticky headers. Expandable rows. Bulk actions. Actions menus. Responsive cards. Empty states. Saved views. Search. Column visibility. Row click behavior. Keyboard behavior.
+
+The usual mistake is to hide all of that inside one complex `DataTable` API. It feels convenient at first. Then every new screen needs one escape hatch, then another, then another.
+
+Survey Loop's table component points in a better direction: build Lego pieces, not a single magic table.
+
+## The Table Is A Layout Primitive
+
+The core `Table` in Survey Loop is not a native `<table>`. It is a grid wrapper with ARIA roles. It exposes compound pieces:
+
+- `Table`
+- `TableHeader`
+- `TableHeaderCell`
+- `TableBody`
+- `TableRow`
+- `TableCell`
+- `ExpandableTableRow`
+- `TableExpansionContent`
+
+That sounds more verbose than one `columns={[...]}` prop, but it gives the product more control. Each screen can decide what belongs in a cell: text, buttons, links, tags, dropdowns, checkboxes, or custom layouts.
+
+The table component owns the shared mechanics. The screen owns the product content.
+
+That is the right division.
+
+## Column Layout Is A Token, Not A Guess
+
+Survey Loop's `Table` accepts a `columnTemplate` prop. It can be a CSS grid template string or an array of numbers and strings. Under the hood, it becomes `--sl-table-template`, and rows use CSS grid/subgrid so headers and body cells stay aligned.
+
+That is a small API with a big payoff.
+
+Instead of inventing a column sizing DSL, the component leans on CSS grid. Product screens can express layouts like fixed action columns, flexible names, compact checkbox columns, or percentage-based splits without waiting for the table abstraction to learn a new trick.
+
+Good component APIs often look like this. They do not wrap the platform so tightly that the platform disappears. They expose just enough structure to keep teams consistent.
+
+## Interaction Is Composable
+
+The table supports row interactivity without making every row a button. It uses event delegation for row clicks, optional keyboard activation, and a `data-row-click-stop` escape hatch for interactive children.
+
+That detail matters. Real tables often contain buttons, links, dropdowns, inputs, and menus. A naive row-click implementation breaks those controls. Survey Loop's component acknowledges the messy reality of product UI.
+
+Expandable rows follow the same pattern. `ExpandableTableRow` handles expansion and animation, while `TableExpansionContent` gives the expanded area a consistent wrapper. The component provides the behavior. The product decides what details to show.
+
+## Responsive Behavior Belongs In Cells
+
+Responsive tables are hard because the desktop shape and mobile shape are not the same information problem.
+
+Survey Loop handles this through `mobileMode` on the table and cell-level props like `mobileLabel`, `mobileHidden`, and `mobileTitle`. A desktop row can become a stacked card without forcing the screen to maintain a separate mobile component tree.
+
+This is the Lego idea again. The cell already knows what it contains. Giving it mobile metadata is more flexible than asking a parent `DataTable` to infer labels from a column config.
+
+## Toolbars Should Stay Separate
+
+Survey Loop also has a separate `TableToolbar`. That is another good boundary.
+
+Search, filters, saved views, and row actions are related to tables, but they are not the table. Keeping toolbar composition separate prevents the table from becoming responsible for every product workflow around data.
+
+This makes screens easier to assemble:
+
+- Use the table for tabular layout.
+- Use the toolbar for table-adjacent controls.
+- Use query hooks or page state for data fetching and filtering.
+- Use product components for the cell content.
+
+Each piece has a job.
+
+## The Learning
+
+The best table abstraction is not the one with the most props. It is the one that removes repeated mechanics while leaving product decisions visible.
+
+Survey Loop's table works because it is built from small pieces:
+
+- Grid and subgrid for alignment.
+- Compound components for structure.
+- Tokens for visual consistency.
+- Cell props for mobile behavior.
+- Delegated row events for interaction.
+- Expansion components for progressive disclosure.
+
+That is a durable pattern for design systems. Do not build one enormous component that tries to know every screen. Build pieces that snap together cleanly, then let product teams assemble the shape they need.

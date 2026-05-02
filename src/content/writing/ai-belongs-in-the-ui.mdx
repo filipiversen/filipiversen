@@ -1,0 +1,96 @@
+---
+title: AI Belongs In The UI
+description: Survey Loop shows how AI can surface insight inside existing workflows instead of forcing every user into chat.
+date: 2026-03-15
+tag: AI UX
+---
+
+Chat is a powerful interface when the user wants to explore. It is a poor default when the product already knows the job the user came to do.
+
+Survey Loop has a good lesson here: not every AI feature needs to become a chat box. Some of the best AI experiences are quiet. They show up as summaries, evidence, recommendations, highlights, and status inside the screen where the work is already happening.
+
+That kind of AI is less theatrical, but often more useful.
+
+## The Product Already Has Context
+
+When someone opens a survey, the product knows a lot:
+
+- Which survey they are viewing.
+- Which organization they are in.
+- How many responses exist.
+- Which responses are complete.
+- Which comments and ratings belong to which questions.
+- Whether the organization has the AI summary feature enabled.
+
+A generic chat box would ask the user to re-create that context. A good UI can use it directly.
+
+In Survey Loop, the survey detail page can fetch a summary report for the current survey. The report is not presented as a conversation. It is rendered as product UI: loading states, processing states, failed states, freshness messaging, overview text, strengths, concerns, recommended actions, and supporting evidence.
+
+That is the right shape. The user does not want to ask, "what are people saying?" every time. They want the answer to be there when they are making decisions.
+
+## Evidence Beats Vibes
+
+One of the strongest details in Survey Loop's AI summary pipeline is evidence grounding.
+
+The backend analysis provider asks the model to return structured JSON. Findings need supporting `evidenceId` references. The UI maps those references back to real survey responses, including question text, quoted text or answer value, and an "Open response" link.
+
+This changes the feature from "the AI says..." to "here is the pattern, and here are the responses behind it."
+
+That is a big product difference. Users can trust summaries more when they can inspect the source. Engineers can reason about failures more easily when the model output has a schema. Support teams can explain the result because the UI keeps the chain of evidence visible.
+
+## AI Can Be A Panel
+
+Survey Loop's dashboard also includes an organization summary panel. It rolls cached survey summaries into a compact card with:
+
+- Surveys included.
+- Last updated.
+- A plain-English answer.
+- Recent survey-level answers.
+- Strengths.
+- Opportunities.
+- Recommended actions.
+
+Again, there is no chat transcript. The AI work becomes a panel on the dashboard.
+
+That is the pattern worth copying. If a user is scanning their dashboard, give them dashboard-shaped AI. If they are reading a survey, give them survey-shaped AI. If they are triaging admin activity, give them activity-shaped AI.
+
+The interface should match the decision.
+
+## AI Can Be A Button
+
+Admin activity summarization is another useful example. In the admin user activity list, an operator can summarize activity since the user's last login. The result is rendered as a banner with a paragraph summary, highlights, login time, event count, and confidence.
+
+This is not an assistant persona. It is a button that compresses tedious operational reading.
+
+That distinction matters. Many valuable AI features are not conversational products. They are compression tools. They turn a long table, a noisy event log, or a pile of free-text responses into something a human can act on.
+
+## Why This Used To Be Expensive
+
+Before LLMs, building this kind of feature often required a large engineering effort:
+
+- Custom classifiers.
+- Handwritten heuristics.
+- Analyst workflows.
+- Data science pipelines.
+- Separate reporting interfaces.
+- Lots of edge-case product copy.
+
+LLMs do not remove the engineering work, but they move the line. Survey Loop still needs backend normalization, feature flags, caching, structured output validation, evidence references, and thoughtful UI states. The difference is that the core language synthesis becomes achievable without building a bespoke NLP system for every screen.
+
+That lets product teams surface information that previously stayed buried.
+
+## The Learning
+
+Do not start with "where do we put the chat?"
+
+Start with:
+
+- What decision is the user making?
+- What information is already in the product?
+- What would normally take too long to read?
+- Where should the answer appear?
+- What evidence should stay attached?
+
+Sometimes the answer is chat. Often it is a panel, badge, button, card, highlight, or inline recommendation.
+
+Survey Loop's AI surfaces work because they respect the existing UI. They do not ask users to leave the workflow to talk to a bot. They bring the insight to the place where the decision already happens.

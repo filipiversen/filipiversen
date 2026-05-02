@@ -1,0 +1,90 @@
+---
+title: Write AI Skills For Your Design System
+description: Why design systems need AI-facing instructions, not just human documentation and component code.
+date: 2026-03-15
+tag: AI Engineering
+---
+
+A design system is more than components. It is judgment encoded into reusable pieces: when to use a button variant, how dense a table should feel, which colors are allowed, how forms behave, and what accessibility details should never be skipped.
+
+Humans learn those rules by reading docs, reviewing PRs, and working inside the product. AI assistants need the same context, but they need it in a form they can reliably load while writing code.
+
+That is why design systems should have AI-facing skill files or rules.
+
+## Component Code Is Not Enough
+
+An AI model can inspect a component and infer its props. That does not mean it understands your design system.
+
+The `Table` component in Survey Loop is a good example. The source explains the API, but the design intent lives across several places:
+
+- The component implementation in `frontend/src/design-system/components/Table`.
+- The Storybook stories.
+- The CSS token usage.
+- The table usage rule in `frontend/.cursor/rules/design-system-component-table.mdc`.
+- The color enforcement rule that forbids standalone colors and Tailwind color utilities.
+- The broader design-system usage and development rules.
+
+The component tells an assistant what is possible. The rules tell it what is appropriate.
+
+That distinction is important. Without design-system guidance, AI will often produce plausible React that looks locally fine but drifts from the product: raw colors, one-off spacing, incorrect imports, duplicated controls, custom tables, or inaccessible composition.
+
+## Write The Missing Judgment Down
+
+Good AI-facing design-system files should answer the questions a reviewer would normally ask:
+
+- Where should components be imported from?
+- Which component should be used for this job?
+- Which variants are available?
+- What should never be mixed together?
+- Which tokens are required?
+- What accessibility props are expected?
+- What examples should the assistant copy?
+- What common mistakes should it avoid?
+
+Survey Loop's table rule does this well. It explains the purpose of the component, import shape, API, composition model, variants, interaction rules, accessibility requirements, token usage, examples, and do/don't guidance.
+
+That kind of file turns review feedback into reusable context.
+
+## Rules Help AI Preserve The System
+
+Design systems decay when every feature creates a slightly different solution. AI can accelerate that decay if it is only optimizing for "make the screen work."
+
+AI-facing rules push the assistant back toward the system:
+
+- Use design-system tokens instead of raw color values.
+- Compose existing components before creating new ones.
+- Prefer the established table structure over custom markup.
+- Keep responsive behavior aligned with component APIs.
+- Follow the repository's import conventions.
+
+This is not about making AI less creative. It is about making it creative inside the same constraints as the team.
+
+The more specific the rule, the better. "Use our design system" is weak guidance. "Use `TableCell mobileLabel` when a table should become a mobile card" is useful guidance.
+
+## Treat AI Docs Like Product Infrastructure
+
+AI-facing guidance should live near the code and evolve with it.
+
+When a component gains a new prop, update the rule. When the design team changes token policy, update the rule. When reviewers keep correcting the same mistake, add that correction to the rule. When a component has a preferred composition pattern, include a small example.
+
+The goal is not to document every line of code. The goal is to capture the local decisions that generic training data will not know.
+
+For Survey Loop, that includes things like:
+
+- Tables use a grid/ARIA compound API for most app tables.
+- Colors should come from semantic design tokens.
+- Design-system components are re-exported through the local design-system entry point.
+- Public API calls and authenticated API calls follow different helper patterns.
+
+Those are project-specific facts. They should not be left for the model to guess.
+
+## The Learning
+
+As AI becomes part of everyday implementation, design systems need two audiences:
+
+- Humans, who need docs, examples, review, and shared taste.
+- AI assistants, who need explicit, loadable instructions at coding time.
+
+Skill files and repository rules are how you teach an assistant the parts of your design system that are not obvious from TypeScript types alone.
+
+The best teams will not only build better components. They will build better instructions for using those components.
