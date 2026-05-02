@@ -1,0 +1,152 @@
+---
+title: Insurance Policy Platform
+description: A two-week proof of concept that hit feature parity with a seven-figure legacy policy admin system.
+date: 2026-04-15
+role: Design + Engineering
+status: proof of concept
+---
+
+I wanted to test a thesis I keep coming back to: a lot of legacy enterprise
+software is protected by a moat that no longer exists. The license fee is
+big, the switching cost is real, but the underlying product is rebuildable
+on a modern foundation in a fraction of the time it used to take.
+
+So I picked a category where that thesis is uncomfortable to argue with —
+**insurance policy administration** — and stood up a real proof of concept
+against a well-known legacy system in the space with a **seven-figure
+annual license cost**.
+
+Two weeks of focused build time. Honest feature parity for an agency, end
+to end.
+
+## What I built
+
+Not a marketing demo. The shape an actual carrier or MGA would need:
+
+- Public marketing and **landing pages**.
+- **Dynamic quote flows** that branch by product and jurisdiction.
+- **Online payment** collection.
+- **Account creation** and customer sign-up.
+- **Document generation** for policies, declarations, and notices.
+- Full **policy management** across the lifecycle.
+- **Multi-tenant** configuration — from a single agency with a couple of
+  products, all the way to an MGA-style tenant with hundreds of brokers
+  each carrying different products, all under one tenant.
+
+The same surfaces a real customer touches and the same surfaces an admin,
+broker, or operator lives in.
+
+## Why it was possible in two weeks
+
+The honest answer is that the slow, expensive parts were already done
+before the build started.
+
+- **A modern tech stack, already wired.** TypeScript end to end, a current
+  React framework, a typed API client, a managed database, deployment, and
+  observability — all on a foundation an AI assistant can actually
+  understand.
+- **A design system, implemented in code, not just designed in Figma.**
+  Tokens, primitives, forms, tables, navigation, marketing sections,
+  dashboards, modals. Production-ready, with the small details right —
+  tabular numerals, hairline borders that respect dark mode, accessible
+  focus, sensible responsive defaults.
+- **A headless API at the core.** The web app is one consumer of the
+  backend, not the backend itself.
+
+That meant the two weeks were spent almost entirely on **insurance
+behavior** — rating, eligibility, quote shaping, policy state, document
+templates, payment hooks, broker hierarchies, tenant configuration —
+instead of on rebuilding the product surface from scratch.
+
+## The headless API made many surfaces cheap
+
+Insurance is not one screen. It is a public marketing site, a quote flow,
+a payment step, a customer portal, a broker console, an admin surface, and
+eventually data feeds and AI clients.
+
+Building each of those as its own bespoke app would have blown the
+timeline. Instead, every surface points back at the same backend
+contracts. Public flows use anonymous roles. Policyholders use
+authenticated roles. Brokers and agents sit behind stricter permissions.
+Admin and tenant configuration sits behind stricter still.
+
+It is the same lesson I keep relearning: a real headless API is not "we
+have endpoints," it is "the product is addressable without a browser."
+That is what makes a small build look like a much bigger one.
+
+## Multi-tenant was the real test
+
+A single-product demo for a single agency is not parity with a legacy
+policy admin system. The legacy moat is partly about how messy this
+industry actually is.
+
+So the proof of concept had to handle the real shape:
+
+- One agency with a small product set, their own branding, forms, and
+  workflows.
+- A larger MGA-style tenant managing **hundreds of brokers**, each with
+  different products, commissions, document templates, and quote flows.
+- Different jurisdictions and product variations under the same tenant.
+- Role-based access for tenant admins, broker admins, agents, and
+  policyholders.
+- Tenant-level configuration of branding, pricing, document content, and
+  payment routing.
+
+Almost none of that required new "platform" code. It required disciplined
+data modeling, a clean permission boundary, and product components that
+could be **configured rather than rewritten** per tenant. The design
+system and the headless API already assumed multiple consumers, so
+tenancy was just another axis of configuration.
+
+Legacy systems in this space tend to grow tenant features as bolted-on
+per-customer branches. Treating tenancy as a first-class shape from day
+one is a different posture, and it was the part that made the parity
+claim defensible.
+
+## What the seven-figure license is actually buying
+
+Once you watch a small team rebuild a category in a couple of weeks, you
+stop believing the price tag is about the software. The annual license is
+buying:
+
+- Switching cost.
+- Long-running integrations.
+- Vendor relationships.
+- Compliance familiarity.
+- Risk aversion at the buyer.
+- The absence of a credible alternative.
+
+Those are real, but they are **commercial moats, not technical ones**.
+They erode the moment a credible alternative exists that is materially
+better, materially cheaper, and materially faster to adopt.
+
+## Where this generalizes
+
+Insurance is not the only category that looks like this. Several
+industries — especially in **financial services** — share the same
+shape: long-lived workflows wrapped in older interfaces, high annual
+licenses defended by switching costs, heavy document and regulatory
+overhead, and a customer experience the incumbent has never solved.
+
+Brokerages, lenders, advisory platforms, claims, benefits administration,
+and several payments-adjacent categories routinely cost customers **about
+ten times** what the underlying software is worth to build today, and
+they routinely fail at the customer-facing experience.
+
+That is the opening I am interested in. Not "we are a cheaper version of
+the legacy product," but **we replace the legacy product and also fix the
+experience that has been broken for a decade.** A modern stack lets a
+small team do both at the same time, because the foundational work is no
+longer the schedule risk.
+
+## What this proof of concept actually proved
+
+Two weeks to feature parity is the headline, but it is not the lesson.
+
+The lesson is that the parts of an enterprise build that used to be hard
+— design system, headless API, modern tenancy, AI-assisted
+implementation — are now **infrastructure**. Once you have invested in
+them once, they compound. Categories that looked untouchable become
+addressable by small, focused teams.
+
+This was the test of that idea. It held up.
