@@ -86,7 +86,11 @@ export default function Home() {
         <MagneticLinks />
       </section>
 
-      <section data-hero-step="5" class="mb-16 md:mb-20">
+      <section
+        id="projects"
+        data-hero-step="5"
+        class="mb-16 scroll-mt-12 md:mb-20"
+      >
         <SectionHeading aside={`${projects.length} total`}>
           Projects
         </SectionHeading>

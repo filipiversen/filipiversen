@@ -38,7 +38,11 @@ export default function ProjectList(props: Props) {
                 ].join(" ")}
               >
                 <span class="flex min-w-0 items-baseline gap-3">
-                  <span data-row-title class="font-medium">
+                  <span
+                    data-row-title
+                    class="font-medium"
+                    style={`view-transition-name: project-title-${project.slug}`}
+                  >
                     {project.title}
                   </span>
                   <span class="truncate text-sm text-fg-muted text-pretty">

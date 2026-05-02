@@ -1,0 +1,83 @@
+---
+title: Survey Loop 
+description: Co-Founding an AI-first customer feedback product.
+date: 2024-01-15
+role: Co-founder · Design + Engineering
+status: live
+url: https://surveyloop.com
+---
+
+After the acquisition of **Denim Social** by **Capacity** in late 2023, I started
+thinking about what to build next. Not long after, together with Brandon Spriggs,
+I co-founded **Survey Loop** — a customer-feedback product designed to feel less
+like a survey tool and more like a modern product surface.
+
+I led design and engineering. Brandon led the product and commercial side. The
+plan was to bootstrap.
+
+## The hypothesis
+
+Most of the incumbents in the customer-feedback space are dinosaurs. The UI is
+heavy, the data model is rigid, and the integration story is bolted on. Customers
+in 2024 expect their tools to behave more like Stripe than like SurveyMonkey.
+
+If we started from a small, sharp foundation — a real design system, modern
+tooling, a proper headless API — we'd be able to outpace the incumbents on
+velocity even with a small team.
+
+Three early bets shaped everything that followed:
+
+- **Design system first.** Every component built once, themed once, reused
+  everywhere. New screens cost hours, not days. The product looks the same in
+  2026 as it did at MVP, only better resolved.
+- **Headless API at the core.** The web app is one consumer of the API, not
+  the API itself. The same endpoints would later power integrations, embeds,
+  and AI agents — without retrofit.
+- **Modern stack, no legacy weight.** A boring, recent choice for every layer.
+
+## The bootstrapping reality
+
+Bootstrapping is harder than people make it sound. The first stretch was
+moonlighting around contract work. A lot of people wanted to _help_ — advisors,
+would-be partners, friend-of-a-friend introductions — and most of those
+conversations didn't pan out. The signal-to-noise ratio of early company
+building is low.
+
+What worked was just shipping. We landed several large fintech players in our
+beta, and launched the MVP not long after starting.
+
+## Two rewrites
+
+The MVP was built in Vue. It got us to first customers fast.
+
+A few months in, we did a full ground-up rewrite in React. Not because Vue was
+wrong — it shipped — but because the ecosystem we wanted to lean into for AI
+tooling, and the depth of libraries we needed, all sat on the React side. We
+took the lessons from the Vue MVP, threw the code away, and rebuilt in weeks.
+
+Better the rewrite now than after another year of features piled on top.
+
+## The AI inflection
+
+Because the API was headless from day one, every piece of the product was
+already addressable as a structured surface. When the AI tooling around us
+matured, we didn't need to invent a new layer to make the product
+agent-friendly — agents could just talk to the same API a customer would.
+
+Today most of the engineering velocity comes from AI-assisted workflows. The
+agentic capabilities we expose to customers — MCP support, structured analysis,
+agentic actions — shipped in weeks because there was nothing to refactor on the
+way there.
+
+## Where we're going
+
+Internally we describe Survey Loop as **"the Cursor of customer feedback."**
+
+The bet: an agentic-first experience, sitting on a foundation that is also
+pleasant to use directly. The two have to coexist. An agent that can collect,
+route, and analyze feedback at scale is only useful if a human can also walk in
+cold and run a survey in five minutes. We're building both halves.
+
+Most of the interesting work is still ahead. But the boring early decisions —
+design system, headless API, modern tooling — are why we get to make the fun
+decisions now.
