@@ -1,9 +1,9 @@
 ---
 title: Insurance Policy Platform
-description: A two-week proof of concept that hit feature parity with a seven-figure legacy policy admin system.
+description: A few weeks to feature parity with a seven-figure legacy policy admin system.
 date: 2026-04-15
 role: Design + Engineering
-status: proof of concept
+status: experiment
 ---
 
 I wanted to test a thesis I keep coming back to: a lot of legacy enterprise
@@ -12,12 +12,12 @@ big, the switching cost is real, but the underlying product is rebuildable
 on a modern foundation in a fraction of the time it used to take.
 
 So I picked a category where that thesis is uncomfortable to argue with —
-**insurance policy administration** — and stood up a real proof of concept
-against a well-known legacy system in the space with a **seven-figure
-annual license cost**.
+**insurance policy administration** — and stood the product up against a
+well-known legacy system in the space with a **seven-figure annual
+license cost**.
 
-Two weeks of focused build time. Honest feature parity for an agency, end
-to end.
+A few weeks of focused build time. Honest feature parity for an agency,
+end to end.
 
 ## What I built
 
@@ -36,7 +36,7 @@ Not a marketing demo. The shape an actual carrier or MGA would need:
 The same surfaces a real customer touches and the same surfaces an admin,
 broker, or operator lives in.
 
-## Why it was possible in two weeks
+## Why it was possible in a few weeks
 
 The honest answer is that the slow, expensive parts were already done
 before the build started.
@@ -53,7 +53,7 @@ before the build started.
 - **A headless API at the core.** The web app is one consumer of the
   backend, not the backend itself.
 
-That meant the two weeks were spent almost entirely on **insurance
+That meant those few weeks were spent almost entirely on **insurance
 behavior** — rating, eligibility, quote shaping, policy state, document
 templates, payment hooks, broker hierarchies, tenant configuration —
 instead of on rebuilding the product surface from scratch.
@@ -80,7 +80,7 @@ A single-product demo for a single agency is not parity with a legacy
 policy admin system. The legacy moat is partly about how messy this
 industry actually is.
 
-So the proof of concept had to handle the real shape:
+So the build had to handle the real shape:
 
 - One agency with a small product set, their own branding, forms, and
   workflows.
@@ -105,8 +105,8 @@ claim defensible.
 
 ## What the seven-figure license is actually buying
 
-Once you watch a small team rebuild a category in a couple of weeks, you
-stop believing the price tag is about the software. The annual license is
+Once you watch a small team rebuild a category in a few weeks, you stop
+believing the price tag is about the software. The annual license is
 buying:
 
 - Switching cost.
@@ -139,9 +139,9 @@ experience that has been broken for a decade.** A modern stack lets a
 small team do both at the same time, because the foundational work is no
 longer the schedule risk.
 
-## What this proof of concept actually proved
+## What this actually showed
 
-Two weeks to feature parity is the headline, but it is not the lesson.
+A few weeks to feature parity is the headline, but it is not the lesson.
 
 The lesson is that the parts of an enterprise build that used to be hard
 — design system, headless API, modern tenancy, AI-assisted
