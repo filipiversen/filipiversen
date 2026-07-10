@@ -233,6 +233,7 @@ html[data-theme-transitioning] *::after {
   [data-hero-step="4"] { animation-delay: 240ms; }
   [data-hero-step="5"] { animation-delay: 320ms; }
   [data-hero-step="6"] { animation-delay: 400ms; }
+  [data-hero-step="7"] { animation-delay: 480ms; }
 
   @keyframes hero-in {
     to {
