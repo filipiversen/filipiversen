@@ -13,6 +13,18 @@ export const profile = {
       href: "https://surveyloop.com",
     },
   ],
+  offerings: [
+    {
+      name: "northway.agency",
+      href: "https://northway.agency",
+      description: "design and engineering services",
+    },
+    {
+      name: "northway.consulting",
+      href: "https://northway.consulting",
+      description: "help integrating AI into your company",
+    },
+  ],
   email: "hi@filipiversen.com",
   links: [
     { label: "Email", href: "mailto:hi@filipiversen.com" },

@@ -97,7 +97,7 @@ export default function Home() {
         <ProjectList projects={projects} />
       </section>
 
-      <section data-hero-step="6">
+      <section data-hero-step="6" class="mb-16 md:mb-20">
         <SectionHeading
           aside={
             <a
@@ -111,6 +111,29 @@ export default function Home() {
           Writing
         </SectionHeading>
         <WritingList posts={recent} stagger />
+      </section>
+
+      <section data-hero-step="7">
+        <SectionHeading>Want to work with me?</SectionHeading>
+        <p class="mb-4 max-w-[34rem] text-pretty text-base leading-relaxed text-fg-muted md:text-[1.0625rem]">
+          Alongside my own work, I run two offerings:
+        </p>
+        <ul class="max-w-[34rem] space-y-3 text-base leading-relaxed text-fg-muted md:text-[1.0625rem]">
+          {profile.offerings.map((offering) => (
+            <li class="text-pretty">
+              <a
+                href={offering.href}
+                target="_blank"
+                rel="noreferrer"
+                data-magnetic
+                class={MAGNETIC_LINK}
+              >
+                {offering.name}
+              </a>{" "}
+              offers {offering.description}.
+            </li>
+          ))}
+        </ul>
       </section>
     </PageShell>
   );
