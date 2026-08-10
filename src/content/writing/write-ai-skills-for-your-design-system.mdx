@@ -11,7 +11,7 @@ Humans learn those rules by reading docs, reviewing PRs, and working inside the 
 
 That is why design systems should have AI-facing skill files or rules.
 
-## Component Code Is Not Enough
+## Component code is not enough
 
 An AI model can inspect a component and infer its props. That does not mean it understands your design system.
 
@@ -26,9 +26,9 @@ The `Table` component in Survey Loop is a good example. The source explains the 
 
 The component tells an assistant what is possible. The rules tell it what is appropriate.
 
-That distinction is important. Without design-system guidance, AI will often produce plausible React that looks locally fine but drifts from the product: raw colors, one-off spacing, incorrect imports, duplicated controls, custom tables, or inaccessible composition.
+Without design-system guidance, AI will often produce plausible React that looks locally fine but drifts from the product: raw colors, one-off spacing, incorrect imports, duplicated controls, custom tables, or inaccessible composition.
 
-## Write The Missing Judgment Down
+## Write the missing judgment down
 
 Good AI-facing design-system files should answer the questions a reviewer would normally ask:
 
@@ -45,7 +45,7 @@ Survey Loop's table rule does this well. It explains the purpose of the componen
 
 That kind of file turns review feedback into reusable context.
 
-## Rules Help AI Preserve The System
+## Rules help AI preserve the system
 
 Design systems decay when every feature creates a slightly different solution. AI can accelerate that decay if it is only optimizing for "make the screen work."
 
@@ -57,17 +57,17 @@ AI-facing rules push the assistant back toward the system:
 - Keep responsive behavior aligned with component APIs.
 - Follow the repository's import conventions.
 
-This is not about making AI less creative. It is about making it creative inside the same constraints as the team.
+This is about making AI creative inside the same constraints as the team.
 
 The more specific the rule, the better. "Use our design system" is weak guidance. "Use `TableCell mobileLabel` when a table should become a mobile card" is useful guidance.
 
-## Treat AI Docs Like Product Infrastructure
+## Treat AI docs like product infrastructure
 
 AI-facing guidance should live near the code and evolve with it.
 
 When a component gains a new prop, update the rule. When the design team changes token policy, update the rule. When reviewers keep correcting the same mistake, add that correction to the rule. When a component has a preferred composition pattern, include a small example.
 
-The goal is not to document every line of code. The goal is to capture the local decisions that generic training data will not know.
+The goal is to capture the local decisions that generic training data will not know.
 
 For Survey Loop, that includes things like:
 
@@ -78,13 +78,6 @@ For Survey Loop, that includes things like:
 
 Those are project-specific facts. They should not be left for the model to guess.
 
-## The Learning
-
-As AI becomes part of everyday implementation, design systems need two audiences:
-
-- Humans, who need docs, examples, review, and shared taste.
-- AI assistants, who need explicit, loadable instructions at coding time.
+As AI becomes part of everyday implementation, design systems need two audiences: humans, who need docs, examples, review, and shared taste; and AI assistants, who need explicit, loadable instructions at coding time.
 
 Skill files and repository rules are how you teach an assistant the parts of your design system that are not obvious from TypeScript types alone.
-
-The best teams will not only build better components. They will build better instructions for using those components.

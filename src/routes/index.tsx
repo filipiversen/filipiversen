@@ -57,7 +57,7 @@ export default function Home() {
           >
             {profile.companies[1].name}
           </a>
-          , an AI-first feedback product.
+          an AI-first feedback product.
         </p>
         <p
           data-hero-step="4"
