@@ -35,8 +35,10 @@ export default function Home() {
           class="mb-4 max-w-[34rem] text-pretty text-base leading-relaxed text-fg-muted md:text-[1.0625rem]"
         >
           I design and build web interfaces with a soft spot for getting
-          things shipped. Most of my time goes to design and engineering
-          at{" "}
+          things shipped.
+        </p>
+        <p class="mb-4 max-w-[34rem] text-pretty text-base leading-relaxed text-fg-muted md:text-[1.0625rem]">
+          Most of my time goes to design and engineering at{" "}
           <a
             href={profile.companies[0].href}
             target="_blank"
@@ -47,7 +49,10 @@ export default function Home() {
             {profile.companies[0].name}
           </a>
           , where we{"\u2019"}re building the future of commercial lending
-          in the US. I also co-founded an AI-first feedback product called{" "}
+          in the US.
+        </p>
+        <p class="mb-4 max-w-[34rem] text-pretty text-base leading-relaxed text-fg-muted md:text-[1.0625rem]">
+          I also co-founded an AI-first feedback product called{" "}
           <a
             href={profile.companies[1].href}
             target="_blank"
