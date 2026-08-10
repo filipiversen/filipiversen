@@ -3,6 +3,7 @@ import { clientOnly } from "@solidjs/start";
 import { profile } from "~/content/profile";
 
 const ThemeToggle = clientOnly(() => import("./islands/ThemeToggle"));
+const ProseLightbox = clientOnly(() => import("./islands/ProseLightbox"));
 
 type Props = {
   children: JSX.Element;
@@ -37,6 +38,7 @@ export default function PageShell(props: Props) {
       </header>
 
       <main class="flex-1">{props.children}</main>
+      <ProseLightbox />
 
       <footer class="mt-24 border-t border-line pt-6 font-mono text-xs text-fg-faint md:mt-32">
         <div class="flex flex-wrap items-center justify-between gap-3">

@@ -444,13 +444,173 @@ html[data-theme-transitioning] *::after {
 /* Image outlines per the surfaces skill: pure black/white at 10% opacity,
    inset via outline-offset so layout isn't affected. NEVER a tinted color. */
 .prose img {
+  display: block;
+  width: 100%;
+  height: auto;
   border-radius: 8px;
   outline: 1px solid rgba(0, 0, 0, 0.1);
   outline-offset: -1px;
+  cursor: zoom-in;
+  transition: opacity 150ms ease;
 }
 
 html[data-theme="dark"] .prose img {
   outline-color: rgba(255, 255, 255, 0.1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .prose img:hover {
+    opacity: 0.92;
+  }
+}
+
+.prose img:focus-visible {
+  outline: 2px solid var(--color-fg);
+  outline-offset: 2px;
+}
+
+/* ----- Prose image lightbox ----- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  pointer-events: none;
+}
+
+.lightbox[data-open] {
+  pointer-events: auto;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  cursor: zoom-out;
+  background: color-mix(in oklab, var(--color-bg) 28%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: opacity 220ms cubic-bezier(0.32, 0.72, 0, 1);
+  touch-action: manipulation;
+}
+
+.lightbox-dialog {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  max-width: min(96vw, 72rem);
+  max-height: min(92vh, 56rem);
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  opacity: 0;
+  transform: scale(0.97);
+  transition:
+    opacity 220ms cubic-bezier(0.32, 0.72, 0, 1),
+    transform 220ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.lightbox[data-open] .lightbox-backdrop,
+.lightbox[data-open] .lightbox-dialog {
+  opacity: 1;
+}
+
+.lightbox[data-open] .lightbox-dialog {
+  transform: scale(1);
+}
+
+.lightbox:not([data-open]) .lightbox-backdrop,
+.lightbox:not([data-open]) .lightbox-dialog {
+  transition-duration: 180ms;
+}
+
+.lightbox-image {
+  display: block;
+  max-width: 100%;
+  max-height: min(84vh, 52rem);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  outline: 1px solid rgba(0, 0, 0, 0.1);
+  outline-offset: -1px;
+  background: var(--color-bg);
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--color-fg) 6%, transparent),
+    0 24px 64px color-mix(in oklab, var(--color-fg) 18%, transparent);
+}
+
+html[data-theme="dark"] .lightbox-image {
+  outline-color: rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 24px 64px rgba(0, 0, 0, 0.55);
+}
+
+.lightbox-caption {
+  max-width: 40rem;
+  margin: 0;
+  padding: 0 2.5rem;
+  color: var(--color-fg-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.45;
+  text-align: center;
+  text-wrap: pretty;
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+  display: inline-flex;
+  height: 2.75rem;
+  width: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border: var(--hairline) solid var(--color-line);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--color-bg) 88%, transparent);
+  color: var(--color-fg-muted);
+  cursor: pointer;
+  touch-action: manipulation;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+}
+
+.lightbox-close:hover {
+  color: var(--color-fg);
+  border-color: var(--color-fg-muted);
+}
+
+.lightbox-close:active {
+  transform: scale(0.96);
+}
+
+.lightbox-close:focus-visible {
+  outline: 2px solid var(--color-fg);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox-backdrop,
+  .lightbox-dialog {
+    transition: none;
+  }
+
+  .lightbox-dialog {
+    transform: none;
+  }
 }
 
 /* Autolinked headings wrap their text in an <a>. Strip the underline. */

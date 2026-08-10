@@ -47,7 +47,7 @@ export default function Home() {
             {profile.companies[0].name}
           </a>
           , where we{"\u2019"}re building the future of commercial lending
-          in the US. I also co-founded{" "}
+          in the US. I also co-founded an AI-first feedback product called{" "}
           <a
             href={profile.companies[1].href}
             target="_blank"
@@ -57,7 +57,6 @@ export default function Home() {
           >
             {profile.companies[1].name}
           </a>
-          an AI-first feedback product.
         </p>
         <p
           data-hero-step="4"
@@ -71,7 +70,7 @@ export default function Home() {
           >
             email
           </a>{" "}
-          or see the rest on{" "}
+          or see some of my public work on{" "}
           <a
             href="https://github.com/filipiversen"
             target="_blank"
