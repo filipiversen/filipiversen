@@ -2,7 +2,7 @@ export const profile = {
   name: "Filip Iversen",
   role: "Product Design & Engineering",
   intro:
-    "I design and build web interfaces with a soft spot for getting things shipped. Most of my time goes to design and engineering at Lenders Cooperative, where we\u2019re building the future of commercial lending in the US. I also co-founded Survey Loop, an AI-first feedback product.",
+    "I design and build web interfaces with a soft spot for getting things shipped. Most of my time goes to design and engineering at Lenders Cooperative, where we\u2019re building the future of commercial lending in the US. I also co-founded Survey Loop, an AI-first feedback product, and actively work on other projects through northway.agency and northway.consulting.",
   companies: [
     {
       name: "Lenders Cooperative",

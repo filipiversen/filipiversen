@@ -56,7 +56,28 @@ export default function Home() {
             class={MAGNETIC_LINK}
           >
             {profile.companies[1].name}
+          </a>{" "}
+          and actively work on other projects through{" "}
+          <a
+            href={profile.offerings[0].href}
+            target="_blank"
+            rel="noreferrer"
+            data-magnetic
+            class={MAGNETIC_LINK}
+          >
+            {profile.offerings[0].name}
+          </a>{" "}
+          and{" "}
+          <a
+            href={profile.offerings[1].href}
+            target="_blank"
+            rel="noreferrer"
+            data-magnetic
+            class={MAGNETIC_LINK}
+          >
+            {profile.offerings[1].name}
           </a>
+          .
         </p>
         <p
           data-hero-step="4"
@@ -115,9 +136,9 @@ export default function Home() {
       <section data-hero-step="7">
         <SectionHeading>Want to work with me?</SectionHeading>
         <p class="mb-4 max-w-[34rem] text-pretty text-base leading-relaxed text-fg-muted md:text-[1.0625rem]">
-          Alongside my own work, I run two offerings:
+          I run two offerings:
         </p>
-        <ul class="max-w-[34rem] space-y-3 text-base leading-relaxed text-fg-muted md:text-[1.0625rem]">
+        <ul class="mb-4 max-w-[34rem] space-y-3 text-base leading-relaxed text-fg-muted md:text-[1.0625rem]">
           {profile.offerings.map((offering) => (
             <li class="text-pretty">
               <a
@@ -133,6 +154,9 @@ export default function Home() {
             </li>
           ))}
         </ul>
+        <p class="max-w-[34rem] text-pretty text-base leading-relaxed text-fg-muted md:text-[1.0625rem]">
+          Please reach out any time.
+        </p>
       </section>
     </PageShell>
   );
