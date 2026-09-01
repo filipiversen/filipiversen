@@ -4,28 +4,29 @@ import { Title, Meta } from "@solidjs/meta";
 import { MDXProvider } from "solid-mdx";
 import { HttpStatusCode, clientOnly } from "@solidjs/start";
 import PageShell from "~/components/PageShell";
+import { mdxComponents } from "~/components/mdx-components";
 import { getProject } from "~/content/projects";
 
 const TitleReveal = clientOnly(
   () => import("~/components/islands/TitleReveal"),
 );
 
-const components = {};
-
 export default function ProjectPage() {
   const params = useParams<{ slug: string }>();
   const project = getProject(params.slug);
 
   return (
-    <PageShell>
+    <PageShell wide>
       <Show
         when={project}
         fallback={
           <>
             <HttpStatusCode code={404} />
             <Title>Not found — Filip Iversen</Title>
-            <h1 class="text-2xl font-semibold tracking-tight">Not found</h1>
-            <p class="mt-2 text-pretty text-fg-muted">
+            <h1 class="mx-auto max-w-prose text-2xl font-semibold tracking-tight">
+              Not found
+            </h1>
+            <p class="mx-auto mt-2 max-w-prose text-pretty text-fg-muted">
               That project doesn't exist (yet).{" "}
               <a
                 href="/"
@@ -44,7 +45,7 @@ export default function ProjectPage() {
 
             <div class="reading-progress" aria-hidden="true" />
 
-            <header class="mb-10">
+            <header class="mx-auto mb-10 w-full max-w-prose">
               <nav
                 data-hero-step="1"
                 aria-label="Breadcrumb"
@@ -107,8 +108,8 @@ export default function ProjectPage() {
               </div>
             </header>
 
-            <div data-hero-step="4" class="prose">
-              <MDXProvider components={components}>
+            <div data-hero-step="4" class="prose prose--wide">
+              <MDXProvider components={mdxComponents}>
                 {(() => {
                   const C = p().Component;
                   return <C />;

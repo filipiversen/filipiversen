@@ -7,18 +7,29 @@ const ProseLightbox = clientOnly(() => import("./islands/ProseLightbox"));
 
 type Props = {
   children: JSX.Element;
+  /** Expand `<main>` to the 1600px case-study canvas. Chrome stays on the prose column. */
+  wide?: boolean;
 };
 
 const NAV_LINK =
   "relative -my-2 py-2 transition-colors duration-150 ease hover-hover:hover:text-fg";
 
+const CHROME = "mx-auto w-full max-w-prose px-6 md:px-8";
+
 export default function PageShell(props: Props) {
+  const mainWidth = () =>
+    props.wide
+      ? "mx-auto w-full max-w-case px-6 md:px-8"
+      : "mx-auto w-full max-w-prose px-6 md:px-8";
+
   return (
-    <div class="mx-auto flex min-h-screen w-full max-w-prose flex-col px-6 py-8 md:px-8 md:py-12">
+    <div class="flex min-h-screen w-full flex-col py-8 md:py-12">
       {/* Top anchor for the footer "↑ top" link */}
       <span id="top" class="sr-only" />
 
-      <header class="mb-12 flex items-center justify-between text-sm md:mb-16">
+      <header
+        class={`mb-12 flex items-center justify-between text-sm md:mb-16 ${CHROME}`}
+      >
         <a
           href="/"
           aria-label="Home — Filip Iversen"
@@ -37,10 +48,12 @@ export default function PageShell(props: Props) {
         </nav>
       </header>
 
-      <main class="flex-1">{props.children}</main>
+      <main class={`flex-1 ${mainWidth()}`}>{props.children}</main>
       <ProseLightbox />
 
-      <footer class="mt-24 border-t border-line pt-6 font-mono text-xs text-fg-faint md:mt-32">
+      <footer
+        class={`mt-24 border-t border-line pt-6 font-mono text-xs text-fg-faint md:mt-32 ${CHROME}`}
+      >
         <div class="flex flex-wrap items-center justify-between gap-3">
           <span>
             © {new Date().getFullYear()} {profile.name.toLowerCase()}

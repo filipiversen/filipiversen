@@ -4,6 +4,7 @@ import { Title, Meta } from "@solidjs/meta";
 import { MDXProvider } from "solid-mdx";
 import { HttpStatusCode, clientOnly } from "@solidjs/start";
 import PageShell from "~/components/PageShell";
+import { mdxComponents } from "~/components/mdx-components";
 import { getPost } from "~/content/writing";
 
 const SignalDemo = clientOnly(
@@ -14,6 +15,7 @@ const TitleReveal = clientOnly(
 );
 
 const components = {
+  ...mdxComponents,
   SignalDemo,
 };
 

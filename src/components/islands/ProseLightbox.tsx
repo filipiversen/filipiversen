@@ -19,9 +19,17 @@ export default function ProseLightbox() {
   let restoreFocus: HTMLElement | null = null;
   let exitTimer = 0;
 
+  function captionFor(img: HTMLImageElement) {
+    if (img.alt.trim()) return img.alt;
+    return (
+      img.closest("figure")?.querySelector("figcaption")?.textContent?.trim() ??
+      ""
+    );
+  }
+
   function open(img: HTMLImageElement) {
     restoreFocus = img;
-    setImage({ src: img.currentSrc || img.src, alt: img.alt });
+    setImage({ src: img.currentSrc || img.src, alt: captionFor(img) });
     document.documentElement.style.overflow = "hidden";
     // Two frames so the dialog mounts closed, then transitions open.
     requestAnimationFrame(() => {
@@ -59,8 +67,9 @@ export default function ProseLightbox() {
         img.dataset.lightboxReady = "true";
         img.setAttribute("tabindex", "0");
         img.setAttribute("role", "button");
-        const label = img.alt
-          ? `View larger image: ${img.alt}`
+        const caption = captionFor(img);
+        const label = caption
+          ? `View larger image: ${caption}`
           : "View larger image";
         img.setAttribute("aria-label", label);
       }

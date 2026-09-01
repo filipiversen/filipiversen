@@ -19,7 +19,9 @@
   --color-line: oklch(90% 0.005 270);
   --color-accent: oklch(58% 0.16 28);
 
-  --container-prose: 40rem;
+  --container-prose: 65ch;
+  /* Case-study canvas — project images cap here. */
+  --container-case: 100rem;
 
   /* Hairlines — auto-thin on retina via custom prop. */
   --hairline: 1px;
@@ -362,7 +364,6 @@ html[data-theme-transitioning] *::after {
 
 .prose p,
 .prose li,
-.prose figcaption,
 .prose blockquote {
   color: var(--prose-body);
   text-wrap: pretty;
@@ -441,6 +442,22 @@ html[data-theme-transitioning] *::after {
   list-style: decimal;
 }
 
+/* Case-study prose: text stays on the reading column, figures span the
+   1600px canvas. Used on project pages only. */
+.prose--wide {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr) min(65ch, 100%) minmax(0, 1fr);
+}
+
+.prose--wide > * {
+  grid-column: 2;
+}
+
+.prose--wide > figure {
+  grid-column: 1 / -1;
+}
+
 /* Image outlines per the surfaces skill: pure black/white at 10% opacity,
    inset via outline-offset so layout isn't affected. NEVER a tinted color. */
 .prose img {
@@ -448,10 +465,52 @@ html[data-theme-transitioning] *::after {
   width: 100%;
   height: auto;
   border-radius: 8px;
+  background-color: var(--color-line);
   outline: 1px solid rgba(0, 0, 0, 0.1);
   outline-offset: -1px;
   cursor: zoom-in;
   transition: opacity 150ms ease;
+}
+
+/* Figures: one image is full-bleed within the canvas; extra images
+   become equal columns. Caption spans the whole row, centered. */
+.prose figure {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem 1rem;
+  margin-block: 0;
+}
+
+.prose > * + figure,
+.prose > figure + * {
+  margin-top: 2.75em;
+}
+
+.prose figure > figcaption {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding-block: 0.25rem 0.1rem;
+  color: var(--color-fg-muted);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  text-align: center;
+  text-wrap: pretty;
+}
+
+@media (min-width: 720px) {
+  .prose figure:has(> img:nth-of-type(2)):not(:has(> img:nth-of-type(3))) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .prose figure:has(> img:nth-of-type(3)) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .prose figure:has(> img:nth-of-type(4)) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 html[data-theme="dark"] .prose img {

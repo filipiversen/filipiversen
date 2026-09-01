@@ -19,7 +19,7 @@ declare module "solid-mdx" {
   import type { Component, JSX } from "solid-js";
 
   export const MDXProvider: Component<{
-    components?: Record<string, Component<JSX.HTMLAttributes<HTMLElement>>>;
+    components?: Record<string, (props: never) => JSX.Element>;
     children?: JSX.Element;
   }>;
 }

@@ -7,6 +7,7 @@ import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import tailwindcss from "@tailwindcss/vite";
+import { rehypeUnwrapImages } from "./src/lib/rehype-unwrap-images";
 
 export default defineConfig({
   plugins: [
@@ -20,6 +21,7 @@ export default defineConfig({
           [remarkMdxFrontmatter, { name: "frontmatter" }],
         ],
         rehypePlugins: [
+          rehypeUnwrapImages,
           rehypeSlug,
           [rehypeAutolinkHeadings, { behavior: "wrap" }],
         ],
