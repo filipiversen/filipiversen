@@ -1,97 +1,69 @@
 ---
-title: Survey Loop 
-description: Co-Founding an AI-first customer feedback product.
+title: Survey Loop
+description: Co-founding a feedback company, designing the product, and connecting it to the tools people already use.
 date: 2024-01-15
-role: Co-founder · Design + Engineering
+order: 2
+role: Co-founder · Design · Engineering
 status: live
 url: https://surveyloop.com
 ---
 
-After the acquisition of **Denim Social** by **Capacity** in late 2023, I started
-thinking about what to build next. Not long after, together with Brandon Spriggs,
-I co-founded **Survey Loop** — a customer-feedback product designed to feel less
-like a survey tool and more like a modern product surface.
+I wanted Survey Loop to feel good to use, whether you were building a survey, answering one, or trying to understand what customers were telling you. I also wanted an API we could build other things around. That decision became especially useful when AI assistants started being able to work with real tools and data.
 
-I led design and engineering. Brandon led the product and commercial side. The
-plan was to bootstrap.
+<figure  id="watch-the-product">
+  <video controls playsinline preload="metadata" width="1440" height="900" poster="/work/survey-loop/walkthrough-poster.png" aria-label="Survey Loop product walkthrough" aria-describedby="walkthrough-caption">
+    <source src="/work/survey-loop/walkthrough.mp4" type="video/mp4" />
+    <track kind="captions" src="/work/survey-loop/walkthrough.vtt" srclang="en" label="English descriptions" />
+    <a href="/work/survey-loop/walkthrough.mp4">Watch the Survey Loop walkthrough</a>.
+  </video>
+  <figcaption id="walkthrough-caption">The real Survey Loop interface with sample data. Assistant and MCP steps are simulated. 40 seconds, no audio.</figcaption>
+  <details>
+    <summary>Read the walkthrough</summary>
+    <p>A scripted assistant request creates a draft post-event survey. At 8 seconds, the draft opens in the real builder with recommendation, event rating, and written follow-up questions. At 16 seconds, the appearance controls change its branding from violet to green. At 26 seconds, the respondent preview selects ratings, writes “More time for workshop questions,” and reaches the completion screen. No response is submitted to a live service.</p>
+  </details>
+</figure>
 
-## The hypothesis
+## Building around contract work
 
-![Survey builder with a block palette, live canvas, and appearance controls](/writing/survey-loop/sl1.png "Survey builder")
+After Capacity acquired Denim Social in late 2023, Brandon Spriggs and I co-founded Survey Loop. I lead design and engineering; Brandon leads product and the commercial side. We set out to bootstrap a customer feedback product with a simpler interface and room to grow.
 
-Most of the incumbents in the customer-feedback space are dinosaurs. The UI is
-heavy, the data model is rigid, and the integration story is bolted on. Customers
-in 2024 expect their tools to behave more like Stripe than like SurveyMonkey.
+Bootstrapping is harder than people make it sound. The first stretch was moonlighting around contract work. We built an MVP in Vue, put it in front of customers, and brought several large fintech companies into the beta. A few months in, we rebuilt the web app in React as the AI tooling and libraries we needed developed around that ecosystem. Making that change while the product was still young meant taking on a substantial rebuild, but doing it before another year of features accumulated.
 
-If we started from a small, sharp foundation — a real design system, modern
-tooling, a proper headless API — we'd be able to outpace the incumbents on
-velocity even with a small team.
+## Designing both sides of a survey
 
-Three early bets shaped everything that followed:
+A lot of my work has been in the details of creating a survey. You can add and rearrange question blocks, write directly on the canvas, adjust the branding, and preview what a customer will see. Ratings, open questions, conditional logic, and multiple pages give teams room to ask what they need. Autosave and version history make it easier to experiment and recover an earlier version.
 
-- **Design system first.** Every component built once, themed once, reused
-  everywhere. New screens cost hours, not days. The product looks the same in
-  2026 as it did at MVP, only better resolved.
-- **Headless API at the core.** The web app is one consumer of the API, not
-  the API itself. The same endpoints would later power integrations, embeds,
-  and AI agents — without retrofit.
-- **Modern stack, no legacy weight.** A boring, recent choice for every layer.
+The respondent experience gets the same attention. The survey carries the company's branding through to the questions and completion screen, with a layout that works on a phone. I built and refined both sides of that experience, using a shared design system to keep the editor, survey, and wider application consistent as we added features.
 
-## The bootstrapping reality
+<figure class="prose-film-portrait">
+  <video controls playsinline preload="metadata" width="720" height="1080" poster="/work/survey-loop/mobile-poster.png" aria-label="Survey Loop mobile respondent flow" aria-describedby="mobile-caption">
+    <source src="/work/survey-loop/mobile.mp4" type="video/mp4" />
+    <track kind="captions" src="/work/survey-loop/mobile.vtt" srclang="en" label="English descriptions" />
+    <a href="/work/survey-loop/mobile.mp4">Watch the mobile respondent flow</a>.
+  </video>
+  <figcaption id="mobile-caption">The actual respondent interface, from ratings to a written answer and completion. Fictional sample response; no live submission. 16 seconds, no audio.</figcaption>
+  <details>
+    <summary>Read the respondent flow</summary>
+    <p>The respondent selects a recommendation score of 9 out of 10 and an event rating of 5 out of 5, then writes “More time for workshop questions.” The preview ends at the branded completion screen.</p>
+  </details>
+</figure>
 
-<Figure>
-  <img
-    src="/writing/survey-loop/sl2.png"
-    alt="Respondent-facing survey with branded questions and navigation"
-  />
-  <img
-    src="/writing/survey-loop/sl3.png"
-    alt="Survey insights with a question-by-question readout and share settings"
-  />
-  <figcaption>Respondent survey and insights</figcaption>
-</Figure>
+## Calculated evidence before an AI explanation
 
-Bootstrapping is harder than people make it sound. The first stretch was
-moonlighting around contract work. A lot of people wanted to _help_ — advisors,
-would-be partners, friend-of-a-friend introductions — and most of those
-conversations didn't pan out. The signal-to-noise ratio of early company
-building is low.
+From there, teams can distribute surveys through email, links, and QR codes, with reminders and tracked links to understand where responses came from. Results sit alongside question-level charts, customer satisfaction scores, and the original answers. Organizations with multiple locations or teams can look at their feedback together and then narrow the view to a particular part of the business.
 
-What worked was just shipping. We landed several large fintech players in our
-beta, and launched the MVP not long after starting.
+Making those results useful has become a substantial part of the product. I worked on the dashboard's AI summaries and rebuilt the survey analysis around calculated statistics. The analysis checks whether differences are meaningful before asking AI to explain them in plain language. If nothing meets that threshold, the interface says so. The underlying figures stay available alongside the explanation.
 
-## Two rewrites
+## The same product through an assistant
 
-The MVP was built in Vue. It got us to first customers fast.
+The API gave us another way to work with all of this. We added support for MCP, the Model Context Protocol, so a connected AI assistant can use Survey Loop's tools to create and edit surveys, read responses, and query analytics. The assistant gets structured data and defined actions through the same API the application uses.
 
-A few months in, we did a full ground-up rewrite in React. Not because Vue was
-wrong — it shipped — but because the ecosystem we wanted to lean into for AI
-tooling, and the depth of libraries we needed, all sat on the React side. We
-took the lessons from the Vue MVP, threw the code away, and rebuilt in weeks.
+For example, you could ask an assistant to create a draft post-event survey with an NPS question and a written follow-up. It can create that draft in Survey Loop, ready for you to open in the builder and refine. Once responses arrive, you could ask it to compare NPS across two periods and pull the written feedback for review. Those requests use the surveys and responses already in your account, without exporting a spreadsheet for each conversation.
 
-Better the rewrite now than after another year of features piled on top.
+That connection also has to respect how the product works. MCP access is authenticated and follows the user's organization permissions. Read-only connections can inspect data without changing it. A survey created through an assistant is the same survey you open in the application, so you can move between the two as the work requires.
 
-## The AI inflection
+## Connecting to everyday work
 
-Because the API was headless from day one, every piece of the product was
-already addressable as a structured surface. When the AI tooling around us
-matured, we didn't need to invent a new layer to make the product
-agent-friendly — agents could just talk to the same API a customer would.
+I've also built API integrations around everyday workflows. The monday.com integration connects a workflow action to survey delivery, using the recipient details from a board item. Google Business Profile integration brings public reviews into the product, with AI reply drafts, approvals, and escalation rules. That gives teams a way to respond to feedback as well as collect it.
 
-Today most of the engineering velocity comes from AI-assisted workflows. The
-agentic capabilities we expose to customers — MCP support, structured analysis,
-agentic actions — shipped in weeks because there was nothing to refactor on the
-way there.
-
-## Where we're going
-
-Internally we describe Survey Loop as **"the Cursor of customer feedback."**
-
-The bet: an agentic-first experience, sitting on a foundation that is also
-pleasant to use directly. The two have to coexist. An agent that can collect,
-route, and analyze feedback at scale is only useful if a human can also walk in
-cold and run a survey in five minutes. We're building both halves.
-
-Most of the interesting work is still ahead. The boring early decisions —
-design system, headless API, modern tooling — are why we get to make the fun
-decisions now.
+Owning the implementation means coming back to earlier decisions, too. As the product has grown, I've removed obsolete features and duplicated code, consolidated API documentation, and checked that existing workflows still hold up. Survey Loop is live, and we're continuing to develop it with customers.

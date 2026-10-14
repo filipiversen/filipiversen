@@ -1,0 +1,40 @@
+---
+title: Use the Model for the 10% That Needs One
+description: Keep predictable workflow steps in code and give the model the parts that need language understanding.
+date: 2026-07-02
+tag: engineering
+---
+
+In a dependable AI automation, most of the pipeline can be ordinary code.
+
+Fetching an email, looking up a purchase order, writing to the ERP, and
+posting an approval are all jobs with defined inputs and outputs. A model
+might help interpret an unfamiliar attachment or classify a request in the
+middle. It doesn’t need to run the whole process.
+
+The 10% in the title is a rule of thumb. The useful exercise is finding
+the smallest part of the workflow that needs a model at all.
+
+## Why I prefer this split
+
+Failures are easier to trace when each step has a clear job. A failed API
+request gives you a status code to inspect. A classification error gives
+you a specific model input and output to review. A giant prompt that
+handles the entire workflow makes those failures harder to separate.
+
+Costs are easier to understand, too. Code still costs money to run and
+maintain, but predictable steps don’t need a model call each time they
+execute. You can spend the model budget on the work that benefits from it.
+
+The split also gives you a testing strategy. Use ordinary tests for the
+deterministic steps and a fixed set of real evaluation cases for the model.
+Then check the complete workflow, including what happens when a step fails.
+
+An automation that behaves consistently is easier to trust. You can decide
+which steps may run unattended and which need someone to review the result.
+
+## Work through the steps
+
+For each step, ask whether a script could handle it reliably. If it can,
+use a script. Keep the model’s input, output, and permissions narrow enough
+that you can test it or replace it without rewriting the rest of the system.

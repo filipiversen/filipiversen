@@ -1,54 +1,44 @@
 ---
 title: Why I Picked Solid for This Site
-description: A short note on Islands mode and signals.
+description: A short note on prerendered pages, signals, and keeping a personal site small.
 date: 2026-04-22
 tag: notes
 ---
 
-I rebuilt my site this spring on SolidStart in Islands mode, and the
-choice has held up nicely so far. Two things sold me.
+I rebuilt this site with SolidStart because most of it is writing and links,
+with a few interactive details. I wanted those details to be easy to build
+without turning the content into a complicated application.
 
-## Static by default
+## HTML first
 
-Most pages here are essentially HTML documents. There is no reason to ship a
-client router, a hydration runtime for the entire tree, or a virtual DOM just
-to render a list of links. With Islands mode, the framework opts _out_ of
-hydration by default and only sends JavaScript for the components I explicitly
-mark as islands.
+The home page, writing index, and linked articles are prerendered during
+the build. Their content is available as HTML before the browser runs the
+client application.
 
-The result: the home page above is a few KB of HTML. The only JS that ships
-is what powers the theme toggle, the cursor-following label on the projects
-list, and the magnetic links in the intro paragraph. Everything else is real,
-final HTML, served from the edge.
+The current setup uses SolidStart's normal client runtime. Interactive
+components such as the theme toggle, project hover effects, and signal demo
+load through `clientOnly`. That keeps them separate from the content, though
+it doesn't make the site JavaScript-free or put it in Islands mode.
 
-## Signals are honest
+## Signals are easy to follow
 
-What I like most about Solid is that the reactive primitive _is_ the model.
-A signal is a getter and a setter. A memo is a derived value. Components
-run once. Once you absorb that, the framework basically gets out of your
-way.
+What I like most about Solid is that a signal is a getter and a setter,
+and a memo is a derived value. Components set up their reactive work once;
+changes update the parts that depend on them.
 
-Below is a small island living inside this MDX file. The buttons mutate a
-single signal; two memos derive new values from it. Notice that nothing
-else on this page rerenders — the surrounding paragraphs, the section header,
-even the labels inside the box itself were created exactly once.
+Below is a small demo inside this MDX file. The buttons change one signal,
+and two memos derive values from it. The numbers update while the surrounding
+labels and markup stay in place.
 
 <SignalDemo />
 
-That is roughly the entire mental model. Most of my interactive bits on this
-site are about that long: a couple of signals, a memo or two, an effect at
-the edge.
+Most of the interactive details on this site need only a few signals,
+a memo or two, and an effect where they interact with the browser.
 
-## What I gave up
+## The tradeoff
 
-Two real tradeoffs:
+The MDX integration needed some configuration, and a personal site like
+this could be built with a simpler static-site setup. I picked Solid partly
+because I enjoy its reactive model and wanted somewhere small to work with it.
 
-- **No SPA navigation.** Page changes are full document loads. I lean into
-  this with the [CSS View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API),
-  so the swap still feels soft. Try clicking back and forth between this
-  post and the writing index — the title animates across.
-- **A young ecosystem.** The MDX integration needed a tiny bit of
-  configuration. Worth it for me; might not be worth it for everyone.
-
-If any of this resonates, the source is on
-[GitHub](https://github.com/filipiversen/filipiversen).
+The source is on [GitHub](https://github.com/filipiversen/filipiversen).

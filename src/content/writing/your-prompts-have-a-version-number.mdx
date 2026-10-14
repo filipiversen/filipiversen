@@ -1,0 +1,48 @@
+---
+title: Your Prompts Have a Version Number
+description: Keep prompts in version control and test them again when you change models.
+date: 2026-07-04
+tag: engineering
+---
+
+A prompt is written for a particular model, even when the file never
+mentions which one. Change the model and you may change what that prompt
+does.
+
+Anthropic’s [prompting guide](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices)
+includes model-specific guidance and migration advice. It’s worth reading
+that kind of documentation before carrying old prompts into a new release.
+
+## Old prompts carry old scar tissue
+
+Production prompts accumulate workarounds. An ALL-CAPS instruction the old
+model kept ignoring. A prefilled response to force a format. Three examples
+added after a specific failure in March.
+
+Those choices may have been useful at the time. They still need review when
+the model changes. A workaround can become redundant, conflict with a new
+instruction, or depend on an API feature the replacement model doesn’t support.
+
+Anthropic suggests a useful clarity check: ask a colleague with little
+context to follow the prompt. If they struggle to understand it, revise the
+instructions before adding more workarounds.
+
+## Keep the prompt with the code
+
+I treat prompts as maintained parts of the application. They belong in
+version control, with a record of the model and settings they were tested
+against. A model upgrade goes through [the same evaluation process](/writing/a-model-upgrade-is-not-a-release)
+as other changes to the system.
+
+The migration checklist is short:
+
+1. Read the vendor’s notes for the model you’re moving to.
+2. Review existing workarounds and remove the ones that are no longer needed.
+3. Run the evaluation cases against the old and new configurations. Inspect
+   failures as well as the overall score.
+4. Release the model and prompt changes together, keeping the previous
+   versions available for rollback.
+
+Save the evaluation results with the change. The next person editing the
+prompt should be able to see why an instruction exists and what happened
+when you changed it.

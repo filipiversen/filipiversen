@@ -48,7 +48,7 @@ export default function Home() {
           >
             {profile.companies[0].name}
           </a>
-          , where we{"\u2019"}re building the future of commercial lending
+          , where I work on software for commercial lending
           in the US.
         </p>
         <p class="mb-4 max-w-[34rem] text-pretty text-base leading-relaxed text-fg-muted md:text-[1.0625rem]">
@@ -62,25 +62,15 @@ export default function Home() {
           >
             {profile.companies[1].name}
           </a>{" "}
-          and actively work on other projects through{" "}
+          and work on other projects through{" "}
           <a
-            href={profile.offerings[0].href}
+            href={profile.agency.href}
             target="_blank"
             rel="noreferrer"
             data-magnetic
             class={MAGNETIC_LINK}
           >
-            {profile.offerings[0].name}
-          </a>{" "}
-          and{" "}
-          <a
-            href={profile.offerings[1].href}
-            target="_blank"
-            rel="noreferrer"
-            data-magnetic
-            class={MAGNETIC_LINK}
-          >
-            {profile.offerings[1].name}
+            {profile.agency.name}
           </a>
           .
         </p>
@@ -141,24 +131,18 @@ export default function Home() {
       <section data-hero-step="7">
         <SectionHeading>Want to work with me?</SectionHeading>
         <p class="mb-4 max-w-[34rem] text-pretty text-base leading-relaxed text-fg-muted md:text-[1.0625rem]">
-          I run two offerings:
+          I offer {profile.agency.description} through{" "}
+          <a
+            href={profile.agency.href}
+            target="_blank"
+            rel="noreferrer"
+            data-magnetic
+            class={MAGNETIC_LINK}
+          >
+            {profile.agency.name}
+          </a>
+          .
         </p>
-        <ul class="mb-4 max-w-[34rem] space-y-3 text-base leading-relaxed text-fg-muted md:text-[1.0625rem]">
-          {profile.offerings.map((offering) => (
-            <li class="text-pretty">
-              <a
-                href={offering.href}
-                target="_blank"
-                rel="noreferrer"
-                data-magnetic
-                class={MAGNETIC_LINK}
-              >
-                {offering.name}
-              </a>{" "}
-              offers {offering.description}.
-            </li>
-          ))}
-        </ul>
         <p class="max-w-[34rem] text-pretty text-base leading-relaxed text-fg-muted md:text-[1.0625rem]">
           Please reach out any time.
         </p>

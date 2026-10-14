@@ -1,11 +1,11 @@
 ---
-title: Write AI Skills For Your Design System
+title: Write AI Skills for Your Design System
 description: Why design systems need AI-facing instructions, not just human documentation and component code.
 date: 2026-03-15
-tag: AI Engineering
+tag: engineering
 ---
 
-A design system is more than components. It is judgment encoded into reusable pieces: when to use a button variant, how dense a table should feel, which colors are allowed, how forms behave, and what accessibility details should never be skipped.
+A design system records decisions about when to use a button variant, how dense a table should feel, which colors are allowed, how forms behave, and what accessibility details should never be skipped.
 
 Humans learn those rules by reading docs, reviewing PRs, and working inside the product. AI assistants need the same context, but they need it in a form they can reliably load while writing code.
 
@@ -57,8 +57,6 @@ AI-facing rules push the assistant back toward the system:
 - Keep responsive behavior aligned with component APIs.
 - Follow the repository's import conventions.
 
-This is about making AI creative inside the same constraints as the team.
-
 The more specific the rule, the better. "Use our design system" is weak guidance. "Use `TableCell mobileLabel` when a table should become a mobile card" is useful guidance.
 
 ## Treat AI docs like product infrastructure
@@ -77,7 +75,3 @@ For Survey Loop, that includes things like:
 - Public API calls and authenticated API calls follow different helper patterns.
 
 Those are project-specific facts. They should not be left for the model to guess.
-
-As AI becomes part of everyday implementation, design systems need two audiences: humans, who need docs, examples, review, and shared taste; and AI assistants, who need explicit, loadable instructions at coding time.
-
-Skill files and repository rules are how you teach an assistant the parts of your design system that are not obvious from TypeScript types alone.

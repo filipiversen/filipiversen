@@ -1,150 +1,114 @@
 ---
 title: Insurance Policy Platform
-description: A few weeks to feature parity with a seven-figure legacy policy admin system.
+description: From quote to policy in one insurance platform.
 date: 2026-04-15
-role: Design + Engineering
-status: product
+order: 3
+role: Strategy · Design · Engineering
+status: built
 ---
 
-I wanted to test a thesis I keep coming back to: a lot of legacy enterprise
-software is protected by a moat that no longer exists. The license fee is
-big, the switching cost is real, but the underlying product is rebuildable
-on a modern foundation in a fraction of the time it used to take.
+An insurance company reported seven-figure annual software spend. The proposal for a platform it could own
+estimated a five-figure annual replacement cost, including the build. That
+was a projection, rather than a measured operating cost.
 
-So I picked a category where that thesis is uncomfortable to argue with —
-**insurance policy administration** — and stood the product up against a
-well-known legacy system in the space with a **seven-figure annual
-license cost**.
+I worked across strategy, design, and engineering on an insurance policy
+platform. The build covered the workflow from a customer's quote through
+payment and policy documents, along with the tools for administering policies
+and configuring broker access.
 
-A few weeks of focused build time. Honest feature parity for an agency,
-end to end.
+We used a legacy policy-administration product as a reference for the scope.
+The initial build took a few weeks, using a stack and a component library that
+were already in place. Most of that time went into the insurance behavior:
+rating, eligibility, policy state, documents, and the relationships between
+agencies and brokers.
 
-## What I built
+## Following a quote through the product
 
-Not a marketing demo. The shape an actual carrier or MGA would need:
+The customer-facing work included landing pages, account creation, quote forms
+that branch by product and jurisdiction, and online payment collection. The
+platform generates policy documents, declarations, and notices, with policy
+management available to the people administering the business.
 
-- Public marketing and **landing pages**.
-- **Dynamic quote flows** that branch by product and jurisdiction.
-- **Online payment** collection.
-- **Account creation** and customer sign-up.
-- **Document generation** for policies, declarations, and notices.
-- Full **policy management** across the lifecycle.
-- **Multi-tenant** configuration — from a single agency with a couple of
-  products, all the way to an MGA-style tenant with hundreds of brokers
-  each carrying different products, all under one tenant.
+The way someone finishes depends on the program they enter through. Some
+customers pay online; other quotes go to a broker for submission.
 
-The same surfaces a real customer touches and the same surfaces an admin,
-broker, or operator lives in.
+Those pieces share the same backend. Product and jurisdiction affect the
+quote flow; policy state and document templates govern the documents. The
+interface has to present those differences while keeping the underlying
+records connected.
 
-## Why it was possible in a few weeks
+Customers can change their coverage at checkout, and that choice updates the
+saved quote. The payment must use the same selection that staff see in the
+admin record.
 
-The honest answer is that the slow, expensive parts were already done
-before the build started.
+<Figure>
+  <picture>
+    <source media="(max-width: 640px)" srcset="/work/insurance-policy-platform/02-connected-quote-mobile.svg" width={700} height={2610} />
+    <img src="/work/insurance-policy-platform/02-connected-quote.svg" alt="Three illustrative screens follow the same quote from coverage selection through payment review to an accepted submission in the admin interface. Interfaces and rates are fictional." loading="lazy" width={1400} height={930} />
+  </picture>
+  <figcaption>Coverage selection stays connected to checkout and the saved quote. Interfaces and rates are illustrative.</figcaption>
+</Figure>
 
-- **A modern tech stack, already wired.** TypeScript end to end, a current
-  React framework, a typed API client, a managed database, deployment, and
-  observability — all on a foundation an AI assistant can actually
-  understand.
-- **A design system, implemented in code, not just designed in Figma.**
-  Tokens, primitives, forms, tables, navigation, marketing sections,
-  dashboards, modals. Production-ready, with the small details right —
-  tabular numerals, hairline borders that respect dark mode, accessible
-  focus, sensible responsive defaults.
-- **A headless API at the core.** The web app is one consumer of the
-  backend, not the backend itself.
+## Configuring agencies and brokers
 
-That meant those few weeks were spent almost entirely on **insurance
-behavior** — rating, eligibility, quote shaping, policy state, document
-templates, payment hooks, broker hierarchies, tenant configuration —
-instead of on rebuilding the product surface from scratch.
+The scope included both an agency configuration and an MGA-style organization
+working with multiple brokers. They needed different branding, forms,
+products, commissions, and document templates, with access controlled by role.
 
-## The headless API made many surfaces cheap
+We handled those differences through the data model, permission boundaries,
+and configurable components. The application could share its forms, tables,
+and navigation while applying the configuration for a particular tenant.
 
-Insurance is not one screen. It is a public marketing site, a quote flow,
-a payment step, a customer portal, a broker console, an admin surface, and
-eventually data feeds and AI clients.
+Reusable quote templates have separate partner assignments. The same template
+can serve multiple partners while each keeps its own branding, links, and
+default flow. Agent links inherit their partner's configuration.
 
-Building each of those as its own bespoke app would have blown the
-timeline. Instead, every surface points back at the same backend
-contracts. Public flows use anonymous roles. Policyholders use
-authenticated roles. Brokers and agents sit behind stricter permissions.
-Admin and tenant configuration sits behind stricter still.
+<Figure>
+  <picture>
+    <source media="(max-width: 640px)" srcset="/work/insurance-policy-platform/03-partner-configuration-mobile.svg" width={700} height={1490} />
+    <img src="/work/insurance-policy-platform/03-partner-configuration.svg" alt="One shared quote template feeds two fictional partner experiences, each with its own branding, links, and settings." loading="lazy" width={1400} height={1030} />
+  </picture>
+  <figcaption>Partners share template definitions while retaining their own presentation and configuration.</figcaption>
+</Figure>
 
-A real headless API means the product is addressable without a browser.
-That is what makes a small build look like a much bigger one.
+That was a substantial part of the work. The number of screens alone doesn't
+describe the combinations of products, jurisdictions, and broker access the
+platform needs to represent.
 
-## Multi-tenant was the real test
+## What was already in place
 
-A single-product demo for a single agency is not parity with a legacy
-policy admin system. The legacy moat is partly about how messy this
-industry actually is.
+The build started with Next.js and TypeScript, a typed API client, PostgreSQL,
+deployment, and observability. The component library already covered forms,
+tables, navigation, and dashboards, including focus states and dark-mode
+styles.
 
-So the build had to handle the real shape:
+The interface and API share one Next.js runtime. Business rules and access
+checks run on the server. TypeORM handles database access, while external
+services handle payments, address validation, and policy submission.
 
-- One agency with a small product set, their own branding, forms, and
-  workflows.
-- A larger MGA-style tenant managing **hundreds of brokers**, each with
-  different products, commissions, document templates, and quote flows.
-- Different jurisdictions and product variations under the same tenant.
-- Role-based access for tenant admins, broker admins, agents, and
-  policyholders.
-- Tenant-level configuration of branding, pricing, document content, and
-  payment routing.
+That existing work explains the short initial build. We could spend the time
+on quote rules, policy behavior, payment hooks, and tenant configuration.
 
-Almost none of that required new "platform" code. It required disciplined
-data modeling, a clean permission boundary, and product components that
-could be **configured rather than rewritten** per tenant. The design
-system and the headless API already assumed multiple consumers, so
-tenancy was just another axis of configuration.
+<Figure>
+  <picture>
+    <source media="(max-width: 640px)" srcset="/work/insurance-policy-platform/04-platform-architecture-mobile.svg" width={700} height={1490} />
+    <img src="/work/insurance-policy-platform/04-platform-architecture.svg" alt="Customer, broker, and admin experiences share a Next.js and TypeScript application. It connects through TypeORM to PostgreSQL and to external payment, address validation, and policy services." loading="lazy" width={1400} height={1070} />
+  </picture>
+  <figcaption>The interface and API share one Next.js runtime. Business rules and access checks live on the server.</figcaption>
+</Figure>
 
-Legacy systems in this space tend to grow tenant features as bolted-on
-per-customer branches. Treating tenancy as a first-class shape from day
-one is a different posture, and it was the part that made the parity
-claim defensible.
+## Recovering an accepted policy submission
 
-## What the seven-figure license is actually buying
+The external provider can accept a policy even if updating the customer record
+in our system fails. Retrying the whole process could create a second submission.
+The application keeps the accepted result and lets staff retry the local customer
+activation, linking the recovered record to the existing policy. If the result
+of a payment operation is uncertain, it requires review before another attempt.
 
-Once you watch a small team rebuild a category in a few weeks, you stop
-believing the price tag is about the software. The annual license is
-buying:
-
-- Switching cost.
-- Long-running integrations.
-- Vendor relationships.
-- Compliance familiarity.
-- Risk aversion at the buyer.
-- The absence of a credible alternative.
-
-Those are real, but they are **commercial moats, not technical ones**.
-They erode the moment a credible alternative exists that is materially
-better, materially cheaper, and materially faster to adopt.
-
-## Where this generalizes
-
-Insurance is not the only category that looks like this. Several
-industries — especially in **financial services** — share the same
-shape: long-lived workflows wrapped in older interfaces, high annual
-licenses defended by switching costs, heavy document and regulatory
-overhead, and a customer experience the incumbent has never solved.
-
-Brokerages, lenders, advisory platforms, claims, benefits administration,
-and several payments-adjacent categories routinely cost customers **about
-ten times** what the underlying software is worth to build today, and
-they routinely fail at the customer-facing experience.
-
-That is the opening I am interested in. Not a cheaper version of the
-legacy product, but a replacement that also fixes the experience that has
-been broken for a decade. A modern stack lets a small team do both at the
-same time, because the foundational work is no longer the schedule risk.
-
-## What this actually showed
-
-A few weeks to feature parity is the headline, but it is not the lesson.
-
-The parts of an enterprise build that used to be hard — design system,
-headless API, modern tenancy, AI-assisted implementation — are now
-**infrastructure**. Once you have invested in them once, they compound.
-Categories that looked untouchable become addressable by small, focused
-teams.
-
-This was the test of that idea. It held up.
+<Figure>
+  <picture>
+    <source media="(max-width: 640px)" srcset="/work/insurance-policy-platform/05-submission-recovery-mobile.svg" width={700} height={1540} />
+    <img src="/work/insurance-policy-platform/05-submission-recovery.svg" alt="An accepted external policy is retained while a failed local customer activation is retried. The recovered customer record links to the existing policy. Illustrative record shown." loading="lazy" width={1400} height={1020} />
+  </picture>
+  <figcaption>Recover the unfinished local update without repeating an accepted policy submission.</figcaption>
+</Figure>

@@ -497,6 +497,18 @@ html[data-theme-transitioning] *::after {
   text-wrap: pretty;
 }
 
+.prose video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.prose .prose-film-portrait {
+  width: min(100%, 420px);
+  justify-self: center;
+}
+
 @media (min-width: 720px) {
   .prose figure:has(> img:nth-of-type(2)):not(:has(> img:nth-of-type(3))) {
     grid-template-columns: repeat(2, 1fr);

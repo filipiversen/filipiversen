@@ -3,8 +3,9 @@ import type { Component } from "solid-js";
 export type ProjectFrontmatter = {
   title: string;
   description: string;
-  /** Used purely for ordering within the list. */
+  /** Shown as the project year; orders projects without an explicit position. */
   date: string;
+  order?: number;
   /** Optional human role line shown on the article header. */
   role?: string;
   /** Optional small status pill ("live" / "wip" / "ongoing" / etc). */
@@ -52,7 +53,9 @@ export const projects: Project[] = Object.entries(modules)
     } satisfies Project;
   })
   .filter((p) => !p.draft)
-  .sort((a, b) => (a.date < b.date ? 1 : -1));
+  .sort((a, b) =>
+    (a.order ?? Infinity) - (b.order ?? Infinity) || b.date.localeCompare(a.date),
+  );
 
 export function getProject(
   slug: string,

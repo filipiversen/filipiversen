@@ -11,7 +11,7 @@ export default function WritingIndex() {
   return (
     <PageShell>
       <Title>Writing — Filip Iversen</Title>
-      <Meta name="description" content="Notes, essays and small experiments." />
+      <Meta name="description" content="Notes on design, engineering, AI, and the work of building products." />
 
       <header class="mb-12">
         <h1
@@ -21,8 +21,8 @@ export default function WritingIndex() {
           Writing
         </h1>
         <p data-hero-step="2" class="text-pretty text-fg-muted">
-          {posts.length} {posts.length === 1 ? "post" : "posts"}, mostly
-          half-formed thoughts on web craft.
+          {posts.length} {posts.length === 1 ? "post" : "posts"} on design,
+          engineering, AI, and building products.
         </p>
       </header>
 

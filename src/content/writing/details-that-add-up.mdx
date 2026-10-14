@@ -2,7 +2,7 @@
 title: Details That Add Up
 description: A running list of small choices that make a UI feel sturdier.
 date: 2026-03-15
-tag: craft
+tag: design
 ---
 
 I keep a running file of these. None of them are clever individually; the
@@ -15,30 +15,27 @@ in place — a counter, a price, a date. Set `font-variant-numeric: tabular-nums
 (or use the Tailwind `tabular-nums` utility) on anything that updates and the
 shimmy disappears.
 
-## A border with a slight inset
+## A quiet border
 
-Cards and list rows look much sharper with a hairline border that lives
-_just_ inside the radius — `1px solid color-mix(in oklch, currentColor 12%, transparent)`
-is a good starting point. It keeps the edge crisp on dark mode without
-shouting.
+Cards and list rows often need only a faint edge.
+`border: 1px solid color-mix(in oklch, currentColor 12%, transparent)`
+is a useful starting point. Check it against the actual surface in both themes.
 
 ## Optical alignment of icons
 
-Round icons sit visually higher than square ones at the same height. A
-`-translate-y-px` on a circular icon next to a square one will make them feel
-aligned even though the bounding boxes are not.
+Icons with identical bounding boxes can still look misaligned. Check the
+shapes together and move one by a pixel if needed. The direction depends
+on the artwork; mathematical alignment is only a starting point.
 
 ## Easing curves that aren't `ease-in-out`
 
 `cubic-bezier(0.22, 1, 0.36, 1)` (a soft-out curve) feels more like a UI
-acknowledging an action and less like a Powerpoint transition. I reach for
-it for almost any 200–400ms hover or appear.
+acknowledging an action and less like a PowerPoint transition. I reach for
+it for short entrance transitions, usually around 200–400ms. Hover feedback
+can be quicker.
 
 ## Hairlines that respect dark mode
 
-A flat `#eee` border looks great on a white page and pitch-dark on a black
-one. Defining lines in `oklch` against a token (`var(--color-line)`) and
-swapping the token by theme means borders stay legible without becoming
-loud.
-
-That's enough for one post. More to come.
+A flat `#eee` border is subtle on a white page and harsh on a black one.
+Defining a line token (`var(--color-line)`) and changing its value by theme
+keeps borders legible without making them dominate the surface.

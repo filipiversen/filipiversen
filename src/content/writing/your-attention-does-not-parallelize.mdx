@@ -1,0 +1,42 @@
+---
+title: Your Attention Does Not Parallelize
+description: Running more agents only helps when you have time to review what they produce.
+date: 2026-07-06
+tag: operations
+---
+
+Starting an AI agent can take one sentence. Reviewing its work takes longer.
+
+The dashboards light up and branches multiply. Then the work comes back:
+merges, judgment calls, and changes that look plausible but need a closer
+read. They all compete for the same person’s attention.
+
+[Addy Osmani calls this the orchestration tax](https://addyosmani.com/blog/orchestration-tax/).
+His point is that agent output can grow faster than your capacity to review
+it. I think that’s a useful constraint to put at the start of an automation
+project.
+
+## Set a review budget
+
+How many decisions can the responsible person review well in a day? How
+much context does each decision require? An invoice exception and an
+architectural change consume very different amounts of attention.
+
+That budget helps decide which tasks can run independently, which should
+stay sequential, and which need the person involved from the beginning.
+The number of agents the tool can launch tells you very little about this.
+
+## Make the queue manageable
+
+I’d start with three habits:
+
+- Have the system run tests, schema checks, and evaluations before requesting
+  review. Show those results alongside the work.
+- Route decisions according to risk. An invoice workflow might process
+  routine matches within agreed limits and flag a price variance for review.
+- Collect related reviews into a queue so someone can work through them in
+  one sitting, with the relevant context close at hand.
+
+Measure completed, reviewed work alongside the backlog. If the queue keeps
+growing, reduce the incoming work or change what the system asks people to
+decide before adding another agent.
