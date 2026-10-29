@@ -7,7 +7,7 @@ const ProseLightbox = clientOnly(() => import("./islands/ProseLightbox"));
 
 type Props = {
   children: JSX.Element;
-  /** Expand `<main>` to the 1600px case-study canvas. Chrome stays on the prose column. */
+  /** Expand `<main>` to the 1100px case-study canvas. Chrome stays on the prose column. */
   wide?: boolean;
 };
 
