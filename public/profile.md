@@ -4,7 +4,7 @@
 
 Senior Product Designer
 
-I design software that helps people work through complicated processes without losing context. I work from the workflow through the interface and into frontend implementation, across lending, survey software, and shared design systems.
+I design and build software that makes complex work easier. AI is central to my process, from exploring ideas to writing and testing production code. I also design AI products, with a focus on how people work with agents, review their output, and stay in control.
 
 Last reviewed: 2026-10-29
 
@@ -14,19 +14,29 @@ Last reviewed: 2026-10-29
 
 ## Current focus
 
-I’m focused on running my design and engineering agency, [Northway](https://northway.agency/).
+I’m building [Northway](https://northway.agency/), a design and engineering agency helping founders and business owners launch products, build AI tools, and automate everyday work.
 
-I’m always open to conversations about interesting projects and new opportunities.
+I’m always open to interesting projects, collaborations, and new opportunities.
 
 ## Career
 
-I run my independent practice through Northway and co-founded Survey Loop. My US practice began in 2020, following independent work in Norway from 2014.
+I’ve worked in design since 2012, starting in graphic and web design in Norway and growing into product design and frontend engineering. Since then, I’ve built products for clients, co-founded Survey Loop, and designed software for financial institutions.
 
 - **Oct 2024–Oct 2026 — Senior Product Designer · [Lenders Cooperative / Allocore](https://www.filipiversen.com/projects/lenders-cooperative).** Commercial product design within a six-person design team; preceded by a Northway contract.
 
 - **Aug 2023–present — Co-founder · [Survey Loop](https://www.filipiversen.com/projects/survey-loop).** Product design and frontend engineering, alongside a backend partner.
 
-- **2020–present — Independent practice · [Northway](https://northway.agency/).** US practice, following independent work in Norway from 2014.
+- **Apr 2022–Aug 2023 — Product Designer · Denim Social.** Product design, a new design system, and frontend development for social media software used by financial institutions.
+
+- **2020–present — Founder · [Northway](https://northway.agency/).** Design & Engineering Agency. Product design, development, and AI integration for clients.
+
+- **2016–2021 — Chair, Graphic Design Certification Committee · Oslo kommune.**
+
+- **2014–2020 — Founder · Filip Iversen, Norway.** Websites and web applications for clients; the business that preceded Northway.
+
+- **2014 — Web Designer · Lemon.**
+
+- **2012–2014 — Graphic Designer · Amedia Ressurs.**
 
 ## Selected work
 
