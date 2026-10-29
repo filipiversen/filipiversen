@@ -2,7 +2,7 @@
 title: The Approval Fits in Your Pocket
 description: A small approval interface works when the summary, permissions, and default behavior are trustworthy.
 date: 2026-06-20
-tag: operations
+tag: design
 ---
 
 Some operational work takes a whole screen to prepare and only a moment
@@ -22,6 +22,18 @@ records should be close enough to inspect without hunting through another app.
 That can be a reasonable phone-sized task. An unfamiliar exception or a
 decision with broad consequences may need more room and more time. The
 interface should make it easy to move into a fuller review.
+
+## Keep the proposed change beside the work
+
+In [Eret](/projects/eret), an assistant can prepare changes to an estimate
+while its line items and financial summary remain visible. The person can
+refine the plan, approve the changes, or discard them. An approval applies
+to the proposed operation, within that person's permissions.
+
+That gives me a concrete starting point for a smaller screen: preserve the
+target, the change, and the path back to the underlying work. The invoice
+example above is a design example, not a claim that Eret has shipped that
+phone interface.
 
 ## What has to be true first
 

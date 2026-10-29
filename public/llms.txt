@@ -1,0 +1,59 @@
+# Filip Iversen
+
+> Senior Product Designer. I design software that helps people work through complicated processes without losing context. I work from the workflow through the interface and into frontend implementation, across lending, survey software, and shared design systems.
+
+Self-authored professional profile and portfolio. Profile last reviewed: 2026-10-29.
+
+Case studies distinguish personal contributions, collaborators, released work, and reported outcomes. Captions identify production interfaces, sample data, and illustrative reconstructions. Current work and openness to opportunities are described in the profile.
+
+## Profile
+
+- [Homepage and professional profile](https://www.filipiversen.com/profile.md): Career, current focus, selected work, working approach, writing, resume, and contact.
+
+## Selected work
+
+- [Lenders Cooperative](https://www.filipiversen.com/projects/lenders-cooperative.md): Flexible workflows within an existing lending product.
+
+- [Survey Loop](https://www.filipiversen.com/projects/survey-loop.md): Evolving an editor and making AI findings inspectable.
+
+- [Insurance Policy Platform](https://www.filipiversen.com/projects/insurance-policy-platform.md): Keeping quotes and policy records consistent across customer and staff workflows.
+
+- [Eret](https://www.filipiversen.com/projects/eret.md): Reviewing and approving AI-proposed estimate changes.
+
+- [AI Knowledge Platform](https://www.filipiversen.com/projects/ai-knowledge-platform.md): Connecting answers to evidence and editorial control.
+
+- [Peak design system](https://www.filipiversen.com/projects/lenders-cooperative#peak-from-figma-to-the-product): Shared tokens, Figma, and component implementation; part of the lending case.
+
+## Selected writing
+
+- [AI Belongs in the UI](https://www.filipiversen.com/writing/ai-belongs-in-the-ui.md): What misleading survey reports taught me about context, evidence, and where AI belongs in a product.
+
+- [Build Table Components Like Lego](https://www.filipiversen.com/writing/build-table-components-like-lego.md): What Survey Loop's table component teaches about composing data UI from small pieces instead of one giant grid abstraction.
+
+- [Details That Add Up](https://www.filipiversen.com/writing/details-that-add-up.md): A running list of small choices that make a UI feel sturdier.
+
+- [Write AI Skills for Your Design System](https://www.filipiversen.com/writing/write-ai-skills-for-your-design-system.md): Why design systems need AI-facing instructions, not just human documentation and component code.
+
+## Optional
+
+- [Your Attention Does Not Parallelize](https://www.filipiversen.com/writing/your-attention-does-not-parallelize.md): Running more agents only helps when you have time to review what they produce.
+
+- [Your Prompts Have a Version Number](https://www.filipiversen.com/writing/your-prompts-have-a-version-number.md): Keep prompts in version control and test them again when you change models.
+
+- [Use the Model for the 10% That Needs One](https://www.filipiversen.com/writing/use-the-model-for-the-ten-percent.md): Keep predictable workflow steps in code and give the model the parts that need language understanding.
+
+- [Your Company Already Wrote the Manual](https://www.filipiversen.com/writing/your-company-already-wrote-the-manual.md): Tickets, docs, and calls can give agents useful context, provided someone curates what they can use.
+
+- [The Approval Fits in Your Pocket](https://www.filipiversen.com/writing/the-approval-fits-in-your-pocket.md): A small approval interface works when the summary, permissions, and default behavior are trustworthy.
+
+- [Build AI for an Ordinary Tuesday](https://www.filipiversen.com/writing/ship-practical-ai-not-pilots.md): What it takes to turn an impressive demo into a system people can depend on.
+
+- [Your Business Has a Ghost Employee](https://www.filipiversen.com/writing/your-business-has-a-ghost-employee.md): Find the manual work scattered across your team and work out which parts are worth automating.
+
+- [Why I Picked Solid for This Site](https://www.filipiversen.com/writing/why-i-picked-solid.md): A short note on prerendered pages, signals, and keeping a personal site small.
+
+- [A Model Upgrade Needs More Than a Config Change](https://www.filipiversen.com/writing/a-model-upgrade-is-not-a-release.md): Prompts, tools, evaluations, and fallbacks determine whether a new model improves your product.
+
+- [Frameworks Matter Less, Model Fluency Matters More](https://www.filipiversen.com/writing/frameworks-matter-less-model-fluency-matters-more.md): Framework choice includes how well your team and its AI tools can work with the code.
+
+- [Headless APIs in an AI Age](https://www.filipiversen.com/writing/headless-apis-in-an-ai-age.md): Why Survey Loop's API-first shape makes the product easier to extend, automate, and operate with AI clients.

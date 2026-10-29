@@ -11,9 +11,7 @@ export default function SectionHeading(props: Props) {
       <h2 class="font-mono text-xs uppercase tracking-[0.12em] text-fg-faint">
         {props.children}
       </h2>
-      {props.aside ? (
-        <span class="font-mono text-xs text-fg-faint">{props.aside}</span>
-      ) : null}
+      <span class="font-mono text-xs text-fg-faint">{props.aside}</span>
     </div>
   );
 }

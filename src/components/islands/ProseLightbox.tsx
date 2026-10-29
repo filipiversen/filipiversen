@@ -1,180 +1,110 @@
 import { createEffect, createSignal, onCleanup, onMount, Show } from "solid-js";
 import { Portal } from "solid-js/web";
 
-type LightboxImage = {
-  src: string;
-  alt: string;
-};
+type LightboxImage = { src: string; alt: string };
 
-/**
- * Click-to-expand for markdown images inside `.prose`.
- *
- * Server-rendered `<img>` tags stay as plain HTML; this island attaches
- * listeners, opens a fullscreen dialog, and restores focus on close.
- */
 export default function ProseLightbox() {
   const [image, setImage] = createSignal<LightboxImage | null>(null);
-  const [visible, setVisible] = createSignal(false);
-  let closeBtn: HTMLButtonElement | undefined;
-  let restoreFocus: HTMLElement | null = null;
-  let exitTimer = 0;
+  const [zoomed, setZoomed] = createSignal(false);
+  const [naturalWidth, setNaturalWidth] = createSignal(0);
+  let dialog: HTMLDialogElement | undefined;
+  let closeButton: HTMLButtonElement | undefined;
+  let viewport: HTMLDivElement | undefined;
+  let restoreFocus: HTMLImageElement | null = null;
+  let previousOverflow = "";
 
   function captionFor(img: HTMLImageElement) {
-    if (img.alt.trim()) return img.alt;
-    return (
-      img.closest("figure")?.querySelector("figcaption")?.textContent?.trim() ??
-      ""
-    );
+    return img.alt.trim() || img.closest("figure")?.querySelector("figcaption")?.textContent?.trim() || "Product image";
   }
 
   function open(img: HTMLImageElement) {
     restoreFocus = img;
-    setImage({ src: img.currentSrc || img.src, alt: captionFor(img) });
+    previousOverflow = document.documentElement.style.overflow;
     document.documentElement.style.overflow = "hidden";
-    // Two frames so the dialog mounts closed, then transitions open.
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => setVisible(true));
-    });
+    setZoomed(false);
+    setNaturalWidth(0);
+    // Use the original image rather than a small responsive derivative.
+    setImage({ src: img.src, alt: captionFor(img) });
   }
 
   function close() {
-    if (!image()) return;
-    setVisible(false);
-    window.clearTimeout(exitTimer);
-    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    exitTimer = window.setTimeout(
-      () => {
-        setImage(null);
-        document.documentElement.style.overflow = "";
-        restoreFocus?.focus({ preventScroll: true });
-        restoreFocus = null;
-      },
-      reduced ? 0 : 180,
-    );
+    dialog?.close();
+    setImage(null);
+    document.documentElement.style.overflow = previousOverflow;
+    restoreFocus?.focus({ preventScroll: true });
+    restoreFocus = null;
   }
 
   createEffect(() => {
-    if (image() && visible()) closeBtn?.focus();
+    if (image() && dialog && !dialog.open) {
+      dialog.showModal();
+      closeButton?.focus();
+    }
   });
 
   onMount(() => {
-    const proseImages = () =>
-      document.querySelectorAll<HTMLImageElement>(".prose img");
-
     function enhance() {
-      for (const img of proseImages()) {
-        if (img.dataset.lightboxReady === "true") continue;
+      for (const img of document.querySelectorAll<HTMLImageElement>(".prose img")) {
+        if (img.dataset.lightboxReady) continue;
         img.dataset.lightboxReady = "true";
-        img.setAttribute("tabindex", "0");
+        img.tabIndex = 0;
         img.setAttribute("role", "button");
-        const caption = captionFor(img);
-        const label = caption
-          ? `View larger image: ${caption}`
-          : "View larger image";
-        img.setAttribute("aria-label", label);
+        img.setAttribute("aria-haspopup", "dialog");
+        img.setAttribute("aria-label", `Inspect image: ${captionFor(img)}`);
       }
     }
-
     enhance();
-
     const observer = new MutationObserver(enhance);
     observer.observe(document.body, { childList: true, subtree: true });
 
-    function onClick(e: MouseEvent) {
-      const target = e.target;
-      if (!(target instanceof HTMLImageElement)) return;
-      if (!target.closest(".prose")) return;
-      e.preventDefault();
-      open(target);
-    }
-
-    function onKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape" && image()) {
-        e.preventDefault();
-        close();
-        return;
+    function onClick(event: MouseEvent) {
+      const target = event.target;
+      if (target instanceof HTMLImageElement && target.closest(".prose")) {
+        event.preventDefault();
+        open(target);
       }
-
-      const target = e.target;
-      if (!(target instanceof HTMLImageElement)) return;
-      if (!target.closest(".prose")) return;
-      if (e.key !== "Enter" && e.key !== " ") return;
-      e.preventDefault();
+    }
+    function onKeyDown(event: KeyboardEvent) {
+      const target = event.target;
+      if (!(target instanceof HTMLImageElement) || !target.closest(".prose")) return;
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
       open(target);
     }
-
     document.addEventListener("click", onClick);
     document.addEventListener("keydown", onKeyDown);
-
     onCleanup(() => {
       observer.disconnect();
       document.removeEventListener("click", onClick);
       document.removeEventListener("keydown", onKeyDown);
-      window.clearTimeout(exitTimer);
-      document.documentElement.style.overflow = "";
+      if (image()) document.documentElement.style.overflow = previousOverflow;
     });
   });
 
   return (
-    <Show when={image()}>
-      {(img) => (
-        <Portal>
-          <div
-            class="lightbox"
-            data-open={visible() ? "" : undefined}
-            role="presentation"
-          >
-            <button
-              type="button"
-              class="lightbox-backdrop"
-              aria-label="Close image"
-              onClick={close}
-            />
-            <div
-              class="lightbox-dialog"
-              role="dialog"
-              aria-modal="true"
-              aria-label={img().alt || "Expanded image"}
-            >
-              <button
-                ref={closeBtn}
-                type="button"
-                class="lightbox-close"
-                aria-label="Close image"
-                onClick={close}
-              >
-                <CloseIcon />
-              </button>
-              <img
-                class="lightbox-image"
-                src={img().src}
-                alt={img().alt}
-                draggable={false}
-              />
-              <Show when={img().alt}>
-                <p class="lightbox-caption">{img().alt}</p>
-              </Show>
+    <Show when={image()}>{(img) => (
+      <Portal>
+        <dialog ref={dialog} class="lightbox" aria-label="Image viewer"
+          onCancel={(event) => { event.preventDefault(); close(); }}
+          onClick={(event) => { if (event.target === event.currentTarget) close(); }}>
+          <div class="lightbox-dialog">
+            <div class="lightbox-toolbar">
+              <button type="button" disabled={!naturalWidth()} aria-pressed={zoomed()} onClick={() => {
+                setZoomed(!zoomed());
+                if (viewport) { viewport.scrollTop = 0; viewport.scrollLeft = 0; }
+              }}>{zoomed() ? "Fit image" : "View at full size"}</button>
+              <a href={img().src} target="_blank" rel="noreferrer">Open original ↗</a>
+              <button ref={closeButton} type="button" aria-label="Close image" onClick={close}>Close <span aria-hidden="true">×</span></button>
             </div>
+            <div ref={viewport} class="lightbox-viewport" tabIndex={0} role="region" aria-label={zoomed() ? "Full-size image. Scroll to inspect details." : "Image preview"}>
+              <img class="lightbox-image" data-zoomed={zoomed() ? "" : undefined} src={img().src} alt={img().alt}
+                style={{ width: zoomed() ? `${naturalWidth()}px` : undefined }}
+                onLoad={(event) => setNaturalWidth(event.currentTarget.naturalWidth)} />
+            </div>
+            <p class="lightbox-caption">{zoomed() ? "Scroll to inspect details. " : ""}{img().alt}</p>
           </div>
-        </Portal>
-      )}
-    </Show>
-  );
-}
-
-function CloseIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.75"
-      stroke-linecap="round"
-      aria-hidden="true"
-    >
-      <path d="M6 6l12 12M18 6L6 18" />
-    </svg>
+        </dialog>
+      </Portal>
+    )}</Show>
   );
 }

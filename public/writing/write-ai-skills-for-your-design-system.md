@@ -1,0 +1,82 @@
+<!-- Generated from public portfolio content. -->
+
+# Write AI Skills for Your Design System
+
+By Filip Iversen
+
+[Canonical page](https://www.filipiversen.com/writing/write-ai-skills-for-your-design-system)
+
+Why design systems need AI-facing instructions, not just human documentation and component code.
+
+Published: 2026-03-15
+
+A design system records decisions about when to use a button variant, how dense a table should feel, which colors are allowed, how forms behave, and what accessibility details should never be skipped.
+
+Humans learn those rules by reading docs, reviewing PRs, and working inside the product. AI assistants need the same context, but they need it in a form they can reliably load while writing code.
+
+That is why design systems should have AI-facing skill files or rules.
+
+## Component code is not enough
+
+An AI model can inspect a component and infer its props. That does not mean it understands your design system.
+
+The `Table` component in Survey Loop is a good example. The source explains the API, but the design intent lives across several places:
+
+- The component implementation in `frontend/src/design-system/components/Table`.
+- The Storybook stories.
+- The CSS token usage.
+- The table usage rule in `frontend/.cursor/rules/design-system-component-table.mdc`.
+- The color enforcement rule that forbids standalone colors and Tailwind color utilities.
+- The broader design-system usage and development rules.
+
+The component tells an assistant what is possible. The rules tell it what is appropriate.
+
+Without design-system guidance, AI will often produce plausible React that looks locally fine but drifts from the product: raw colors, one-off spacing, incorrect imports, duplicated controls, custom tables, or inaccessible composition.
+
+## Write the missing judgment down
+
+Good AI-facing design-system files should answer the questions a reviewer would normally ask:
+
+- Where should components be imported from?
+- Which component should be used for this job?
+- Which variants are available?
+- What should never be mixed together?
+- Which tokens are required?
+- What accessibility props are expected?
+- What examples should the assistant copy?
+- What common mistakes should it avoid?
+
+Survey Loop's table rule does this well. It explains the purpose of the component, import shape, API, composition model, variants, interaction rules, accessibility requirements, token usage, examples, and do/don't guidance.
+
+That kind of file turns review feedback into reusable context.
+
+## Rules help AI preserve the system
+
+Design systems decay when every feature creates a slightly different solution. AI can accelerate that decay if it is only optimizing for "make the screen work."
+
+AI-facing rules push the assistant back toward the system:
+
+- Use design-system tokens instead of raw color values.
+- Compose existing components before creating new ones.
+- Prefer the established table structure over custom markup.
+- Keep responsive behavior aligned with component APIs.
+- Follow the repository's import conventions.
+
+The more specific the rule, the better. "Use our design system" is weak guidance. "Use `TableCell mobileLabel` when a table should become a mobile card" is useful guidance.
+
+## Treat AI docs like product infrastructure
+
+AI-facing guidance should live near the code and evolve with it.
+
+When a component gains a new prop, update the rule. When the design team changes token policy, update the rule. When reviewers keep correcting the same mistake, add that correction to the rule. When a component has a preferred composition pattern, include a small example.
+
+The goal is to capture the local decisions that generic training data will not know.
+
+For Survey Loop, that includes things like:
+
+- Tables use a grid/ARIA compound API for most app tables.
+- Colors should come from semantic design tokens.
+- Design-system components are re-exported through the local design-system entry point.
+- Public API calls and authenticated API calls follow different helper patterns.
+
+Those are project-specific facts. They should not be left for the model to guess.

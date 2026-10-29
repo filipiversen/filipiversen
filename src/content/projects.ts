@@ -1,10 +1,18 @@
-import type { Component } from "solid-js";
+import { lazy, type Component } from "solid-js";
 
 export type ProjectFrontmatter = {
   title: string;
   description: string;
+  focus: string;
+  contribution: string;
+  outcome: string;
+  evidence: string;
+  reviewed: string;
+  sections: Array<{ label: string; id: string }>;
   /** Shown as the project year; orders projects without an explicit position. */
   date: string;
+  /** Display a confirmed work period instead of the sorting date's year. */
+  period?: string;
   order?: number;
   /** Optional human role line shown on the article header. */
   role?: string;
@@ -31,19 +39,22 @@ export type ProjectModule = {
   frontmatter: ProjectFrontmatter;
 };
 
-const modules = import.meta.glob<ProjectModule>("./projects/*.mdx", {
+const metadata = import.meta.glob<ProjectFrontmatter>("./projects/*.mdx", {
   eager: true,
+  query: "?metadata",
+  import: "default",
 });
+
+const modules = import.meta.glob<ProjectModule>("./projects/*.mdx");
 
 function slugFromPath(path: string): string {
   const file = path.split("/").pop() ?? "";
   return file.replace(/\.mdx$/, "");
 }
 
-export const projects: Project[] = Object.entries(modules)
-  .map(([path, mod]) => {
+export const projects: Project[] = Object.entries(metadata)
+  .map(([path, fm]) => {
     const slug = slugFromPath(path);
-    const fm = mod.frontmatter;
     const date = new Date(fm.date);
     return {
       ...fm,
@@ -67,5 +78,5 @@ export function getProject(
   const [, mod] = entry;
   const meta = projects.find((p) => p.slug === slug);
   if (!meta) return undefined;
-  return { Component: mod.default, meta };
+  return { Component: lazy(mod), meta };
 }

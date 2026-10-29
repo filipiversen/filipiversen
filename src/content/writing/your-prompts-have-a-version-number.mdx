@@ -34,15 +34,12 @@ version control, with a record of the model and settings they were tested
 against. A model upgrade goes through [the same evaluation process](/writing/a-model-upgrade-is-not-a-release)
 as other changes to the system.
 
-The migration checklist is short:
+For Survey Loop, one of those instructions came from reports that made an
+isolated complaint sound common. The prompt now asks for recurring patterns
+and supporting response references. The [product problem behind that rule](/writing/ai-belongs-in-the-ui)
+is worth keeping with the instruction, so a later edit doesn't erase the
+reason it exists.
 
-1. Read the vendor’s notes for the model you’re moving to.
-2. Review existing workarounds and remove the ones that are no longer needed.
-3. Run the evaluation cases against the old and new configurations. Inspect
-   failures as well as the overall score.
-4. Release the model and prompt changes together, keeping the previous
-   versions available for rollback.
-
-Save the evaluation results with the change. The next person editing the
-prompt should be able to see why an instruction exists and what happened
-when you changed it.
+Save the evaluation results with a model or prompt change. The next person
+editing it should be able to see why an instruction exists and what happened
+when it changed.

@@ -37,20 +37,20 @@ export default function ProjectList(props: Props) {
                   "active:scale-[0.995]",
                 ].join(" ")}
               >
-                <span class="flex min-w-0 flex-1 flex-col items-baseline gap-y-0.5 md:flex-row md:gap-x-3">
+                <span class="flex min-w-0 flex-1 flex-col items-baseline gap-y-1">
                   <span
                     data-row-title
-                    class="font-medium md:shrink-0 md:whitespace-nowrap"
+                    class="font-medium"
                     style={`view-transition-name: project-title-${project.slug}`}
                   >
                     {project.title}
                   </span>
-                  <span class="text-sm text-fg-muted md:min-w-0 md:truncate">
-                    {project.description}
+                  <span class="text-pretty text-sm leading-relaxed text-fg-muted">
+                    {project.focus}
                   </span>
                 </span>
                 <span class="shrink-0 font-mono text-xs text-fg-faint tabular-nums">
-                  <span data-row-year>{project.year}</span>
+                  <span data-row-year>{project.period ?? project.year}</span>
                   {external ? (
                     <span
                       aria-hidden="true"

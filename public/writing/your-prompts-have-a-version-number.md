@@ -1,0 +1,50 @@
+<!-- Generated from public portfolio content. -->
+
+# Your Prompts Have a Version Number
+
+By Filip Iversen
+
+[Canonical page](https://www.filipiversen.com/writing/your-prompts-have-a-version-number)
+
+Keep prompts in version control and test them again when you change models.
+
+Published: 2026-07-04
+
+A prompt is written for a particular model, even when the file never
+mentions which one. Change the model and you may change what that prompt
+does.
+
+Anthropic’s [prompting guide](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices)
+includes model-specific guidance and migration advice. It’s worth reading
+that kind of documentation before carrying old prompts into a new release.
+
+## Old prompts carry old scar tissue
+
+Production prompts accumulate workarounds. An ALL-CAPS instruction the old
+model kept ignoring. A prefilled response to force a format. Three examples
+added after a specific failure in March.
+
+Those choices may have been useful at the time. They still need review when
+the model changes. A workaround can become redundant, conflict with a new
+instruction, or depend on an API feature the replacement model doesn’t support.
+
+Anthropic suggests a useful clarity check: ask a colleague with little
+context to follow the prompt. If they struggle to understand it, revise the
+instructions before adding more workarounds.
+
+## Keep the prompt with the code
+
+I treat prompts as maintained parts of the application. They belong in
+version control, with a record of the model and settings they were tested
+against. A model upgrade goes through [the same evaluation process](https://www.filipiversen.com/writing/a-model-upgrade-is-not-a-release)
+as other changes to the system.
+
+For Survey Loop, one of those instructions came from reports that made an
+isolated complaint sound common. The prompt now asks for recurring patterns
+and supporting response references. The [product problem behind that rule](https://www.filipiversen.com/writing/ai-belongs-in-the-ui)
+is worth keeping with the instruction, so a later edit doesn't erase the
+reason it exists.
+
+Save the evaluation results with a model or prompt change. The next person
+editing it should be able to see why an instruction exists and what happened
+when it changed.

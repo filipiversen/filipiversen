@@ -2,8 +2,20 @@
 title: AI Knowledge Platform
 description: Turning scattered PDFs and websites into answers people can check.
 date: 2026-06-10
-role: Strategy · AI Engineering
-status: shipped
+role: Product Design · Engineering
+status: live
+outcome: "A live platform for staff curation, cited answers, and a shared directory and map."
+focus: "Connecting answers to evidence and editorial control."
+contribution: "I owned design and engineering, from staff curation to public search and the directory."
+evidence: "The case follows a citation bug through its fix and explains how refreshes preserve editorial changes. Visuals are explanatory illustrations."
+reviewed: "2026-10-29"
+sections:
+  - label: Curation
+    id: from-a-document-to-an-answer
+  - label: Citations
+    id: fixing-the-citations
+  - label: Refresh
+    id: refreshing-sources-without-undoing-editorial-work
 ---
 
 A regional innovation network asked for better search. It connected
@@ -11,20 +23,27 @@ organizations, funding programs, and startups, but much of its information
 was hard to find. Resources lived in PDFs, partner websites, and program
 one-pagers.
 
-I worked on the product strategy and AI engineering. The initial proposal was
+I owned the design and engineering, from the staff review workflow to the
+public search and directory. The platform is live. The initial proposal was
 a search-and-filter plugin for the existing website. As we worked through the
 requirements, the scope grew to include importing external material, reviewing
 it, answering questions with source citations, and publishing a directory
 and map.
 
-The finished platform connects those tasks. Staff can add a PDF or a URL,
+The platform connects those tasks. Staff can add a PDF or a URL,
 review the extracted information, and publish it. Approved material becomes
 available to the search, while organization and program records also appear
 in the directory.
 
-<Figure>
-  <img src="/work/ai-knowledge-platform/how-it-works-1672.webp" alt="Workflow showing PDFs, websites, and curated records moving through extraction and organization, staff review, and publication into an approved library. The library branches into answers with citations using keyword and semantic search, and a directory and map of organizations and programs. Human approval controls public access, and scheduled refreshes preserve editorial work." loading="lazy" width={1672} height={941} srcset="/work/ai-knowledge-platform/how-it-works-640.webp 640w, /work/ai-knowledge-platform/how-it-works-1120.webp 1120w, /work/ai-knowledge-platform/how-it-works-1672.webp 1672w" sizes="(min-width: 1600px) 1536px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 48px)" />
-  <figcaption>Staff review and publish source material into a shared library. Approved content powers cited answers, while connected organization and program records populate the directory and map.</figcaption>
+<Figure class="process-overview">
+  <h3>Review before publishing</h3>
+  <ol>
+    <li><strong>Import.</strong> Add a PDF or website and extract its source material.</li>
+    <li><strong>Review.</strong> A curator checks the material and decides what becomes public.</li>
+    <li><strong>Publish.</strong> Approved evidence supports cited answers. Connected records appear in the directory and map.</li>
+    <li><strong>Refresh.</strong> Updated evidence waits for review; editorial titles and summaries stay intact.</li>
+  </ol>
+  <figcaption>A diagram of the editorial workflow, not a production interface.</figcaption>
 </Figure>
 
 ## From a document to an answer
@@ -57,14 +76,15 @@ An early version retrieved a relevant passage but cited the beginning of its
 document. The answer could look convincing while sending the reader to the
 wrong evidence.
 
-We traced the problem and corrected the citation handling to use the passage
+I traced the problem and corrected the citation handling to use the passage
 that matched the question, so the reader could check the answer against it.
 
 There also needed to be a path for questions the library couldn't answer. The
 system compares its strongest match against an adjustable threshold. Below
 that threshold, it returns a message explaining that it doesn't have a strong
-match. We calibrated that threshold against the embedding model's behavior on
-real queries.
+match. The threshold controls when the product declines to answer; it doesn't
+establish that every answer above it is correct. The reader still needs
+the citation to check the source.
 
 ## Keeping the directory connected
 
@@ -76,10 +96,7 @@ Staff approve an organization once. Its published record can then appear in
 the directory, on the map, and as context for the search. They maintain those
 records alongside the source material the answers draw from.
 
-<Figure>
-  <img src="/work/ai-knowledge-platform/one-record-two-views-1672.webp" alt="A directory card for Example Innovation Center is connected to a matching highlighted marker and label on a folded map. Both show the same organization and St. Louis region location, illustrating discovery by category or location." loading="lazy" width={1672} height={941} srcset="/work/ai-knowledge-platform/one-record-two-views-640.webp 640w, /work/ai-knowledge-platform/one-record-two-views-1120.webp 1120w, /work/ai-knowledge-platform/one-record-two-views-1672.webp 1672w" sizes="(min-width: 1600px) 1536px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 48px)" />
-  <figcaption>The directory and map use the same approved organization record. Illustrative record and schematic map shown.</figcaption>
-</Figure>
+
 
 ## Refreshing sources without undoing editorial work
 
@@ -97,3 +114,7 @@ that work after the next scheduled refresh.
   <img src="/work/ai-knowledge-platform/refresh-without-rework-1672.webp" alt="Updated source passages sit in front of approved evidence and are marked Awaiting review. Beside them, an editorial record preserves the curator’s title, summary, and Published status, each marked with a check." loading="lazy" width={1672} height={941} srcset="/work/ai-knowledge-platform/refresh-without-rework-640.webp 640w, /work/ai-knowledge-platform/refresh-without-rework-1120.webp 1120w, /work/ai-knowledge-platform/refresh-without-rework-1672.webp 1672w" sizes="(min-width: 1600px) 1536px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 48px)" />
   <figcaption>New source evidence waits for review while the curator’s title, summary, and publish status stay intact.</figcaption>
 </Figure>
+
+The shipped workflow lets staff review material before it becomes public,
+maintain one record for the directory and map, and approve refreshed evidence
+without losing their edits.

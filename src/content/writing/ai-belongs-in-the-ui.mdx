@@ -1,74 +1,59 @@
 ---
 title: AI Belongs in the UI
-description: Survey Loop shows how AI can surface insight inside existing workflows instead of forcing every user into chat.
+description: What misleading survey reports taught me about context, evidence, and where AI belongs in a product.
 date: 2026-03-15
+featured: 1
 tag: design
 ---
 
-Chat is a powerful interface when the user wants to explore. It is a poor default when the product already knows the job the user came to do.
+An early Survey Loop report could make one negative comment sound like a
+common complaint. It could also find feedback that wasn't there. The prose
+read well, which made the problem harder to spot.
 
-In Survey Loop, AI shows up as summaries, evidence, recommendations, and highlights inside the screens where people already work. The product has enough context to offer those directly.
+I worked on the reporting behavior and the interface around it. The useful
+question was whether a survey owner could understand a finding, check the
+responses behind it, and decide what to do next.
 
-## The product already has context
+## Start with the survey someone is looking at
 
-When someone opens a survey, the product knows a lot:
+When someone opens a survey, the product already knows the questions, ratings,
+and written answers they are reviewing. A summary can use that context
+without making the person start a conversation and explain which survey
+they mean.
 
-- Which survey they are viewing.
-- Which organization they are in.
-- How many responses exist.
-- Which responses are complete.
-- Which comments and ratings belong to which questions.
-- Whether the organization has the AI summary feature enabled.
+The survey detail page puts the summary beside the rest of the results.
+Loading, processing, and error states explain what is happening; the last
+updated time tells someone how current the report is. The dashboard can
+also summarize feedback across surveys, with a path into the individual
+results.
 
-A generic chat box would ask the user to re-create that context. A good UI can use it directly.
+Chat is useful when someone wants to explore or ask a follow-up. A summary
+panel gives the recurring question a place in the product.
 
-The survey detail page can fetch a summary report for the current survey. It shows an overview, strengths, concerns, recommended actions, and supporting evidence. Loading, processing, and error states tell the user what is happening, while freshness messaging makes it clear when the report was last updated.
+## A reference has to lead somewhere useful
 
-The user does not want to ask, "what are people saying?" every time. They want the answer to be there when they are making decisions.
+I refined the reporting prompts to favor recurring patterns, require
+supporting response references for strengths and concerns, and omit findings
+that lack support. The implementation filters out references to unknown
+response evidence and drops findings left without references.
 
-## Evidence beats vibes
+The interface connects a finding to the question and answer behind it, with
+an Open response link. That gives someone a way to disagree with the summary
+using the source material in front of them.
 
-Survey Loop's summary pipeline connects each finding to its evidence.
+There is a limit to what a citation proves. A response can be real and still
+be interpreted badly. Checking an ID prevents a broken reference; it doesn't
+prove the conclusion or establish how common a sentiment is. I haven't
+measured an accuracy improvement from these changes.
 
-The backend analysis provider asks the model to return structured JSON. Findings need supporting `evidenceId` references. The UI maps those references back to real survey responses, including question text, quoted text or answer value, and an "Open response" link.
+## Give the person somewhere to go next
 
-Users can trust summaries more when they can inspect the source. Engineers can reason about failures more easily when the model output has a schema. Support teams can explain the result because the UI keeps the chain of evidence visible.
+A useful report needs more than a paragraph that sounds finished. It needs
+the responses, a way to see when the summary was produced, and a clear state
+when generation fails. Those are interface decisions as much as reporting
+implementation.
 
-## AI can be a panel
-
-Survey Loop's dashboard also includes an organization summary panel. It rolls cached survey summaries into a compact card with:
-
-- Surveys included.
-- Last updated.
-- A plain-English answer.
-- Recent survey-level answers.
-- Strengths.
-- Opportunities.
-- Recommended actions.
-
-Someone scanning the dashboard can see what needs attention, then open a survey to inspect the detail. The summary fits the way they already use the product.
-
-## AI can be a button
-
-Admin activity summarization is another useful example. In the admin user activity list, an operator can summarize activity since the user's last login. The result is rendered as a banner with a paragraph summary, highlights, login time, event count, and confidence.
-
-One button saves the operator from reading through the entire activity log.
-
-Many valuable AI features are compression tools. They turn a long table, a noisy event log, or a pile of free-text responses into something a human can act on.
-
-## Why this used to be expensive
-
-Before LLMs, building this kind of feature often required a large engineering effort:
-
-- Custom classifiers.
-- Handwritten heuristics.
-- Analyst workflows.
-- Data science pipelines.
-- Separate reporting interfaces.
-- Lots of edge-case product copy.
-
-LLMs do not remove the engineering work, but they move the line. Survey Loop still needs backend normalization, feature flags, caching, structured output validation, evidence references, and thoughtful UI states. The difference is that the core language synthesis becomes achievable without building a bespoke NLP system for every screen.
-
-That lets product teams surface information that previously stayed buried.
-
-Sometimes the answer is chat. Often it is a panel, badge, button, card, highlight, or inline recommendation.
+The [Survey Loop case](/projects/survey-loop) shows how this fits with the
+editor and assistant. Someone can create a draft through an assistant,
+refine it in the editor, and later inspect a report against the answers.
+Each part uses the product context already available to it.
