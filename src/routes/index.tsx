@@ -25,24 +25,15 @@ export default function Home() {
           <a href={`mailto:${profile.email}`} class={LINK}>Email me</a>
           <a href={profile.resume} target="_blank" rel="noreferrer" class={LINK}>View resume (PDF)</a>
         </div>
-        <div class="mt-4 flex flex-wrap items-center gap-x-5 text-xs text-fg-faint">
-          <span>Last reviewed <time datetime={profile.reviewed}>{profile.reviewed}</time></span>
+        <div class="mt-4 text-xs text-fg-faint">
           <a href="/profile.md" target="_blank" rel="noreferrer" class={LINK}>View as Markdown</a>
         </div>
-        <nav aria-label="On this page" class="mt-3 flex flex-wrap gap-x-5 text-sm">
-          <a href="#current" class={LINK}>Current focus</a>
-          <a href="#career" class={LINK}>Career</a>
-          <a href="#projects" class={LINK}>Selected work</a>
-          <a href="#how-i-work" class={LINK}>How I work</a>
-          <a href="#writing" class={LINK}>Writing</a>
-          <a href="#contact" class={LINK}>Contact</a>
-        </nav>
       </header>
 
       <section id="current" class="mb-12 scroll-mt-8">
         <SectionHeading>Current focus</SectionHeading>
         <p class="text-pretty leading-relaxed text-fg-muted">
-          {profile.currentFocus}, <a href={profile.agency.href} class="underline decoration-line underline-offset-4 hover-hover:hover:decoration-fg">{profile.agency.name}</a>.
+          {profile.currentFocus} <a href={profile.agency.href} class="underline decoration-line underline-offset-4 hover-hover:hover:decoration-fg">{profile.agency.name}</a>, {profile.agency.description}.
         </p>
         <p class="mt-3 leading-relaxed text-fg-muted">{profile.opportunities}</p>
       </section>
@@ -55,7 +46,14 @@ export default function Home() {
           <For each={profile.career}>{(entry) => (
             <div>
               <dt>{entry.period}</dt>
-              <dd><a href={entry.href} class="underline decoration-line underline-offset-4">{entry.role} · {entry.organization}</a><span>{entry.detail}</span></dd>
+              <dd>
+                {entry.href ? (
+                  <a href={entry.href} class="underline decoration-line underline-offset-4">{entry.role} · {entry.organization}</a>
+                ) : (
+                  <>{entry.role} · {entry.organization}</>
+                )}
+                {entry.detail && <span>{entry.detail}</span>}
+              </dd>
             </div>
           )}</For>
         </dl>

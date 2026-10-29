@@ -1,6 +1,6 @@
 # Filip Iversen
 
-> Senior Product Designer. I design software that helps people work through complicated processes without losing context. I work from the workflow through the interface and into frontend implementation, across lending, survey software, and shared design systems.
+> Senior Product Designer. I design and build software that makes complex work easier. AI is central to my process, from exploring ideas to writing and testing production code. I also design AI products, with a focus on how people work with agents, review their output, and stay in control.
 
 Self-authored professional profile and portfolio. Profile last reviewed: 2026-10-29.
 
