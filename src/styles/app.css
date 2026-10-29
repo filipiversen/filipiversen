@@ -20,7 +20,7 @@
   --color-accent: oklch(58% 0.16 28);
 
   /* Case-study canvas — project images cap here. */
-  --container-case: 100rem;
+  --container-case: 1100px;
 
   /* Hairlines — auto-thin on retina via custom prop. */
   --hairline: 1px;
@@ -446,7 +446,7 @@ html[data-theme-transitioning] *::after {
 }
 
 /* Case-study prose: text stays on the reading column, figures span the
-   1600px canvas. Used on project pages only. */
+   1100px canvas. Used on project pages only. */
 .prose--wide {
   display: grid;
   grid-template-columns:
