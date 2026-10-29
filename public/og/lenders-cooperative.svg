@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<rect width="1200" height="630" fill="#faf9f6"/>
+<g font-family="Arial, Helvetica, sans-serif">
+<text x="64" y="92" font-size="30" fill="#1d1d22">fi.</text>
+<text x="64" y="208" font-size="20" letter-spacing="2" fill="#5a5962">SELECTED WORK · FILIP IVERSEN</text>
+<text x="60" y="304" font-size="68" font-weight="600" letter-spacing="-2" fill="#1d1d22">Lenders Cooperative</text>
+<text x="64" y="374" font-size="30" fill="#57565f">Giving lenders an application workspace without forcing every</text>
+<text x="64" y="416" font-size="30" fill="#57565f">loan through the same sequence.</text>
+<path d="M64 538H1136" stroke="#d8d6d3"/>
+<text x="64" y="584" font-size="22" fill="#57565f">filipiversen.com</text>
+<text x="1136" y="584" font-size="22" text-anchor="end" fill="#57565f">Case study</text>
+</g></svg>

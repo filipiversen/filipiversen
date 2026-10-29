@@ -2,14 +2,15 @@
 title: Build Table Components Like Lego
 description: What Survey Loop's table component teaches about composing data UI from small pieces instead of one giant grid abstraction.
 date: 2026-03-15
+featured: 2
 tag: design
 ---
 
-Every SaaS product eventually builds a table component. Then it keeps adding features until the table becomes a product inside the product.
+Our Survey Loop tables have to serve different screens without making every screen look or behave the same.
 
 Sorting and filtering arrive first. Then come sticky headers, expandable rows, bulk actions, action menus, responsive cards, empty states, saved views, search, and column visibility. Each addition brings interaction and keyboard behavior to consider.
 
-The usual mistake is to hide all of that inside one complex `DataTable` API. It feels convenient at first. Then every new screen needs one escape hatch, then another, then another.
+Putting every behavior behind one `DataTable` configuration would make each new screen depend on that abstraction. I wanted screens to have more control over their content.
 
 In Survey Loop, we split the table into pieces that each screen can compose.
 
@@ -26,9 +27,11 @@ The core `Table` in Survey Loop is not a native `<table>`. It is a grid wrapper 
 - `ExpandableTableRow`
 - `TableExpansionContent`
 
-That sounds more verbose than one `columns={[...]}` prop, but it gives the product more control. Each screen can decide what belongs in a cell: text, buttons, links, tags, dropdowns, checkboxes, or custom layouts.
+This is more verbose than one `columns={[...]}` prop. It gives each screen control over its content. Each screen can decide what belongs in a cell: text, buttons, links, tags, dropdowns, checkboxes, or custom layouts.
 
-The table component owns the shared mechanics. The screen owns the product content.
+The table component owns the shared mechanics. Each screen supplies its content.
+
+A grid with ARIA roles also takes on accessibility work that native HTML would otherwise provide. Roles alone don’t supply keyboard navigation. The [WAI-ARIA grid pattern](https://www.w3.org/WAI/ARIA/apg/patterns/grid/) describes those responsibilities. For a simple read-only table, I would start with native table markup; this article describes our implementation, not a blanket recommendation to replace it.
 
 ## Column layout uses CSS grid
 

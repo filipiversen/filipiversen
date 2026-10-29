@@ -1,151 +1,98 @@
-import { Title, Meta } from "@solidjs/meta";
-import { clientOnly } from "@solidjs/start";
+import { For } from "solid-js";
 import PageShell from "~/components/PageShell";
+import PageMeta from "~/components/PageMeta";
 import SectionHeading from "~/components/SectionHeading";
-import ProjectList from "~/components/ProjectList";
+import FeaturedWork from "~/components/FeaturedWork";
 import WritingList from "~/components/WritingList";
 import { profile } from "~/content/profile";
 import { projects } from "~/content/projects";
 import { posts } from "~/content/writing";
 
-const MagneticLinks = clientOnly(
-  () => import("~/components/islands/MagneticLink"),
-);
-
-const MAGNETIC_LINK =
-  "inline-block underline decoration-line underline-offset-[0.25em] transition-[text-decoration-color] hover-hover:hover:text-fg hover-hover:hover:decoration-fg";
+const LINK = "inline-flex min-h-11 items-center underline decoration-line underline-offset-4 hover-hover:hover:decoration-fg";
 
 export default function Home() {
-  const recent = posts.slice(0, 5);
+  const selectedWriting = posts.filter((post) => post.featured !== undefined)
+    .sort((a, b) => a.featured! - b.featured!);
 
   return (
     <PageShell>
-      <Title>{profile.name} — {profile.role}</Title>
-      <Meta name="description" content={profile.intro} />
+      <PageMeta title={`${profile.name} — ${profile.role}`} description={profile.intro} path="/" markdown="/profile.md" />
+      <header class="mb-12">
+        <h1 class="text-3xl font-semibold tracking-tight">{profile.name}</h1>
+        <p class="mt-2 text-lg text-fg-muted">{profile.role}</p>
+        <p class="mt-5 text-pretty leading-relaxed text-fg-muted">{profile.intro}</p>
+        <div class="mt-3 flex flex-wrap gap-x-6 text-sm">
+          <a href={`mailto:${profile.email}`} class={LINK}>Email me</a>
+          <a href={profile.resume} target="_blank" rel="noreferrer" class={LINK}>View resume (PDF)</a>
+        </div>
+        <div class="mt-4 flex flex-wrap items-center gap-x-5 text-xs text-fg-faint">
+          <span>Last reviewed <time datetime={profile.reviewed}>{profile.reviewed}</time></span>
+          <a href="/profile.md" target="_blank" rel="noreferrer" class={LINK}>View as Markdown</a>
+        </div>
+        <nav aria-label="On this page" class="mt-3 flex flex-wrap gap-x-5 text-sm">
+          <a href="#current" class={LINK}>Current focus</a>
+          <a href="#career" class={LINK}>Career</a>
+          <a href="#projects" class={LINK}>Selected work</a>
+          <a href="#how-i-work" class={LINK}>How I work</a>
+          <a href="#writing" class={LINK}>Writing</a>
+          <a href="#contact" class={LINK}>Contact</a>
+        </nav>
+      </header>
 
-      <section class="mb-16 md:mb-20">
-        <h1 class="mb-3 text-2xl font-semibold tracking-tight text-balance md:text-[1.75rem]">
-          <span data-hero-step="1" class="block">{profile.name}</span>
-          <span data-hero-step="2" class="mt-2 block text-lg text-fg-muted md:text-xl">
-            {profile.role}
-          </span>
-        </h1>
-        <p
-          data-hero-step="3"
-          class="mb-4 max-w-[34rem] text-pretty text-base leading-relaxed text-fg-muted md:text-[1.0625rem]"
-        >
-          I design and build web interfaces with a soft spot for getting
-          things shipped.
+      <section id="current" class="mb-12 scroll-mt-8">
+        <SectionHeading>Current focus</SectionHeading>
+        <p class="text-pretty leading-relaxed text-fg-muted">
+          {profile.currentFocus}, <a href={profile.agency.href} class="underline decoration-line underline-offset-4 hover-hover:hover:decoration-fg">{profile.agency.name}</a>.
         </p>
-        <p class="mb-4 max-w-[34rem] text-pretty text-base leading-relaxed text-fg-muted md:text-[1.0625rem]">
-          Most of my time goes to design and engineering at{" "}
-          <a
-            href={profile.companies[0].href}
-            target="_blank"
-            rel="noreferrer"
-            data-magnetic
-            class={MAGNETIC_LINK}
-          >
-            {profile.companies[0].name}
-          </a>
-          , where I work on software for commercial lending
-          in the US.
-        </p>
-        <p class="mb-4 max-w-[34rem] text-pretty text-base leading-relaxed text-fg-muted md:text-[1.0625rem]">
-          I also co-founded an AI-first feedback product called{" "}
-          <a
-            href={profile.companies[1].href}
-            target="_blank"
-            rel="noreferrer"
-            data-magnetic
-            class={MAGNETIC_LINK}
-          >
-            {profile.companies[1].name}
-          </a>{" "}
-          and work on other projects through{" "}
-          <a
-            href={profile.agency.href}
-            target="_blank"
-            rel="noreferrer"
-            data-magnetic
-            class={MAGNETIC_LINK}
-          >
-            {profile.agency.name}
-          </a>
-          .
-        </p>
-        <p
-          data-hero-step="4"
-          class="max-w-[34rem] text-pretty text-base leading-relaxed text-fg-muted md:text-[1.0625rem]"
-        >
-          You can reach me at{" "}
-          <a
-            href={`mailto:${profile.email}`}
-            data-magnetic
-            class={MAGNETIC_LINK}
-          >
-            email
-          </a>{" "}
-          or see some of my public work on{" "}
-          <a
-            href="https://github.com/filipiversen"
-            target="_blank"
-            rel="noreferrer"
-            data-magnetic
-            class={MAGNETIC_LINK}
-          >
-            GitHub
-          </a>
-          .
-        </p>
-        <MagneticLinks />
+        <p class="mt-3 leading-relaxed text-fg-muted">{profile.opportunities}</p>
       </section>
 
-      <section
-        id="projects"
-        data-hero-step="5"
-        class="mb-16 scroll-mt-12 md:mb-20"
-      >
-        <SectionHeading aside={`${projects.length} total`}>
-          Projects
-        </SectionHeading>
-        <ProjectList projects={projects} />
+      <section id="career" class="mb-12 scroll-mt-8">
+        <span id="about" class="block scroll-mt-8" />
+        <SectionHeading>Career</SectionHeading>
+        <p class="mb-5 text-pretty text-sm leading-relaxed text-fg-muted">{profile.background}</p>
+        <dl class="career-timeline">
+          <For each={profile.career}>{(entry) => (
+            <div>
+              <dt>{entry.period}</dt>
+              <dd><a href={entry.href} class="underline decoration-line underline-offset-4">{entry.role} · {entry.organization}</a><span>{entry.detail}</span></dd>
+            </div>
+          )}</For>
+        </dl>
       </section>
 
-      <section data-hero-step="6" class="mb-16 md:mb-20">
-        <SectionHeading
-          aside={
-            <a
-              href="/writing"
-              class="transition-colors hover-hover:hover:text-fg"
-            >
-              all →
-            </a>
-          }
-        >
-          Writing
-        </SectionHeading>
-        <WritingList posts={recent} stagger />
+      <section id="projects" class="mb-12 scroll-mt-8">
+        <span id="contributions" class="block scroll-mt-8" />
+        <SectionHeading>Selected work</SectionHeading>
+        <FeaturedWork projects={projects} />
+        <a href="/projects/lenders-cooperative#peak-from-figma-to-the-product" class={`${LINK} mt-5 text-sm`}>Peak: shared tokens, Figma, and component code →</a>
       </section>
 
-      <section data-hero-step="7">
-        <SectionHeading>Want to work with me?</SectionHeading>
-        <p class="mb-4 max-w-[34rem] text-pretty text-base leading-relaxed text-fg-muted md:text-[1.0625rem]">
-          I offer {profile.agency.description} through{" "}
-          <a
-            href={profile.agency.href}
-            target="_blank"
-            rel="noreferrer"
-            data-magnetic
-            class={MAGNETIC_LINK}
-          >
-            {profile.agency.name}
-          </a>
-          .
-        </p>
-        <p class="max-w-[34rem] text-pretty text-base leading-relaxed text-fg-muted md:text-[1.0625rem]">
-          Please reach out any time.
-        </p>
+      <section id="how-i-work" class="mb-12 scroll-mt-8">
+        <span id="approach" class="block scroll-mt-8" />
+        <SectionHeading>How I work</SectionHeading>
+        <div class="space-y-6">
+          <For each={profile.principles}>{(principle) => (
+            <div>
+              <h3 class="font-medium">{principle.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-fg-muted">{principle.description}</p>
+              <div class="flex flex-wrap gap-x-5 text-sm"><For each={principle.examples}>{(example) => <a href={example.href} class={LINK}>{example.label} →</a>}</For></div>
+            </div>
+          )}</For>
+        </div>
+      </section>
+
+      <section id="writing" class="mb-12 scroll-mt-8">
+        <SectionHeading aside={<a href="/writing" class="inline-flex min-h-11 items-center hover-hover:hover:text-fg">all writing →</a>}>Selected writing</SectionHeading>
+        <WritingList posts={selectedWriting} />
+      </section>
+
+      <section id="contact" class="scroll-mt-8">
+        <SectionHeading>Contact</SectionHeading>
+        <p class="text-pretty leading-relaxed text-fg-muted">Have a product or role you’d like to discuss? Tell me about the people using it and the work you want to improve.</p>
+        <p class="mt-3 text-sm text-fg-muted">{profile.location}</p>
+        <a href={`mailto:${profile.email}`} class={`${LINK} mt-3 break-all`}>{profile.email}</a>
+        <div class="flex flex-wrap gap-x-5 text-sm"><For each={profile.links.filter((link) => link.label !== "Email")}>{(link) => <a href={link.href} class={LINK}>{link.label} ↗</a>}</For></div>
       </section>
     </PageShell>
   );

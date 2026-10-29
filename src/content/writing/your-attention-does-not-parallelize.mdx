@@ -7,9 +7,13 @@ tag: operations
 
 Starting an AI agent can take one sentence. Reviewing its work takes longer.
 
-The dashboards light up and branches multiply. Then the work comes back:
-merges, judgment calls, and changes that look plausible but need a closer
-read. They all compete for the same person’s attention.
+At Survey Loop, a Sentry error or user-reported bug goes into a channel.
+We tag Cursor, it produces a tested pull request, and we review and merge.
+The handoff still needs a person to check what changed and whether it solves
+the reported problem.
+
+Adding more incoming work creates more of those reviews. A passing test run
+helps, but it doesn't decide whether the fix fits the product.
 
 [Addy Osmani calls this the orchestration tax](https://addyosmani.com/blog/orchestration-tax/).
 His point is that agent output can grow faster than your capacity to review

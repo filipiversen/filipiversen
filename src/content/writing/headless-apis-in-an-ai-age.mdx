@@ -5,7 +5,7 @@ date: 2026-03-15
 tag: engineering
 ---
 
-Every product eventually has more than one interface. There is the app people click through. There are admin tools, support workflows, integrations, imports, exports, internal scripts, and now AI agents that need to inspect or act on behalf of a user.
+Survey Loop has more than one interface. There is the app people click through. There are admin tools, support workflows, integrations, imports, exports, internal scripts, and now AI agents that need to inspect or act on behalf of a user.
 
 In Survey Loop, the frontend, public survey experience, API documentation, and MCP server all use the same backend contracts. That gives each client access to product behavior without having to reproduce it.
 
@@ -33,7 +33,7 @@ An OpenAPI specification gives an agent explicit operations and schemas to work 
 
 ## MCP turns the API into tools
 
-Survey Loop goes a step further with a standalone MCP server in `mcp-server`. It exposes a remote MCP endpoint, handles OAuth-style authorization, and forwards authenticated tool calls to the backend.
+Survey Loop also exposes defined product operations through MCP. Its server handles authenticated tool calls and forwards requests to the backend. The supported operations include creating and editing surveys, reading responses, and retrieving analytics.
 
 The MCP server reuses Survey Loop's user identity, backend bearer tokens, feature-flag checks, and OpenAPI-derived artifacts. It translates tool calls into requests to the existing product API.
 
@@ -42,7 +42,7 @@ That keeps the system easier to reason about:
 - Permissions stay attached to the backend.
 - Feature flags still decide who can use the surface.
 - Usage can be logged as MCP-originated traffic.
-- Tool coverage can be generated and verified against OpenAPI.
+- OpenAPI artifacts help describe the API, while the MCP registration defines which tools an assistant can call.
 
 AI clients can call defined operations with the same access checks as other clients.
 
@@ -58,7 +58,7 @@ That split keeps public experiences lightweight, makes permission boundaries exp
 
 AI clients can take several forms: chat experiences, background workers, support tools, reporting agents, or internal operations tools.
 
-If a product only works through the UI, every AI integration becomes screen scraping or browser driving. If the product has a stable headless API, AI can become another client.
+A stable headless API gives an AI integration a defined set of operations to call. It also lets a person open the result in the regular interface and continue working there.
 
 Agents can use the same durable business surface as the app:
 

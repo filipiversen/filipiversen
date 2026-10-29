@@ -15,11 +15,10 @@
   --color-bg-hover: color-mix(in oklab, var(--color-fg) 5%, transparent);
   --color-fg: oklch(18% 0.005 270);
   --color-fg-muted: oklch(45% 0.01 270);
-  --color-fg-faint: oklch(62% 0.012 270);
+  --color-fg-faint: oklch(54% 0.012 270);
   --color-line: oklch(90% 0.005 270);
   --color-accent: oklch(58% 0.16 28);
 
-  --container-prose: 65ch;
   /* Case-study canvas — project images cap here. */
   --container-case: 100rem;
 
@@ -50,7 +49,7 @@
     --color-bg-soft: oklch(19% 0.006 270);
     --color-fg: oklch(96% 0.005 90);
     --color-fg-muted: oklch(70% 0.01 270);
-    --color-fg-faint: oklch(52% 0.012 270);
+    --color-fg-faint: oklch(62% 0.012 270);
     --color-line: oklch(28% 0.008 270);
     --color-accent: oklch(72% 0.18 28);
 
@@ -227,15 +226,15 @@ html[data-theme-transitioning] *::after {
     opacity: 0;
     transform: translateY(8px);
     filter: blur(4px);
-    animation: hero-in 520ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    animation: hero-in 220ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
   }
   [data-hero-step="1"] { animation-delay: 0ms; }
-  [data-hero-step="2"] { animation-delay: 80ms; }
-  [data-hero-step="3"] { animation-delay: 160ms; }
-  [data-hero-step="4"] { animation-delay: 240ms; }
-  [data-hero-step="5"] { animation-delay: 320ms; }
-  [data-hero-step="6"] { animation-delay: 400ms; }
-  [data-hero-step="7"] { animation-delay: 480ms; }
+  [data-hero-step="2"] { animation-delay: 30ms; }
+  [data-hero-step="3"] { animation-delay: 60ms; }
+  [data-hero-step="4"] { animation-delay: 90ms; }
+  [data-hero-step="5"] { animation-delay: 120ms; }
+  [data-hero-step="6"] { animation-delay: 150ms; }
+  [data-hero-step="7"] { animation-delay: 180ms; }
 
   @keyframes hero-in {
     to {
@@ -250,8 +249,8 @@ html[data-theme-transitioning] *::after {
      (initial keyframe handles the from-state) so no-JS / reduced-motion /
      pre-hydration users see content immediately. */
   [data-stagger] > * {
-    animation: row-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
-    animation-delay: calc(var(--row-base, 320ms) + var(--i, 0) * 60ms);
+    animation: row-in 200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--row-base, 60ms) + var(--i, 0) * 25ms);
   }
   @keyframes row-in {
     from {
@@ -273,8 +272,8 @@ html[data-theme-transitioning] *::after {
     opacity: 0;
     transform: translateY(0.2em);
     filter: blur(4px);
-    animation: word-in 600ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-    animation-delay: calc(var(--i, 0) * 60ms);
+    animation: word-in 220ms cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    animation-delay: calc(var(--i, 0) * 20ms);
   }
   @keyframes word-in {
     to {
@@ -409,6 +408,10 @@ html[data-theme-transitioning] *::after {
   overflow-x: auto;
 }
 
+.prose :not(pre) > code {
+  overflow-wrap: anywhere;
+}
+
 .prose pre code {
   background: transparent;
   border: 0;
@@ -447,7 +450,7 @@ html[data-theme-transitioning] *::after {
 .prose--wide {
   display: grid;
   grid-template-columns:
-    minmax(0, 1fr) min(65ch, 100%) minmax(0, 1fr);
+    minmax(0, 1fr) min(38rem, 100%) minmax(0, 1fr);
 }
 
 .prose--wide > * {
@@ -540,148 +543,47 @@ html[data-theme="dark"] .prose img {
   outline-offset: 2px;
 }
 
-/* ----- Prose image lightbox ----- */
+/* Native modal supplies focus containment, Escape handling, and an inert background. */
 .lightbox {
   position: fixed;
   inset: 0;
-  z-index: 100;
-  display: grid;
-  place-items: center;
-  padding: 1.25rem;
-  pointer-events: none;
-}
-
-.lightbox[data-open] {
-  pointer-events: auto;
-}
-
-.lightbox-backdrop {
-  position: absolute;
-  inset: 0;
-  margin: 0;
-  border: 0;
+  width: min(96vw, 100rem);
+  max-width: none;
+  max-height: 94dvh;
+  margin: auto;
   padding: 0;
-  cursor: zoom-out;
-  background: color-mix(in oklab, var(--color-bg) 28%, transparent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  opacity: 0;
-  transition: opacity 220ms cubic-bezier(0.32, 0.72, 0, 1);
-  touch-action: manipulation;
-}
-
-.lightbox-dialog {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  max-width: min(96vw, 72rem);
-  max-height: min(92vh, 56rem);
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-  opacity: 0;
-  transform: scale(0.97);
-  transition:
-    opacity 220ms cubic-bezier(0.32, 0.72, 0, 1),
-    transform 220ms cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-.lightbox[data-open] .lightbox-backdrop,
-.lightbox[data-open] .lightbox-dialog {
-  opacity: 1;
-}
-
-.lightbox[data-open] .lightbox-dialog {
-  transform: scale(1);
-}
-
-.lightbox:not([data-open]) .lightbox-backdrop,
-.lightbox:not([data-open]) .lightbox-dialog {
-  transition-duration: 180ms;
-}
-
-.lightbox-image {
-  display: block;
-  max-width: 100%;
-  max-height: min(84vh, 52rem);
-  width: auto;
-  height: auto;
-  object-fit: contain;
+  border: 1px solid var(--color-line);
   border-radius: 10px;
-  outline: 1px solid rgba(0, 0, 0, 0.1);
-  outline-offset: -1px;
-  background: var(--color-bg);
-  box-shadow:
-    0 0 0 1px color-mix(in oklab, var(--color-fg) 6%, transparent),
-    0 24px 64px color-mix(in oklab, var(--color-fg) 18%, transparent);
-}
-
-html[data-theme="dark"] .lightbox-image {
-  outline-color: rgba(255, 255, 255, 0.1);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 24px 64px rgba(0, 0, 0, 0.55);
-}
-
-.lightbox-caption {
-  max-width: 40rem;
-  margin: 0;
-  padding: 0 2.5rem;
-  color: var(--color-fg-muted);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  line-height: 1.45;
-  text-align: center;
-  text-wrap: pretty;
-}
-
-.lightbox-close {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 2;
-  display: inline-flex;
-  height: 2.75rem;
-  width: 2.75rem;
-  align-items: center;
-  justify-content: center;
-  border: var(--hairline) solid var(--color-line);
-  border-radius: 999px;
-  background: color-mix(in oklab, var(--color-bg) 88%, transparent);
-  color: var(--color-fg-muted);
-  cursor: pointer;
-  touch-action: manipulation;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  transition:
-    color 150ms ease,
-    border-color 150ms ease,
-    transform 150ms ease;
-}
-
-.lightbox-close:hover {
   color: var(--color-fg);
-  border-color: var(--color-fg-muted);
+  background: var(--color-bg);
 }
-
-.lightbox-close:active {
-  transform: scale(0.96);
+.lightbox::backdrop { background: rgb(0 0 0 / 75%); }
+.lightbox-dialog { display: flex; flex-direction: column; max-height: 94dvh; }
+.lightbox-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--color-line);
+  font-size: 0.875rem;
 }
-
-.lightbox-close:focus-visible {
-  outline: 2px solid var(--color-fg);
-  outline-offset: 2px;
+.lightbox-toolbar button, .lightbox-toolbar a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 5px;
+  cursor: pointer;
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .lightbox-backdrop,
-  .lightbox-dialog {
-    transition: none;
-  }
-
-  .lightbox-dialog {
-    transform: none;
-  }
+.lightbox-toolbar button:disabled { color: var(--color-fg-faint); cursor: default; }
+.lightbox-viewport { min-height: 0; overflow: auto; overscroll-behavior: contain; }
+.lightbox-image { display: block; width: auto; height: auto; max-width: 100%; max-height: 70dvh; margin: auto; }
+.lightbox-image[data-zoomed] { max-width: none; max-height: none; margin: 0; }
+.lightbox-caption { margin: 0; padding: 0.75rem 1rem; color: var(--color-fg-muted); font-size: 0.8125rem; line-height: 1.5; }
+@media (hover: hover) and (pointer: fine) {
+  .lightbox-toolbar button:hover, .lightbox-toolbar a:hover { background: var(--color-bg-hover); }
 }
 
 /* Autolinked headings wrap their text in an <a>. Strip the underline. */
@@ -700,4 +602,81 @@ html[data-theme="dark"] .lightbox-image {
   .divider {
     box-shadow: 0 var(--hairline) 0 0 var(--color-line);
   }
+}
+
+/* A readable workflow explanation, kept distinct from product screenshots. */
+.prose figure.workflow-comparison {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 64rem;
+  width: 100%;
+  justify-self: center;
+}
+
+.workflow-comparison > section {
+  min-width: 0;
+  padding: 1.5rem;
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+}
+
+.prose .workflow-comparison h3 {
+  margin: 0 0 1.25rem;
+  font-size: 1.0625rem;
+}
+
+.prose .workflow-comparison ol {
+  display: grid;
+  gap: 1rem;
+  padding-left: 1.25rem;
+  font-size: 1rem;
+}
+
+@media (max-width: 640px) {
+  .prose figure.workflow-comparison {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Work previews retain the site's quiet editorial treatment. */
+.featured-work { display: grid; gap: 2rem; }
+.featured-project + .featured-project { border-top: 1px solid var(--color-line); padding-top: 1.5rem; }
+.project-summary { display: grid; align-items: start; gap: 1.5rem; }
+.project-preview-link { align-self: start; }
+.workflow-preview, .product-preview { border: 1px solid var(--color-line); border-radius: 8px; overflow: hidden; background: var(--color-bg-soft); }
+.workflow-preview { display: grid; gap: 1rem; padding: 1.5rem; }
+.preview-label { display: block; font: 0.6875rem var(--font-mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-fg-muted); }
+.preview-application { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; justify-content: space-between; padding: 1rem; border: 1px solid var(--color-line); border-radius: 5px; background: var(--color-bg); font-size: 0.875rem; }
+.preview-tasks { display: grid; justify-items: start; gap: 0.5rem; font-size: 0.875rem; }
+.preview-tasks span:not([aria-hidden]) { border: 1px solid var(--color-line); border-radius: 4px; padding: 0.5rem 0.75rem; background: var(--color-bg); }
+.product-preview img { display: block; width: 100%; height: auto; }
+.product-preview .preview-label { padding: 0.75rem 1rem; }
+.career-timeline { display: grid; gap: 1.25rem; font-size: 0.875rem; line-height: 1.6; }
+.career-timeline > div { display: grid; gap: 0.25rem; }
+.career-timeline dt { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-fg-faint); }
+.career-timeline dd span { display: block; color: var(--color-fg-muted); }
+.case-facts { display: grid; gap: 1rem; font-size: 0.875rem; line-height: 1.6; }
+.case-facts dt { margin-bottom: 0.125rem; font-weight: 500; }
+.case-facts dd { color: var(--color-fg-muted); text-wrap: pretty; }
+@media (min-width: 640px) {
+  .career-timeline > div { grid-template-columns: 8rem 1fr; gap: 1rem; }
+}
+.prose figure.process-overview, .prose figure.evidence-example { width: 100%; max-width: 64rem; justify-self: center; padding: 1.5rem; border: 1px solid var(--color-line); border-radius: 8px; }
+.prose .process-overview h3, .prose .evidence-example h3 { margin: 0 0 1rem; }
+.prose .process-overview ol, .prose .evidence-example ol { display: grid; gap: 1rem; }
+.prose .evidence-example p + h3 { margin-top: 1.5rem; }
+.prose .evidence-example p + p { margin-top: 0.75rem; }
+@media (min-width: 720px) { .prose figure.evidence-example { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+:where(a, button, summary, [tabindex]):focus-visible { outline: 2px solid var(--color-fg); outline-offset: 4px; }
+#main:focus { outline: none; }
+.skip-link { position: fixed; top: 0.5rem; left: 0.5rem; z-index: 200; padding: 0.75rem 1rem; background: var(--color-bg); border: 1px solid var(--color-fg); transform: translateY(-200%); }
+.skip-link:focus { transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
+
+@media (min-width: 640px) {
+  .project-summary:has(.project-preview-link) { grid-template-columns: minmax(0, 1fr) 14rem; }
+  .workflow-preview { padding: 1rem; gap: 0.75rem; }
 }

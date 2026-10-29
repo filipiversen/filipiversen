@@ -1,26 +1,47 @@
 ---
 title: Insurance Policy Platform
-description: From quote to policy in one insurance platform.
+description: Keeping coverage choices, payment, and policy records consistent across customer and staff workflows.
 date: 2026-04-15
 order: 3
-role: Strategy · Design · Engineering
-status: built
+role: Product Design · Frontend
+status: live
+outcome: "A live replacement for quoting, policy submission, and CRM. Claims stayed outside the scope."
+focus: "Keeping quotes and policy records consistent across customer and staff workflows."
+contribution: "I owned product design and frontend engineering, working with a backend partner."
+evidence: "Quote and recovery workflows are shown as labeled illustrations with fictional data."
+reviewed: "2026-10-29"
+sections:
+  - label: Quote flow
+    id: following-a-quote-through-the-product
+  - label: Recovery
+    id: recovering-an-accepted-policy-submission
+  - label: Foundations
+    id: shared-foundations
 ---
 
-An insurance company reported seven-figure annual software spend. The proposal for a platform it could own
-estimated a five-figure annual replacement cost, including the build. That
-was a projection, rather than a measured operating cost.
+A customer can change their coverage at checkout. That choice needs to
+follow through to payment, the saved quote, and the record staff use to
+submit the policy. If those views disagree, someone has to work out which
+one is right.
 
-I worked across strategy, design, and engineering on an insurance policy
-platform. The build covered the workflow from a customer's quote through
-payment and policy documents, along with the tools for administering policies
-and configuring broker access.
+I owned the product design and frontend for an insurance platform built
+with a backend partner through Northway. It replaced third-party quoting,
+policy submission, and CRM software. Claims remained outside the replacement.
+The platform is in production; the initial release took a few weeks, and
+we continue to improve it weekly.
 
-We used a legacy policy-administration product as a reference for the scope.
-The initial build took a few weeks, using a stack and a component library that
-were already in place. Most of that time went into the insurance behavior:
-rating, eligibility, policy state, documents, and the relationships between
-agencies and brokers.
+<Figure>
+  <picture>
+    <source media="(max-width: 640px)" srcset="/work/insurance-policy-platform/02-connected-quote-mobile.svg" width={700} height={2610} />
+    <img src="/work/insurance-policy-platform/02-connected-quote.svg" alt="Three illustrative screens follow the same quote from coverage selection through payment review to an accepted submission in the admin interface. Interfaces and rates are fictional." loading="lazy" width={1400} height={930} />
+  </picture>
+  <figcaption>Coverage selection stays connected to checkout and the saved quote. Interfaces and rates are illustrative.</figcaption>
+</Figure>
+
+The work connected customer, broker, and internal workflows. We started
+with an existing stack and component library, so much of the effort went
+into the insurance behavior and making each state understandable to the
+person who needed to act on it.
 
 ## Following a quote through the product
 
@@ -41,13 +62,7 @@ Customers can change their coverage at checkout, and that choice updates the
 saved quote. The payment must use the same selection that staff see in the
 admin record.
 
-<Figure>
-  <picture>
-    <source media="(max-width: 640px)" srcset="/work/insurance-policy-platform/02-connected-quote-mobile.svg" width={700} height={2610} />
-    <img src="/work/insurance-policy-platform/02-connected-quote.svg" alt="Three illustrative screens follow the same quote from coverage selection through payment review to an accepted submission in the admin interface. Interfaces and rates are fictional." loading="lazy" width={1400} height={930} />
-  </picture>
-  <figcaption>Coverage selection stays connected to checkout and the saved quote. Interfaces and rates are illustrative.</figcaption>
-</Figure>
+
 
 ## Configuring agencies and brokers
 
@@ -63,39 +78,11 @@ Reusable quote templates have separate partner assignments. The same template
 can serve multiple partners while each keeps its own branding, links, and
 default flow. Agent links inherit their partner's configuration.
 
-<Figure>
-  <picture>
-    <source media="(max-width: 640px)" srcset="/work/insurance-policy-platform/03-partner-configuration-mobile.svg" width={700} height={1490} />
-    <img src="/work/insurance-policy-platform/03-partner-configuration.svg" alt="One shared quote template feeds two fictional partner experiences, each with its own branding, links, and settings." loading="lazy" width={1400} height={1030} />
-  </picture>
-  <figcaption>Partners share template definitions while retaining their own presentation and configuration.</figcaption>
-</Figure>
+
 
 That was a substantial part of the work. The number of screens alone doesn't
 describe the combinations of products, jurisdictions, and broker access the
 platform needs to represent.
-
-## What was already in place
-
-The build started with Next.js and TypeScript, a typed API client, PostgreSQL,
-deployment, and observability. The component library already covered forms,
-tables, navigation, and dashboards, including focus states and dark-mode
-styles.
-
-The interface and API share one Next.js runtime. Business rules and access
-checks run on the server. TypeORM handles database access, while external
-services handle payments, address validation, and policy submission.
-
-That existing work explains the short initial build. We could spend the time
-on quote rules, policy behavior, payment hooks, and tenant configuration.
-
-<Figure>
-  <picture>
-    <source media="(max-width: 640px)" srcset="/work/insurance-policy-platform/04-platform-architecture-mobile.svg" width={700} height={1490} />
-    <img src="/work/insurance-policy-platform/04-platform-architecture.svg" alt="Customer, broker, and admin experiences share a Next.js and TypeScript application. It connects through TypeORM to PostgreSQL and to external payment, address validation, and policy services." loading="lazy" width={1400} height={1070} />
-  </picture>
-  <figcaption>The interface and API share one Next.js runtime. Business rules and access checks live on the server.</figcaption>
-</Figure>
 
 ## Recovering an accepted policy submission
 
@@ -112,3 +99,18 @@ of a payment operation is uncertain, it requires review before another attempt.
   </picture>
   <figcaption>Recover the unfinished local update without repeating an accepted policy submission.</figcaption>
 </Figure>
+
+## Shared foundations
+
+The build started with Next.js and TypeScript, a typed API client, PostgreSQL,
+deployment, and observability. The component library already covered forms,
+tables, navigation, and dashboards, including focus states and dark-mode
+styles.
+
+The interface and API share one Next.js runtime. Business rules and access
+checks run on the server. TypeORM handles database access, while external
+services handle payments, address validation, and policy submission.
+
+Reusing those foundations let us spend the initial release on quote rules,
+policy behavior, payment hooks, and tenant configuration. My work covered
+the interface and product experience, with a backend partner on the platform.

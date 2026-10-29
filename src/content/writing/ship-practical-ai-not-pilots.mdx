@@ -27,6 +27,17 @@ thought to put in the presentation.
 It’s easy to leave these out of an early demo. They still need answers
 before people depend on the system.
 
+## Keep a failed step recoverable
+
+The [insurance platform](/projects/insurance-policy-platform) has a useful
+example, even though the recovery itself doesn't need AI. An external
+provider can accept a policy while a later local update fails. Staff need
+to finish that update without submitting the policy again.
+
+That is the kind of behavior I want to see in a production review: what
+succeeded, what remains unfinished, and what the person can safely retry.
+The same questions apply when a model is involved in preparing the work.
+
 ## Build for the ordinary day
 
 I want the system to survive an ordinary Tuesday: the inputs are messy,

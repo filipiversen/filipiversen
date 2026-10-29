@@ -1,17 +1,17 @@
 import { For } from "solid-js";
-import { Title, Meta } from "@solidjs/meta";
+import PageMeta from "~/components/PageMeta";
 import PageShell from "~/components/PageShell";
 import SectionHeading from "~/components/SectionHeading";
 import WritingList from "~/components/WritingList";
 import { postsByYear, posts } from "~/content/writing";
 
 export default function WritingIndex() {
-  const grouped = postsByYear();
+  const selected = posts.filter((post) => post.featured !== undefined).sort((a, b) => a.featured! - b.featured!);
+  const grouped = postsByYear(posts.filter((post) => post.featured === undefined));
 
   return (
     <PageShell>
-      <Title>Writing — Filip Iversen</Title>
-      <Meta name="description" content="Notes on design, engineering, AI, and the work of building products." />
+      <PageMeta title="Writing — Filip Iversen" description="Notes on design, engineering, AI, and the work of building products." path="/writing" />
 
       <header class="mb-12">
         <h1
@@ -26,6 +26,8 @@ export default function WritingIndex() {
         </p>
       </header>
 
+      <section class="mb-12"><SectionHeading>Start here</SectionHeading><WritingList posts={selected} showYear /></section>
+      <h2 class="mb-6 text-lg font-medium">More writing</h2>
       <For each={grouped}>
         {(group, gi) => (
           <section
@@ -33,7 +35,7 @@ export default function WritingIndex() {
             data-hero-step={String(3 + gi())}
           >
             <SectionHeading>{group.year.toString()}</SectionHeading>
-            <WritingList posts={group.items} stagger />
+            <WritingList posts={group.items} />
           </section>
         )}
       </For>

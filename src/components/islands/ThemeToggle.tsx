@@ -75,7 +75,7 @@ export default function ThemeToggle() {
       root.classList.add("theme-spotlight");
       const t = doc.startViewTransition(update);
       t.finished.finally(cleanup);
-    } else if (typeof doc.startViewTransition === "function") {
+    } else if (!reduced && typeof doc.startViewTransition === "function") {
       const t = doc.startViewTransition(update);
       t.finished.finally(cleanup);
     } else {
@@ -99,13 +99,13 @@ export default function ThemeToggle() {
       aria-label={nextLabel()}
       title={nextLabel()}
       class={[
-        "relative inline-flex h-7 w-7 items-center justify-center rounded-full",
+        "relative ml-2 inline-flex h-7 w-7 items-center justify-center rounded-full",
         "border border-line text-fg-muted",
         "transition-[transform,color,border-color] duration-150 ease-out",
         "hover-hover:hover:border-fg-muted hover-hover:hover:text-fg",
         "active:scale-[0.96]",
-        // 40x40 hit area extension
-        "after:absolute after:inset-[-6px] after:content-['']",
+        // 44x44 hit area extension
+        "after:absolute after:inset-[-8px] after:content-['']",
       ].join(" ")}
     >
       {/* Cross-fade pattern: both icons stay in DOM, layered. The "active"

@@ -1,0 +1,74 @@
+<!-- Generated from public portfolio content. -->
+
+# Headless APIs in an AI Age
+
+By Filip Iversen
+
+[Canonical page](https://www.filipiversen.com/writing/headless-apis-in-an-ai-age)
+
+Why Survey Loop's API-first shape makes the product easier to extend, automate, and operate with AI clients.
+
+Published: 2026-03-15
+
+Survey Loop has more than one interface. There is the app people click through. There are admin tools, support workflows, integrations, imports, exports, internal scripts, and now AI agents that need to inspect or act on behalf of a user.
+
+In Survey Loop, the frontend, public survey experience, API documentation, and MCP server all use the same backend contracts. That gives each client access to product behavior without having to reproduce it.
+
+## The API is the product surface
+
+The backend uses Express, but the interesting part is the route shape. Routers define path maps, and `createRouter` turns those maps into Express routes. Path params, query values, request body fields, auth context, current user, headers, and raw upload bodies are normalized into a single handler payload.
+
+Feature code can focus on product behavior, and the same API can serve different clients:
+
+- The Next.js app calls backend routes through the `/api/...` proxy.
+- Public respondent flows use unauthenticated survey endpoints with public roles.
+- Admin and platform routes use stricter permissions.
+- API docs and Bruno collections expose the contract to humans.
+- The MCP server forwards tool calls to the same backend API.
+
+"Headless" means product behavior is addressable without a browser.
+
+## OpenAPI makes the contract legible
+
+Survey Loop keeps OpenAPI specs in `backend/SurveyLoopApiDocs/SurveyLoopOpenApi.yaml` and mirrors static API docs under `api-docs`. That gives humans a readable map of the system: users, organizations, surveys, public survey responses, analytics, files, and more.
+
+The practical win is discoverability. A new engineer, customer integration, or AI tool does not need to reverse-engineer frontend components to understand what the product can do. The API has its own vocabulary.
+
+An OpenAPI specification gives an agent explicit operations and schemas to work with. Its calls still need validation and permission checks, but the contract is easier to inspect than behavior buried in UI click handlers.
+
+## MCP turns the API into tools
+
+Survey Loop also exposes defined product operations through MCP. Its server handles authenticated tool calls and forwards requests to the backend. The supported operations include creating and editing surveys, reading responses, and retrieving analytics.
+
+The MCP server reuses Survey Loop's user identity, backend bearer tokens, feature-flag checks, and OpenAPI-derived artifacts. It translates tool calls into requests to the existing product API.
+
+That keeps the system easier to reason about:
+
+- Permissions stay attached to the backend.
+- Feature flags still decide who can use the surface.
+- Usage can be logged as MCP-originated traffic.
+- OpenAPI artifacts help describe the API, while the MCP registration defines which tools an assistant can call.
+
+AI clients can call defined operations with the same access checks as other clients.
+
+## Public and authenticated surfaces can coexist
+
+Headless APIs should not mean one giant authenticated API. Respondents filling out a public survey are not the same kind of actor as an organization admin managing surveys.
+
+The repo treats those as different surfaces. Public survey routes can find and submit survey responses without carrying app credentials. Authenticated dashboard routes use bearer tokens and the frontend API helpers. Admin and platform routes sit behind higher permission checks.
+
+That split keeps public experiences lightweight, makes permission boundaries explicit, and avoids leaking admin assumptions into respondent flows.
+
+## Why this matters for AI
+
+AI clients can take several forms: chat experiences, background workers, support tools, reporting agents, or internal operations tools.
+
+A stable headless API gives an AI integration a defined set of operations to call. It also lets a person open the result in the regular interface and continue working there.
+
+Agents can use the same durable business surface as the app:
+
+- Read survey data.
+- Summarize activity.
+- Inspect organization health.
+- Generate reports.
+- Create or update resources when permissions allow.

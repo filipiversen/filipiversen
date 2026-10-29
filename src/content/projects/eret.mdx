@@ -2,24 +2,41 @@
 title: Eret
 description: Keeping a contractor's estimates, jobs, and payments connected.
 date: 2026-08-10
-role: Founder · Product · Design · Engineering
-status: beta preparation
+role: Founder · Product Design · Engineering
+status: live
 url: https://eret.ai
+outcome: "A live contractor platform connecting leads, estimates, proposals, jobs, and billing, with review and approval for assistant-proposed changes."
+focus: "Reviewing and approving AI-proposed estimate changes."
+contribution: "As founder, I own product design and engineering."
+evidence: "A real estimate screen accompanies the account of review, approval boundaries, and end-to-end workflow testing."
+reviewed: "2026-10-29"
+sections:
+  - label: Connected work
+    id: carrying-the-information-through-the-job
+  - label: AI review
+    id: reviewing-an-assistants-changes
+  - label: Validation
+    id: testing-a-complete-job
 ---
 
 A contractor can spend the whole day building someone else's project, then
 spend the evening reconstructing their own business from texts, spreadsheets,
 receipts, and half-finished notes.
 
-That's the problem I'm building Eret around. As founder, I work across product,
-design, and engineering. Eret connects leads, estimates, proposals, jobs, and
+That's the problem I built Eret around. As founder, I owned the product's
+design and engineering. Eret connects leads, estimates, proposals, jobs, and
 billing for contractors with between one and 50 employees. It also lets AI
 assistants help with the work, with permissions and approvals built into the
 operations they can use.
 
-The product is in pre-production beta preparation. The central workflow is
-implemented and tested; getting it ready to hold a contractor's business
-records is still work in progress.
+Eret is live. This case follows two connected design problems: carrying
+information from an estimate into a job, and letting someone review an
+assistant's proposed changes without losing sight of the estimate.
+
+<Figure>
+  <img src="/devices/macbook-screen.webp" alt="Eret estimate with line-item costs, a financial summary, and the assistant panel open" width={1920} height={1084} loading="lazy" />
+  <figcaption>The estimate stays in view. The assistant names the estimate it is following, while line items and the financial summary remain beside it.</figcaption>
+</Figure>
 
 ## Carrying the information through the job
 
@@ -33,8 +50,7 @@ into a job. Materials move into purchasing, vendor bills update project costs,
 and completed work flows into invoices and payments. Each stage keeps its
 connection to the customer, scope, and financial record.
 
-We mapped that journey across 22 product areas before building the production
-system. Then we built it in complete working slices: identity and organization
+I mapped the journey before building it in complete working slices: identity and organization
 boundaries, sales intake, estimates, proposals, jobs, and the financial work
 that follows.
 
@@ -43,28 +59,15 @@ use catalog items and assemblies, include waste percentages and allowances,
 and present the customer with different options. The quantities, costs, and
 customer-facing scope need to agree when that estimate becomes a proposal.
 
-<Figure>
-  <img src="/writing/eret/eret2.png" alt="Eret catalog editor with reusable window options, costs, and a default selection" loading="lazy" />
-  <figcaption>A reusable catalog item holds the window options and their costs. As the editor explains, the estimate takes a snapshot of the item when it is added.</figcaption>
-</Figure>
-
-Eret runs as a TypeScript modular monolith, with a Fastify API, a Next.js web
-app, background workers, and PostgreSQL. Keeping the business rules together
-lets us follow a customer action from the interface through the API and into
-the database, including changes that touch several stages of a job.
-
 ## Reviewing an assistant's changes
 
 An assistant can inspect an estimate, identify questionable or missing lines,
 and prepare a revision plan. The person working on the estimate can refine
 that plan, approve the changes, or discard them.
 
-<Figure>
-  <img src="/devices/macbook-screen.webp" alt="Eret estimate with line-item costs, a financial summary, and the assistant panel open" loading="lazy" />
-  <figcaption>The estimate stays in view. The assistant names the estimate it is following, while line items and the financial summary remain beside it.</figcaption>
-</Figure>
 
-We use the same registered operations for the interface and assistants. Each
+
+I use the same registered operations for the interface and assistants. Each
 operation specifies who can use it, whether an agent can execute it, what
 needs human confirmation, and what goes into the audit trail.
 
@@ -87,26 +90,32 @@ allowance, invoice, and payment calculations on the server. AI can help
 organize scope and draft descriptions. The application remains responsible
 for the amounts.
 
-We applied the same separation to vendor-bill extraction. Confidence comes
+I applied the same separation to vendor-bill extraction. Confidence comes
 from the source evidence and arithmetic checks performed by the application.
 The model doesn't grade its own answer.
 
 ## Testing a complete job
 
+Eret runs as a TypeScript modular monolith, with a Fastify API, a Next.js web
+app, background workers, and PostgreSQL. Keeping the business rules together
+lets me follow a customer action from the interface through the API and into
+the database, including changes that touch several stages of a job.
+
 Testing the work through the application exposed problems that isolated tests
 had missed. In one case, a failed background handler could roll back the record
-of its own attempt. We found it by driving queued work through PostgreSQL.
+of its own attempt. I found it by driving queued work through PostgreSQL.
 
-We now test the whole sequence in the browser: create the lead, prepare the
+I test the whole sequence in the browser: create the lead, prepare the
 estimate, review the assistant's changes, send the proposal, open the customer
 link, approve it, and inspect the resulting job. Permissions, failure cases,
 and conflicting edits need to hold through that sequence too.
 
-AI is also part of the development process. We give coding agents bounded
+AI is also part of the development process. I give coding agents bounded
 assignments using product stories, operation contracts, and acceptance
-scenarios. Tests refer back to the stories they cover. That gives us a way to
-check generated work against the behavior we intended to build.
+scenarios. Tests refer back to the stories they cover. That gives me a way to
+check generated work against the intended behavior.
 
-Before production, the remaining work includes infrastructure, backup
-verification, alerting, accessibility coverage, and final provider checks.
-Those are the next steps for the beta.
+The estimate stays beside the conversation while someone reviews a change.
+They can inspect its line items and financial summary before deciding whether
+to apply the revision. That context needs to remain available as the assistant
+takes on more of the preparation work.

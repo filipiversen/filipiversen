@@ -1,10 +1,12 @@
-import type { Component } from "solid-js";
+import { lazy, type Component } from "solid-js";
 
 export type PostFrontmatter = {
   title: string;
   description?: string;
   date: string;
   tag?: string;
+  /** Optional position in the homepage's selected writing. */
+  featured?: number;
   draft?: boolean;
 };
 
@@ -20,9 +22,13 @@ export type PostModule = {
   frontmatter: PostFrontmatter;
 };
 
-const modules = import.meta.glob<PostModule>("./writing/*.mdx", {
+const metadata = import.meta.glob<PostFrontmatter>("./writing/*.mdx", {
   eager: true,
+  query: "?metadata",
+  import: "default",
 });
+
+const modules = import.meta.glob<PostModule>("./writing/*.mdx");
 
 const formatter = new Intl.DateTimeFormat("en", {
   year: "numeric",
@@ -36,10 +42,9 @@ function slugFromPath(path: string): string {
   return file.replace(/\.mdx$/, "");
 }
 
-export const posts: PostMeta[] = Object.entries(modules)
-  .map(([path, mod]) => {
+export const posts: PostMeta[] = Object.entries(metadata)
+  .map(([path, fm]) => {
     const slug = slugFromPath(path);
-    const fm = mod.frontmatter;
     const date = new Date(fm.date);
     return {
       ...fm,
@@ -60,12 +65,12 @@ export function getPost(slug: string): { Component: Component; meta: PostMeta } 
   const [, mod] = entry;
   const meta = posts.find((p) => p.slug === slug);
   if (!meta) return undefined;
-  return { Component: mod.default, meta };
+  return { Component: lazy(mod), meta };
 }
 
-export function postsByYear(): Array<{ year: number; items: PostMeta[] }> {
+export function postsByYear(items: PostMeta[] = posts): Array<{ year: number; items: PostMeta[] }> {
   const map = new Map<number, PostMeta[]>();
-  for (const p of posts) {
+  for (const p of items) {
     const arr = map.get(p.year) ?? [];
     arr.push(p);
     map.set(p.year, arr);

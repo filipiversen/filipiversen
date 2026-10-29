@@ -1,0 +1,121 @@
+<!-- Generated from public portfolio content. -->
+
+# Lenders Cooperative
+
+By Filip Iversen
+
+[Canonical page](https://www.filipiversen.com/projects/lenders-cooperative)
+
+Giving lenders an application workspace without forcing every loan through the same sequence.
+
+Work period: 2024–2026 · Senior Product Designer · past work
+
+Last reviewed: 2026-10-29
+
+**Focus:** Flexible workflows within an existing lending product.
+
+**My contribution:** I owned commercial product design within a six-person design team and built the commercial component implementation. The broader team completed the government borrower experience together.
+
+**What shipped:** Commercial origination workspace and government borrower experience. The commercial borrower portal remained in development when I left in October 2026.
+
+**Evidence:** Customers and Customer Success reported faster origination. We did not collect a quantitative before-and-after measure.
+
+After completing a task, lenders were sent back to a queue of pending work
+across all loans. They had to find the next task, open it, finish it, and do
+the same thing again. Many kept several tabs or windows open to collect the
+information they needed.
+
+I designed an application workspace that kept the loan in view. Lenders
+could follow the next task in sequence or jump elsewhere to gather information,
+with completed work, pending tasks, and blockers visible in the navigation.
+The commercial back-office workspace shipped. Customers and Customer Success
+reported faster origination; we didn't collect a quantitative before-and-after
+measure.
+
+I owned commercial product design within a six-person design team, working
+alongside the design director and the broader government team at Allocore.
+I started as a Northway contractor before joining as a Senior Product Designer
+in October 2024. My employment ended in October 2026.
+
+### Before: find the loan again
+
+1. Finish a task for one loan.
+2. Return to the queue across all loans.
+3. Find and open the next task.
+4. Repeat, using other tabs for context.
+
+### After: stay with the application
+
+1. Open the application's workspace.
+2. See progress and reasons for blockers.
+3. Finish a task and advance to the next.
+4. Jump to another task when needed.
+
+_A retrospective workflow diagram of the change. This explains the interaction model; it is not a screenshot of the product._
+
+## A sequence that leaves room to move
+
+Loan origination is complicated, and it isn't entirely linear. Interviews
+with bank and credit union users, Customer Success calls, and our internal
+origination-as-a-service team showed how much the order of work varied.
+Different institutions had different processes and interpretations of what
+needed to happen next.
+
+That changed how flexible the workspace needed to be. Advancing someone to
+the next task was useful, but it couldn't be the only way to navigate. A
+lender might need information from another part of the application before
+finishing the task in front of them.
+
+The side navigation covered the major phases from pre-application through
+boarding. It showed what was complete, pending, or blocked, including why a
+task was blocked. Completing a task moved the lender to the next in sequence;
+they could also choose another task themselves.
+
+## Working with the task screens we had
+
+The individual task screens also needed work, but redesigning all of them
+was outside the scope. The workspace had to fit around their existing
+behavior. That constraint let us improve how people moved through an
+application without waiting for every task to be rebuilt.
+
+I worked with engineering on that boundary. Some intended details didn't
+make it into the release under the team's constraints. The workspace shipped
+as a whole, with the underlying tasks still in place. A more complete redesign
+would need to address those tasks as well as the navigation around them.
+
+## A separate borrower experience
+
+The borrower portal was another project. Borrowers and grant recipients
+needed to understand their accounts, find tasks and messages, and move
+between loan accounts. The old experience was difficult to follow, and
+analytics, interviews, support reports, and usability testing showed that
+people abandoned it partway through.
+
+I led the initial redesign across commercial and government needs. As the
+work grew, the broader design team took it on and we completed it together.
+The government experience shipped, including the SBA portal. The commercial
+borrower experience was still in development when I left. That is separate
+from the commercial back-office workspace described above, which was live.
+
+## Peak, from Figma to the product
+
+When I joined, components and layouts were scattered across Adobe XD files.
+Designers kept redoing work while product, engineering, marketing, and sales
+needed new screens and materials.
+
+I led the move to Figma and the creation of Peak, a shared design system
+across Lenders Cooperative and Allocore. We used three layers of tokens:
+system, theme, and component. All designers used the system; engineering
+adoption continued as the products were updated.
+
+I built the commercial component implementation and worked with engineering
+on Storybook, synchronized tokens, and differences between design and code.
+Accessibility work included contrast and keyboard-navigation audits against
+WCAG AA requirements, followed by fixes with the frontend teams.
+
+I also built an AI-assisted prototyping platform around those components.
+We used it for internal development and customer demos, from early drafts to
+refined prototypes. A shared data table shipped primarily to back-office
+users, supporting filters, saved views, column resizing, and display settings.
+These foundations let us work on individual screens while the rest of the
+product remained in use.
