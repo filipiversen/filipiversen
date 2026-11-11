@@ -50,7 +50,7 @@ I led the Figma migration and Peak design system, owned commercial product desig
 
 ### [Survey Loop](https://www.filipiversen.com/projects/survey-loop)
 
-Evolving an editor and making AI findings inspectable.
+Designing the full feedback workflow, from a canvas editor to evidence-linked reports.
 
 I co-founded the product and own design and frontend engineering. A backend partner architected the backend; I also contribute backend features.
 

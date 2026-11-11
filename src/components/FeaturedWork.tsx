@@ -33,8 +33,8 @@ export default function FeaturedWork(props: { projects: Project[] }) {
                     </div>
                   ) : (
                     <div class="product-preview">
-                      <img src="/work/survey-loop/walkthrough-poster.png" width="1440" height="900" loading="lazy" alt="Survey Loop's block library, survey canvas, and contextual settings, with sample data." />
-                      <span class="preview-label">Product interface · sample data</span>
+                      <img src="/work/survey-loop/survey-overview-1600.webp" srcset="/work/survey-loop/survey-overview-800.webp 800w, /work/survey-loop/survey-overview-1600.webp 1600w" sizes="(min-width: 672px) 608px, calc(100vw - 3rem)" width="1600" height="1160" loading="lazy" decoding="async" alt="Survey Loop demo dashboard alongside a branded KKL Luzern mobile survey." />
+                      <span class="preview-label">Editor, surveys & insights · live demo</span>
                     </div>
                   )}
                 </a>
