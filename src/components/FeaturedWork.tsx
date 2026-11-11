@@ -22,16 +22,9 @@ export default function FeaturedWork(props: { projects: Project[] }) {
               <Show when={project.slug === "lenders-cooperative" || project.slug === "survey-loop"}>
                 <a href={project.href} aria-label={`Explore ${project.title}`} class="project-preview-link">
                   {project.slug === "lenders-cooperative" ? (
-                    <div class="workflow-preview">
-                      <span class="preview-label">Workflow diagram</span>
-                      <div class="preview-application">
-                        <span>One application</span>
-                        <span class="text-fg-muted">Progress · tasks · blockers</span>
-                      </div>
-                      <div class="preview-tasks">
-                        <span>Finish a task</span><span aria-hidden="true">↓</span><span>Next task</span>
-                      </div>
-                      <span class="text-sm text-fg-muted">Or move to the information you need.</span>
+                    <div class="product-preview">
+                      <img src="/work/lenders-cooperative/peak-overview-1600.webp" srcset="/work/lenders-cooperative/peak-overview-800.webp 800w, /work/lenders-cooperative/peak-overview-1600.webp 1600w" sizes="(min-width: 672px) 608px, calc(100vw - 3rem)" width="1600" height="1000" loading="lazy" decoding="async" alt="Peak's shared Figma components for Lenders Cooperative and Allocore." />
+                      <span class="preview-label">Peak · Figma components, states & themes</span>
                     </div>
                   ) : (
                     <div class="product-preview">
