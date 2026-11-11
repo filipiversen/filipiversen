@@ -19,12 +19,17 @@ export default function FeaturedWork(props: { projects: Project[] }) {
                 <div><dt>My contribution</dt><dd>{project.contribution}</dd></div>
                 <div><dt>Released</dt><dd>{project.outcome}</dd></div>
               </dl>
-              <Show when={project.slug === "lenders-cooperative" || project.slug === "survey-loop"}>
+              <Show when={project.slug === "lenders-cooperative" || project.slug === "survey-loop" || project.slug === "insurance-policy-platform"}>
                 <a href={project.href} aria-label={`Explore ${project.title}`} class="project-preview-link">
                   {project.slug === "lenders-cooperative" ? (
                     <div class="product-preview">
                       <img src="/work/lenders-cooperative/peak-overview-1600.webp" srcset="/work/lenders-cooperative/peak-overview-800.webp 800w, /work/lenders-cooperative/peak-overview-1600.webp 1600w" sizes="(min-width: 672px) 608px, calc(100vw - 3rem)" width="1600" height="1000" loading="lazy" decoding="async" alt="Peak's shared Figma components for Lenders Cooperative and Allocore." />
                       <span class="preview-label">Peak · Figma components, states & themes</span>
+                    </div>
+                  ) : project.slug === "insurance-policy-platform" ? (
+                    <div class="product-preview">
+                      <img src="/work/insurance-policy-platform/insurance-overview-1600.webp" srcset="/work/insurance-policy-platform/insurance-overview-800.webp 800w, /work/insurance-policy-platform/insurance-overview-1600.webp 1600w" sizes="(min-width: 672px) 608px, calc(100vw - 3rem)" width="1600" height="1200" loading="lazy" decoding="async" alt="Anonymized insurance quote experience and operations dashboard." />
+                      <span class="preview-label">Customer & admin interfaces · anonymized</span>
                     </div>
                   ) : (
                     <div class="product-preview">
