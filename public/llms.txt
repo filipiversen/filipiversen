@@ -12,7 +12,7 @@ Case studies distinguish personal contributions, collaborators, released work, a
 
 ## Selected work
 
-- [Lenders Cooperative](https://www.filipiversen.com/projects/lenders-cooperative.md): Flexible workflows within an existing lending product.
+- [Lenders Cooperative / Allocore](https://www.filipiversen.com/projects/lenders-cooperative.md): Shared Figma foundations for commercial and government lending.
 
 - [Survey Loop](https://www.filipiversen.com/projects/survey-loop.md): Evolving an editor and making AI findings inspectable.
 

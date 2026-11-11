@@ -12,6 +12,7 @@ for (const file of (await readdir(directory)).sort()) {
 const escape = (value) => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 await mkdir(output, { recursive: true });
 for (const card of cards) {
+  const titleSize = card.title.length > 26 ? 54 : 68;
   const lines = [""];
   for (const word of card.description.split(" ")) {
     const i = lines.length - 1;
@@ -23,7 +24,7 @@ for (const card of cards) {
 <g font-family="Arial, Helvetica, sans-serif">
 <text x="64" y="92" font-size="30" fill="#1d1d22">fi.</text>
 <text x="64" y="208" font-size="20" letter-spacing="2" fill="#5a5962">${escape(card.label.toUpperCase())}</text>
-<text x="60" y="304" font-size="68" font-weight="600" letter-spacing="-2" fill="#1d1d22">${escape(card.title)}</text>
+<text x="60" y="304" font-size="${titleSize}" font-weight="600" letter-spacing="-2" fill="#1d1d22">${escape(card.title)}</text>
 ${lines.map((line,i) => `<text x="64" y="${374+i*42}" font-size="30" fill="#57565f">${escape(line)}</text>`).join("\n")}
 <path d="M64 538H1136" stroke="#d8d6d3"/>
 <text x="64" y="584" font-size="22" fill="#57565f">filipiversen.com</text>

@@ -40,13 +40,13 @@ I’ve worked in design since 2012, starting in graphic and web design in Norway
 
 ## Selected work
 
-### [Lenders Cooperative](https://www.filipiversen.com/projects/lenders-cooperative)
+### [Lenders Cooperative / Allocore](https://www.filipiversen.com/projects/lenders-cooperative)
 
-Flexible workflows within an existing lending product.
+Shared Figma foundations for commercial and government lending.
 
-I owned commercial product design within a six-person design team and built the commercial component implementation. The broader team completed the government borrower experience together.
+I led the Figma migration and Peak design system, owned commercial product design within a six-person team, and built the commercial component library.
 
-**Released:** Commercial origination workspace and government borrower experience. The commercial borrower portal remained in development when I left in October 2026.
+**Released:** Peak adopted by every designer across both businesses; commercial origination workspace and government borrower portal released.
 
 ### [Survey Loop](https://www.filipiversen.com/projects/survey-loop)
 
