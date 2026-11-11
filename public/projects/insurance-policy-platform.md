@@ -10,7 +10,7 @@ Keeping coverage choices, payment, and policy records consistent across customer
 
 Work period: 2026 · Product Design · Frontend · live
 
-Last reviewed: 2026-10-29
+Last reviewed: 2026-11-11
 
 **Focus:** Keeping quotes and policy records consistent across customer and staff workflows.
 
@@ -18,7 +18,11 @@ Last reviewed: 2026-10-29
 
 **What shipped:** A live replacement for quoting, policy submission, and CRM. Claims stayed outside the scope.
 
-**Evidence:** Quote and recovery workflows are shown as labeled illustrations with fictional data.
+**Evidence:** Anonymized product interfaces show the public quote flow, checkout, admin workspace, and template editor. Records and prices are illustrative; the recovery diagram is labeled separately.
+
+![An anonymized operations dashboard alongside the customer coverage-selection screen, showing work queues, quote volume, and coverage choices.](https://www.filipiversen.com/work/insurance-policy-platform/insurance-overview-3200.webp)
+
+_The customer experience and staff workspace from the working product, arranged for this case study. Branding, button colors, and identifying details have been adapted; records and prices are illustrative. Select any image to inspect it at full size._
 
 A customer can change their coverage at checkout. That choice needs to
 follow through to payment, the saved quote, and the record staff use to
@@ -30,10 +34,6 @@ with a backend partner through Northway. It replaced third-party quoting,
 policy submission, and CRM software. Claims remained outside the replacement.
 The platform is in production; the initial release took a few weeks, and
 we continue to improve it weekly.
-
-![Three illustrative screens follow the same quote from coverage selection through payment review to an accepted submission in the admin interface. Interfaces and rates are fictional.](https://www.filipiversen.com/work/insurance-policy-platform/02-connected-quote.svg)
-
-_Coverage selection stays connected to checkout and the saved quote. Interfaces and rates are illustrative._
 
 The work connected customer, broker, and internal workflows. We started
 with an existing stack and component library, so much of the effort went
@@ -47,6 +47,15 @@ that branch by product and jurisdiction, and online payment collection. The
 platform generates policy documents, declarations, and notices, with policy
 management available to the people administering the business.
 
+I kept the quote experience focused on one decision at a time. A compact progress
+indicator shows where the customer is, while clear labels and generous controls
+make the forms usable on a phone. Coverage options expose the price of each tier
+before the customer moves to payment.
+
+![Anonymized customer contact form beside coverage selection, with step progress, labeled inputs, five coverage tiers, and clear continuation actions.](https://www.filipiversen.com/work/insurance-policy-platform/insurance-quote-flow-3200.webp)
+
+_Contact and coverage screens from the product’s built-in preview. The original components and responsive layouts are preserved, with fictional contact details and example prices._
+
 The way someone finishes depends on the program they enter through. Some
 customers pay online; other quotes go to a broker for submission.
 
@@ -58,6 +67,26 @@ records connected.
 Customers can change their coverage at checkout, and that choice updates the
 saved quote. The payment must use the same selection that staff see in the
 admin record.
+
+![Anonymized checkout with editable coverage tiers, monthly and annual billing, sample payment fields, and a persistent order summary.](https://www.filipiversen.com/work/insurance-policy-platform/insurance-checkout-3200.webp)
+
+_The checkout keeps coverage and billing choices beside a reviewable summary. Product preview shown with illustrative rates and sample payment details._
+
+## Making the next action clear
+
+Staff need a different level of detail. The overview brings unfinished quotes,
+pending activations, and failed submissions into a work queue, with customer
+and quote summaries below. That puts the records needing attention close to
+the context needed to review them.
+
+Inside a quote, I separated recorded milestones from current requirements.
+A policy being bound is an event; contact and property details being complete
+are conditions of the current record. Showing both explicitly helps staff
+understand what happened and what still needs attention.
+
+![Anonymized admin quote record with contact and property information, recorded policy milestones, satisfied requirements, submission status, and a linked customer.](https://www.filipiversen.com/work/insurance-policy-platform/insurance-operations-3200.webp)
+
+_A policy record in the admin workspace. Milestones, requirements, provider status, and the linked customer remain visible as distinct pieces of information. Names, contact details, and identifiers are fictional._
 
 ## Configuring agencies and brokers
 
@@ -73,6 +102,16 @@ Reusable quote templates have separate partner assignments. The same template
 can serve multiple partners while each keeps its own branding, links, and
 default flow. Agent links inherit their partner's configuration.
 
+The template editor makes that configuration tangible. A step outline sits
+beside the selected step’s copy, renderer, and questions. Basics, eligibility,
+and completion settings have their own sections. A built-in preview lets staff
+walk through the draft with sample details without saving a quote, taking a
+payment, or submitting a policy.
+
+![Anonymized quote-template editor with a six-step customer journey, editable step settings, required questions, and a preview action.](https://www.filipiversen.com/work/insurance-policy-platform/insurance-template-builder-3200.webp)
+
+_A reusable quote template, with the step outline, customer-facing copy, and required questions together. Partner assignments remain separate from the flow itself._
+
 That was a substantial part of the work. The number of screens alone doesn't
 describe the combinations of products, jurisdictions, and broker access the
 platform needs to represent.
@@ -87,7 +126,7 @@ of a payment operation is uncertain, it requires review before another attempt.
 
 ![An accepted external policy is retained while a failed local customer activation is retried. The recovered customer record links to the existing policy. Illustrative record shown.](https://www.filipiversen.com/work/insurance-policy-platform/05-submission-recovery.svg)
 
-_Recover the unfinished local update without repeating an accepted policy submission._
+_Illustrative workflow diagram with fictional records: recover the unfinished local update without repeating an accepted policy submission._
 
 ## Shared foundations
 
