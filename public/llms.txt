@@ -14,7 +14,7 @@ Case studies distinguish personal contributions, collaborators, released work, a
 
 - [Lenders Cooperative / Allocore](https://www.filipiversen.com/projects/lenders-cooperative.md): Shared Figma foundations for commercial and government lending.
 
-- [Survey Loop](https://www.filipiversen.com/projects/survey-loop.md): Evolving an editor and making AI findings inspectable.
+- [Survey Loop](https://www.filipiversen.com/projects/survey-loop.md): Designing the full feedback workflow, from a canvas editor to evidence-linked reports.
 
 - [Insurance Policy Platform](https://www.filipiversen.com/projects/insurance-policy-platform.md): Keeping quotes and policy records consistent across customer and staff workflows.
 

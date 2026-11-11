@@ -6,19 +6,19 @@ By Filip Iversen
 
 [Canonical page](https://www.filipiversen.com/projects/survey-loop)
 
-Designing a survey editor, a responsive respondent experience, and AI reports people can inspect.
+Designing and building Survey Loop, from a canvas editor and branded surveys to analytics and evidence-linked AI reports.
 
 Work period: 2023–present · Co-founder · Product Design · Frontend · live
 
-Last reviewed: 2026-10-29
+Last reviewed: 2026-11-11
 
-**Focus:** Evolving an editor and making AI findings inspectable.
+**Focus:** Designing the full feedback workflow, from a canvas editor to evidence-linked reports.
 
 **My contribution:** I co-founded the product and own design and frontend engineering. A backend partner architected the backend; I also contribute backend features.
 
 **What shipped:** A live survey platform with paying organizations, including the canvas editor, respondent experience, and evidence-linked AI reports.
 
-**Evidence:** Customers have responded positively to the editor. The case includes real-interface recordings with sample data; creation-time and reporting-accuracy improvements have not been measured.
+**Evidence:** KKL Luzern survey views and The Loop Center demo reports, plus recordings with sample data. Customers have responded positively to the editor; creation-time and reporting-accuracy improvements have not been measured.
 
 I wanted Survey Loop to feel good to use, whether you were building a survey,
 answering one, or trying to understand what customers were telling you.
@@ -33,18 +33,9 @@ and frontend engineering, including the editor and shared component library.
 I contribute backend features alongside a backend partner who architected
 that part of the product.
 
-[Watch the video](https://www.filipiversen.com/work/survey-loop/walkthrough.mp4)
+![Survey Loop demo dashboard with survey health, strengths and opportunities, alongside a branded KKL Luzern mobile survey.](https://www.filipiversen.com/work/survey-loop/survey-overview-3200.webp)
 
-[English descriptions](https://www.filipiversen.com/work/survey-loop/walkthrough.vtt)
-
-[Watch the Survey Loop walkthrough](https://www.filipiversen.com/work/survey-loop/walkthrough.mp4).
-
-_The real Survey Loop interface with sample data. Assistant and MCP steps are simulated. 40 seconds, no audio._
-
-_Read the walkthrough_
-
-
-A scripted assistant request creates a draft post-event survey. At 8 seconds, the draft opens in the real builder with recommendation, event rating, and written follow-up questions. At 16 seconds, the appearance controls change its branding from violet to green. At 26 seconds, the respondent preview selects ratings, writes “More time for workshop questions,” and reaches the completion screen. No response is submitted to a live service.
+_The Loop Center demo dashboard alongside a KKL Luzern survey preview. Account identity and contact email are replaced. Dashboard counts and scores are demo data._
 
 ## From a form to a canvas
 
@@ -52,20 +43,6 @@ The first Survey Loop builder was form-based: authors added fields dynamically,
 with no drag-and-drop. I designed and built the next iteration around a canvas,
 where authors could reorder blocks, edit questions in place, and adjust the
 selected block’s settings beside it.
-
-### Before: a form-based builder
-
-1. Add fields dynamically.
-2. Configure them through form controls.
-3. No drag-and-drop.
-
-### After: edit in context
-
-1. Add a question to the canvas.
-2. Edit its wording in place and drag to reorder.
-3. Adjust the selected question’s settings beside it.
-
-_A retrospective comparison of the interaction models, not screenshots of the original builder._
 
 ### Editing the question in its context
 
@@ -80,9 +57,9 @@ questions on the canvas. Detailed settings belong beside the selected block.
 The inspector changes with the selection, so it doesn't need to show every
 question's controls at once.
 
-![Survey Loop editor with a block library at left, the survey canvas in the middle, and appearance settings at right. The header shows Draft and Saved, with Preview and Versions controls.](https://www.filipiversen.com/work/survey-loop/walkthrough-poster.png)
+![The Survey Loop editor with a branded KKL Luzern survey, a selected rating question, and scale and label controls in the contextual inspector.](https://www.filipiversen.com/work/survey-loop/survey-editor-3200.webp)
 
-_A still from the recorded product demo, using sample data. Left: add blocks. Center: work on the survey in context. Right: change appearance or the selected block's settings. The header keeps save status and preview available._
+_The KKL Luzern canvas and inspector show the same selected rating question. Authors can see its place in the survey while adjusting the scale, labels, and appearance. The library keeps other question and content types within reach._
 
 ## Saving is part of the interaction
 
@@ -96,10 +73,19 @@ Version history gives authors a way to restore an earlier survey. That is a
 separate action from autosave: one preserves the current edits, while the
 other lets someone deliberately return to a previous version.
 
+## A survey that feels like the company
+
 I designed and built the editor and the respondent experience with the same
 token-based component library. The respondent sees the company's branding
 through the questions and completion screen, with a layout that works on a
-phone. The recording below follows that side of the product.
+phone. The KKL Luzern survey shows the logo, imagery, rating controls,
+progress, and next-step action carrying through that experience.
+
+![KKL Luzern hospitality survey on desktop and mobile, showing event experience ratings and a recommendation score with a conditional written follow-up.](https://www.filipiversen.com/work/survey-loop/survey-respondent-3200.webp)
+
+_KKL Luzern hospitality survey in the built-in preview. Desktop shows event experience ratings; the sample mobile selection reveals a follow-up question. The contact email is replaced and no response was submitted._
+
+_Watch the respondent flow · 16 seconds_
 
 [Watch the video](https://www.filipiversen.com/work/survey-loop/mobile.mp4)
 
@@ -113,6 +99,33 @@ _Read the respondent flow_
 
 
 The respondent selects a recommendation score of 9 out of 10 and an event rating of 5 out of 5, then writes “More time for workshop questions.” The preview ends at the branded completion screen.
+
+## Keeping surveys and results in context
+
+The survey list is a working surface. Saved views, filters, response counts,
+ratings, and status help an organization find the right survey. Selecting a
+row opens its details beside the list, with actions to open, edit, send, or
+export it. The owner can inspect a survey without losing the surrounding work.
+
+![Survey Loop survey list with a selected facility feedback survey and its details, response count, average rating, status, and management actions.](https://www.filipiversen.com/work/survey-loop/survey-management-3200.webp)
+
+_The demo workspace pairs a survey table with a persistent detail panel. Selection, status badges, and grouped actions give the page a clear hierarchy._
+
+## Seeing the feedback in context
+
+The dashboard starts with a workspace pulse and an organization-level summary:
+what is going well, what needs attention, and which surveys support those
+observations. Analytics provides another level of detail, bringing delivery
+and engagement measures together with NPS and satisfaction over time.
+
+I use the shared component library across these views: filters, saved-view
+controls, buttons, status badges, and panels follow the same visual language.
+The analytics layout can arrange charts in full-width, half-width, or third-width
+rows, so organizations can bring the measures they care about into view.
+
+![Survey Loop analytics with period and organization filters, configurable chart rows, delivery and response trends, NPS performance, and satisfaction scores.](https://www.filipiversen.com/work/survey-loop/survey-analytics-3200.webp)
+
+_Delivery, responses, NPS, and satisfaction shown together in the Loop Center demo. These figures demonstrate the reporting interface; they are not claims about product adoption or measured business impact._
 
 ## When one complaint became a theme
 
@@ -131,6 +144,12 @@ to question. A valid response reference doesn't prove that the model's
 interpretation is right, and we haven't measured an accuracy improvement.
 The reports are in production; the original feedback remains available
 alongside them.
+
+![Survey Loop learning brief with strengths and concerns, beside an expanded recommendation showing two source comments and links to the original responses.](https://www.filipiversen.com/work/survey-loop/survey-ai-evidence-3200.webp)
+
+_Selected components from the live AI report, arranged to make the evidence readable. The expanded recommendation preserves the original question, source comments, and Open response links. The report still needs human interpretation._
+
+_Why a source reference still needs interpretation_
 
 ### Start with the responses
 
@@ -158,6 +177,21 @@ For example, you could ask an assistant to create a draft post-event survey with
 
 That connection also has to respect how the product works. MCP access is authenticated and follows the user's organization permissions. Read-only connections can inspect data without changing it. A survey created through an assistant is the same survey you open in the application, so you can move between the two as the work requires.
 
+_Watch the editor and assistant walkthrough · 40 seconds_
+
+[Watch the video](https://www.filipiversen.com/work/survey-loop/walkthrough.mp4)
+
+[English descriptions](https://www.filipiversen.com/work/survey-loop/walkthrough.vtt)
+
+[Watch the Survey Loop walkthrough](https://www.filipiversen.com/work/survey-loop/walkthrough.mp4).
+
+_The real Survey Loop interface with sample data. Assistant and MCP steps are simulated. 40 seconds, no audio._
+
+_Read the walkthrough_
+
+
+A scripted assistant request creates a draft post-event survey. At 8 seconds, the draft opens in the real builder with recommendation, event rating, and written follow-up questions. At 16 seconds, the appearance controls change its branding from violet to green. At 26 seconds, the respondent preview selects ratings, writes “More time for workshop questions,” and reaches the completion screen. No response is submitted to a live service.
+
 ## Building around contract work
 
 Bootstrapping is harder than people make it sound. I developed Survey Loop
@@ -167,5 +201,6 @@ implement the product with a backend partner.
 
 Customers have responded positively to the editor. I don't have a measured
 change in survey-creation time or completion rate to attach to it. What I
-can show is the live interaction: building a survey, checking the respondent
-experience, and moving between an AI-assisted draft and direct editing.
+can show is the product in use: building a survey, checking the respondent
+experience, managing the work, and following a report back to the feedback
+behind it.

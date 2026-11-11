@@ -71,7 +71,7 @@ for (const { data } of cases) {
   }
 }
 assert.ok(homepage.includes('href="/Filip_Iversen_Product_Designer_Resume.pdf"'), "Homepage lost the public resume");
-assert.ok(homepage.includes('src="/work/survey-loop/walkthrough-poster.png"'), "Homepage lost the product preview");
+assert.ok(homepage.includes('src="/work/survey-loop/survey-overview-1600.webp"'), "Homepage lost the product preview");
 assert.ok(!homepage.includes('href="/profile"'), "Homepage should not link to the retired profile page");
 const profileMarkdown = await readFile(new URL("profile.md", output), "utf8");
 assert.ok(profileMarkdown.includes("[Canonical page](https://www.filipiversen.com/)"));
